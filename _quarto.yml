@@ -26,8 +26,6 @@ website:
     
     # your social media handles
     right:
-      - icon: folder-symlink
-        href: https://www.marvinschmitt.com/blog/website-tutorial-quarto/
       - icon: github
         href: https://github.com/HazmanNaim
       - icon: linkedin
@@ -44,9 +42,10 @@ website:
     type: textbox
   page-footer: 
     left: |
-      <span class="faux-block">&#169; 2023 Marvin Schmitt CC BY-SA 4.0</span>
+      <span class="faux-block">&#169; 2023 Hazman Naim CC BY-SA 4.0</span>
     right: |
-      <span class="faux-block"><a href="https://github.com/marvinschmitt/quarto-website-template/">View source on GitHub</a></span>
+      <span class="faux-block">Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)</span>
+      <span class="faux-block"><a href="https://github.com/HazmanNaim/HazmanNaim.github.io">View source on GitHub</a></span>
 
 project:
   type: website
