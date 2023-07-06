@@ -1,0 +1,38 @@
+# options specified here will apply to all posts in this folder
+
+# freeze computational output
+# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+freeze: true
+description-meta: "{{< meta description >}}"
+
+# Enable banner style title blocks
+title-block-banner: "../img/milkyway_bg.png"
+
+# Default for table of contents
+toc: true
+toc-title: Contents
+toc-location: left
+
+# Default knitr options
+execute:
+  echo: true
+  message: true
+  warning: true
+  
+format:   
+  html:
+    code-tools: true
+    comments:
+      giscus:
+        repo: marvinschmitt/marvinschmitt-dot-com
+        category: Announcements
+        loading: lazy
+        input-position: bottom
+        language: en
+    quarto-template-params:
+      banner-header-class: "blog-post"
+    
+# Default author
+author:
+  - name: Hazman Naim Bin Ahsan
+    url: https://www.linkedin.com/in/hazmannaim/

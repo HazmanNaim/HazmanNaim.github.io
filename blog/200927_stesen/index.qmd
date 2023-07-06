@@ -1,0 +1,73 @@
+---
+title: "Why doesn't the International Space Station fall?"
+description: "Unlocking the mystery: Why does the International Space Station defy gravity? Discover the mind-blowing science behind its orbit!"
+date: September-27-2020
+categories: 
+  - physics
+  - mechanics
+image: thumbnail.png
+draft: false
+format:
+  html:
+    fig-cap-location: bottom
+    include-before-body: ../../html/margin_image.html
+    #include-after-body: ../../html/blog_footer.html
+editor: 
+  markdown: 
+    wrap: sentence
+resources: 
+  - "thumbnail.png"
+  - "1.jpg"
+  - "2.jpg"
+  - "3.jpg"
+  - "4.jpg"
+  - "5.jpg"
+  
+---
+
+Scientific exploration is progressing rapidly day by day. Since the 20th century, humans have witnessed various achievements that surpass the limits of ordinary human capabilities. The advancement of science continues to thrive due to the innate curiosity within humans. For example, in the field of astronomy, in the past, humans could only observe stars during the night. However, today it is recorded in history that humans have landed on the moon for the first time. Previously, humans were confined to the Earth's surface, but now we have a space station that serves as a habitat for humans, orbiting around the Earth. Have you ever wondered how the International Space Station (ISS) can remain in orbit for extended periods without falling back to Earth?
+
+```{=html}
+<div style="text-align: center;">
+  <img src="1.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">International Space Station. Source: <a href="https://www.nasa.gov">https://www.nasa.gov</a></p>
+</div>
+```
+
+To answer this question, let us go back to the time when Isaac Newton began to delve into the theory of gravity. In his famous work, "Treatise on the System of the World," Isaac Newton conducted a thought experiment. What is a thought experiment? It is a mental analogy used to explain a hypothesis or, in simple terms, an experiment conducted solely using logical reasoning. In Newton's thought experiment, he explored the motion of trajectories. A trajectory is the curved path followed by an object, such as a projectile, moving through space. Let's take a cannonball as an example. When we fire a cannon, the cannonball is launched parallel to the Earth's surface. The cannonball will then travel through the air, following a parabolic path, and eventually return to the surface due to the force of gravity and air resistance. Anything in the air will eventually fall to the ground.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="2.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Portrait of Sir Isaac Newton. Source: <a href="http:// www.wikimedia.org">http:// www.wikimedia.org</a></p>
+</div>
+```
+
+```{=html}
+<div style="text-align: center;">
+  <img src="3.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Isaac Newton's works were recorded in his well-known book. Source: <a href="https://galileo.ou.edu">https://galileo.ou.edu</a></p>
+</div>
+```
+
+Then, the cannon was fired again. This time, the velocity of the fired cannonball was increased. The higher the velocity at which the cannonball is fired, the farther the trajectory of the cannonball will be before it falls back to the surface. After that, the cannon was elevated to a higher altitude in the air. Why? To reduce the effect of air resistance on the trajectory of the cannonball. When we think deeply about it, if the air resistance is small enough to not significantly affect the trajectory of the cannonball, we can determine a velocity at which, when we fire the cannon and the cannonball travels at that velocity, the resulting trajectory will match the curvature of the Earth. Imagine the path of the cannonball starting to curve, and the Earth's surface also curving. This means that the cannonball will not reach the ground because the curvature of the trajectory matches the curvature of the Earth.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="4.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Three different trajectory of the cannonball. Source: <a href="https://i.stack.imgur.com">https://i.stack.imgur.com</a></p>
+</div>
+```
+
+These three paths are differentiated by the velocity at which the cannonball travels through the air immediately after being fired. The faster the cannonball travels, the farther the trajectory will be. Trajectory C is the path in which the velocity of the cannonball allows it to continuously orbit around the Earth if there is no air resistance.
+
+To answer the earlier question about the ISS, the ISS is actually falling. Yes, falling! In physics, we refer to it as freefall, which means falling solely due to gravity. However, because the ISS is moving at a specific velocity of approximately 7.66 km per second, this allows the trajectory of the ISS to precisely follow the curvature of the Earth's surface. Since the ISS is technically falling, astronauts inside the space station experience weightlessness. When astronauts are weighed using a scale, the reading becomes zero. This weightless condition is continuously felt because the space station is falling at all times, but it never reaches the Earth's surface.
+
+We can create this weightless condition ourselves on the surface of the Earth. One way is when we are inside an elevator. If the elevator is dropped from a certain height, it will cause us to experience weightlessness, similar to being in space. However, there is no need to risk our lives by being inside a falling elevator. We can personally experience weightlessness by booking a ticket on a zero-g aircraft. These zero-g aircraft perform parabolic flights, where the weightless condition generated during the flight matches the conditions experienced in space.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="5.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Weightless condition in an aircraft during parabolic flight. Source: <a href="https://upload.wikimedia.org">https://upload.wikimedia.org</a></p>
+</div>
+```

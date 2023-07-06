@@ -1,0 +1,67 @@
+---
+title: "Orion, The Night Hunter"
+description: "Discover the magic that unfolds above us as we gaze into the vast expanse of the night sky. Among the countless stars that twinkle overhead, there exists a celestial trio that has captivated humanity for centuries: Orion's Belt."
+date: August-29-2020
+categories: 
+  - astronomy
+image: thumbnail.png
+draft: false
+format:
+  html:
+    fig-cap-location: bottom
+    include-before-body: ../../html/margin_image.html
+    #include-after-body: ../../html/blog_footer.html
+editor: 
+  markdown: 
+    wrap: sentence
+resources: 
+  - "thumbnail.png"
+  - "1.jpg"
+  - "2.jpg"
+  - "3.jpg"
+  - "4.jpg"
+  
+---
+
+Did you know that if you look towards the sky at night between the months of November and February, there are three bright stars in a straight line directly above your head? Among the millions of stars in the night sky, these three stars are the most significant and captivating to our eyes. This group of stars is part of the constellation known as Orion.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="1.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Orion image by author.</p>
+</div>
+```
+
+
+The constellation Orion is famous in the night sky due to its relatively large size and easy identification when observed. Furthermore, the geographical location of our country, being close to the equator, causes the Orion constellation to be directly overhead. In astronomical terms, this position is called the zenith. The zenith is a position in the celestial sphere where an object is directly above the observer.
+
+The name Orion originates from Greek mythology. Orion was a renowned hunter. After his death, Zeus transformed Orion into a constellation that adorns the night sky. In reality, there are many variations of the Orion myth, but one is enough to be shared.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="2.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Orion constellation is Stellarium software.</p>
+</div>
+```
+
+The Orion constellation consists of seven main stars that are brighter than the others. Three stars named Alnitak, Alnilam, and Mintaka form a straight line when viewed from Earth. They can be imagined as the hunter's belt. In Malay culture, these three stars are referred to as the Bintang Tiga Beradik (Three Siblings Stars). Look slightly below, and you will notice three smaller stars that form what appears to be a sword placed by the hunter's side. That is where the famous Orion Nebula, is located. The Orion Nebula is a nebula composed of interstellar dust clouds and gas. It serves as a birthplace for new stars.
+
+```{=html}
+<div style="text-align: center;">
+  <img src="3.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Features in Orion constellation.</p>
+</div>
+```
+
+```{=html}
+<div style="text-align: center;">
+  <img src="4.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
+  <p style="text-align: center;">Photograph of Orion Nebula taken using amateur astrophotography equipments. Source: <a href="www.astrobackyard.com">www.astrobackyard.com</a></p>
+</div>
+```
+
+There are many more fascinating celestial objects in the Orion constellation. Besides the Orion Nebula, there are several other notable nebulae, including the Horsehead Nebula and the Flame Nebula. These three nebulae are famous and ideal for telescope observation for those who are new to the field of astronomy. Additionally, there is Barnard's Loop, an emission nebula in the form of a loop surrounding the Orion constellation. This nebula is somewhat challenging to observe with the naked eye, except in very dark locations or through astrophotography.
+
+Astrophotography is a highly enjoyable activity as it allows you to capture images of celestial objects that are not visible to the naked eye.
+
+For the author, the Orion constellation is highly captivating to observe in the night sky. Its zenith position and large size provide advantages for viewing this constellation. It is no wonder that the Orion constellation attracts astronomy enthusiasts and astrophotographers due to its numerous fascinating features. If you are new to the world of astronomy, the Orion constellation is a must-know constellation.

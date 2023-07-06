@@ -1,0 +1,24 @@
+# DATA SCIENCE
+## Electoral Analysis and Visualization: Understanding Seat Distribution by Margin-of-Votes Classification
+
+<div>
+  <img src="/img/ge14_banner.png" style="height: 50%; width: 50%; object-fit: contain; float: left;"                    onclick="window.open('/img/ge14_banner.png', '_blank')" />
+  <img src="/img/ge15_banner.png" style="height: 50%; width: 50%; object-fit: contain; float: left;"                    onclick="window.open('/img/ge15_banner.png', '_blank')" />
+  <div style="clear: both;"></div>
+  <div style="clear: both;"></div>
+  <div style="text-align: center; font-size: smaller; font-style: italic;">Click to make it larger.</div>
+</div>
+
+|<a href="https://github.com/HazmanNaim/Project-Election-Analysis" target="_blank">Code</a>|
+
+This data science project aims to provide a comprehensive analysis and visualization of seat distribution in electoral systems based on margin-of-votes classification in two Malaysian general elections, namely General Election 14 and General Election 15. The project utilizes data scraping, data preprocessing, and visualization techniques to gain insights into how different alliances perform in elections and how seats are distributed among them based on voting margins. This information can be valuable for political analysts, policymakers, and individuals interested in understanding the dynamics of elections and their outcomes.
+
+# ASTROPHYSICS
+## Studies on Bipolar Outflows in Star Forming Region AFGL5142 With ALMA
+
+<img src="/img/fyp_poster.png" style="height: 50%; width: 50%; object-fit: contain;"                   onclick="window.open('/img/fyp_poster.png', '_blank')" />
+<div style="text-align: left; font-size: smaller; font-style: italic;">Click to make it larger.</div>
+
+|<a href="https://drive.google.com/file/d/1U_8bkZJcfawDG1BnndaX3fCaHaOdz9Xp/view?usp=sharing" target="_blank">Thesis</a>|
+
+As an undergraduate student, I had the privilege of conducting research in the field of star formation. My final year project, "Studies on Bipolar Outflows in Star Forming Region AFGL 5142 with ALMA," was supervised by a prominent Malaysian radio astronomer, Prof. Dr. Zamri Bin Zainal Abidin. In this project, I analyzed ALMA archival data to investigate the outflows from the AFGL 5142 star forming region. I utilized radio spectroscopy to observe the line emission of 13C17O and detect the bipolar outflows through redshifted and blueshifted emissions. Furthermore, I calculated the properties of the outflows such as mass, momentum, and energy, and proposed that they may have played a role in promoting star formation in neighboring regions. I processed the data using CASA, the primary software for the Atacama Large Millimeter/submillimeter Array (ALMA), and further analyzed the data using Python with Astropy and AplPy packages. I was also honored to work with professional astronomers in the Radio Cosmology Research Laboratory.My research project earned me the Best Presentation Award from the Department of Physics at University of Malaya, reflecting my dedication and hard work. My experience in this project has honed my skills and broadened my knowledge in the field of radio astronomy.

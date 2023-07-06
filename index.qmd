@@ -1,0 +1,63 @@
+---
+comments: false
+page-layout: full
+format:
+  html: 
+    margin-top: 0em
+    margin-bottom: 0em
+    minimal: false
+    smooth-scroll: true
+    fig-responsive: true
+listing:
+  id: blog-listing
+  contents:   
+    - "blog/website-tutorial-quarto/index.qmd"
+    - "blog/agile-methods-for-academia/index.qmd"
+    - "blog/ggsimplex-prerelease/index.qmd"
+#    - "blog/4-realizations-from-atomic-habits/index.qmd"
+  sort: "date desc"
+  type: grid
+  max-items: 3
+  grid-columns: 3
+  fields: [image, date, title]
+
+---
+
+::: {.column-screen}
+```{=html}
+<link rel="stylesheet" href="html/landing_page_styles.css">
+
+<div class="gradient_bg">
+    <div class="hero section_padding">
+        <div class="hero_content">
+            <h1>Hi, I'm <span class="gradient_text">Hazman</span>.</h1>
+            <p>I'm a physics graduate on an exciting journey to become a data scientist. Here, I                invite you to explore my blog, where I share insights into my personal growth and                 everything in between. 
+            </p>
+            <p>Alongside my love for data science, you'll discover my passion for astronomy and                 astrophotography. If you're a fellow astrophotography enthusiast, be sure to check                out my captivating cosmic captures.  
+            </p>
+            <p>Let's embark on this creative and professional adventure together!
+            </p>
+
+        </div>
+        <div class="hero_image">
+            <img src="/img/hazman_front_hex.png"/>
+        </div>
+        <div id="dot_container">
+        </div>
+    </div>
+    <svg id="bottom_wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 250">
+        <path
+                fill="#fff"
+                fill-opacity="1"
+                d="M0,128L48,117.3C96,107,192,85,288,80C384,75,480,85,576,112C672,139,768,181,864,181.3C960,181,1056,139,1152,122.7C1248,107,1344,117,1392,122.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+        ></path>
+    </svg>
+</div>
+
+
+<script src="html/jquery.min.js"></script>
+<script src="html/TweenMax.min.js"></script>
+<script src="html/parallax.js"></script>
+```
+
+:::

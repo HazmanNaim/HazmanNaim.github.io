@@ -1,0 +1,9 @@
+---
+title: "404"
+comments: false
+sidebar: false
+---
+
+:::{.column-screen}
+![](img/404_error.png){fig-align="center"}
+:::
