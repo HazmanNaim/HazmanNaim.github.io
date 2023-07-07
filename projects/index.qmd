@@ -1,3 +1,13 @@
+---
+title: Projects
+date: 2023-07-03
+description-meta: Exciting projects by Hazman Naim
+published-title: Last updated
+title-block-banner: "#771C6D"
+toc: true
+toc-location: left
+toc-title: "Contents"
+---
 # DATA SCIENCE
 ## Electoral Analysis and Visualization: Understanding Seat Distribution by Margin-of-Votes Classification
 

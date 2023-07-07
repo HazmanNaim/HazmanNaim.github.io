@@ -1,7 +1,7 @@
 ---
-title: "Blog"
+title: "My Blog"
 author: ""
-title-block-banner: false
+title-block-banner: "#771C6D"
 page-layout: full
 description-meta: "Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you here. Within these digital pages, you'll discover a diverse collection of articles covering a wide array of captivating topics. Feel free to explore and immerse yourself in the content. Thank you for joining me on this exciting journey!"
 
@@ -15,6 +15,13 @@ listing:
     template: ../html/blog/listing.ejs
     categories: true
     
+  - id: posts_2023
+    contents: 
+      - "230707_datascienceastrophysics/index.qmd"
+    sort: "date desc"
+    template: ../html/blog/listing.ejs
+    categories: true
+    
 toc-title: Year
 toc-location: right
 date-format: " MMMM D, YYYY"
@@ -22,8 +29,12 @@ image: ""
 code-tools: false
 comments: false
 ---
-
 Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you here. Within these digital pages, you'll discover a diverse collection of articles covering a wide array of captivating topics. Feel free to explore and immerse yourself in the content. Thank you for joining me on this exciting journey!
+
+## 2023
+
+:::{#posts_2023}
+:::
 
 ## 2020
 

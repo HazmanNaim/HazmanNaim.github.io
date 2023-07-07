@@ -2,7 +2,7 @@
 
 # website settings
 website:
-  title: "Hazman Naim"                                # Your name
+  title: "Hazman Naim"  # Your name
   description: "Physics Graduate & Aspiring Data Scientist | Data Science, Data Analysis, Research | Explore my journey 🔭"   # A brief slogan (optional)
   image: img/my_image.jpg
   
@@ -15,6 +15,8 @@ website:
     
     # your sub-pages
     left:
+      - text: "About Me"
+        href: about/index.qmd
       - text: "Blog"
         href: blog/index.qmd
       - text: "Projects"
@@ -32,7 +34,9 @@ website:
         href: https://www.linkedin.com/in/hazmannaim/
       - icon: envelope
         aria-label: email
-        href: "mailto:mail.hazmannaimbinahsan@gmail.com"  
+        href: "mailto:mail.hazmannaimbinahsan@gmail.com"
+      - icon: window-fullscreen
+        href: https://www.kaggle.com/hazmannaim
   
   
 
