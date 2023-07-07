@@ -1,5 +1,10 @@
 ---
-title: "Astrophotography"
+title: Astrophotography
+date: 2023-07-03
+description-meta: Hazman Naim is having an exciting hobby
+published-title: Last updated
+title-block-banner: "#771C6D"
+toc: false
 ---
 Astrophotography, an awe-inspiring blend of science and art, has allowed me to embark on an incredible journey of exploration and discovery. Armed with my trusted equipment—a 72ED telescope, QHY183C camera, and AZ-GTi mount—I have been capturing breathtaking images of celestial wonders right from the comfort of my own backyard. Since 2018, this captivating hobby has taken me on an extraordinary adventure, unveiling the marvels of the universe one frame at a time.
 
@@ -8,6 +13,7 @@ Astrophotography, an awe-inspiring blend of science and art, has allowed me to e
 ![](trifid.jpg)
 
 ![](m17.jpg)
+
 ![](ngc6992.jpg)
 
 ![](eagle.jpg)

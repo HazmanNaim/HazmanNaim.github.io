@@ -1,0 +1,41 @@
+---
+title: "Get to Know Me!"
+pagetitle: "{{< meta website.title >}}"
+main-photo: /img/hazman_image.jpg
+main-photo-square: /img/hazman_image.jpg
+title-block-banner: "#771C6D"
+format:
+  html:
+    quarto-template-params:
+      banner-header-class: "home"
+toc: true
+toc-location: left
+toc-title: "Contents"
+---
+# A Glimpse into My Journey
+::: grid
+::: {.g-col-12 .g-col-sm-4}
+```{=html}
+<div class="grid" style="--bs-columns: 5; row-gap: 0;">
+  <div class="g-col-1 g-col-sm-0"></div>
+  <div class="g-col-3 g-col-sm-5">
+    <picture>
+      <source media="(max-width: 576px)" srcset="{{< meta main-photo-square >}}">
+      <source media="(min-width: 576px)" srcset="{{< meta main-photo >}}">
+      <img class="img-fluid" src="{{< meta main-photo >}}">
+    </picture>
+  </div>
+  <div class="g-col-1 g-col-sm-0"></div>
+</div>
+```
+:::
+
+::: {.g-col-12 .g-col-sm-8}
+
+As a recent graduate, I proudly hold a Bachelor of Science degree in Physics from the [University of Malaya](https://www.um.edu.my/), earned in 2023. My current ambition is to establish myself as a successful data scientist, and to that end, I am actively pursuing certifications and engaging in various courses to expand my knowledge in the field of Data Science.
+
+During my undergraduate years, I had the privilege of being a member of the Radio Cosmology Research Laboratory, where I conducted [research](/projects/#studies-on-bipolar-outflows-in-star-forming-region-afgl5142-with-alma) in radio astronomy as a final year student. Additionally, I gained valuable experience by interning at the Malaysia Nuclear Agency, focusing on research in plasma physics. It was through all of these experiences that my interest in data science was sparked, ultimately guiding me to the path I am now traversing. ([see here for more](/blog/230707_datascienceastrophysics/))
+
+In addition to my academic pursuits, I actively volunteer for [Apadilangit](https://apadilangit.com/), an organization dedicated to promoting space education. I firmly believe that fostering a holistic approach to education, especially in fields like space science, can have far-reaching benefits for young individuals. 
+:::
+:::
