@@ -21,7 +21,7 @@ toc-title: "Contents"
 
 |<a href="https://github.com/HazmanNaim/Project-Election-Analysis" target="_blank">Code</a>|
 
-This data science project aims to provide a comprehensive analysis and visualization of seat distribution in electoral systems based on margin-of-votes classification in two Malaysian general elections, namely General Election 14 and General Election 15. The project utilizes data scraping, data preprocessing, and visualization techniques to gain insights into how different alliances perform in elections and how seats are distributed among them based on voting margins. This information can be valuable for political analysts, policymakers, and individuals interested in understanding the dynamics of elections and their outcomes.
+This data analysis project aims to provide a comprehensive analysis and visualization of seat distribution in electoral systems based on margin-of-votes classification in two Malaysian general elections, namely General Election 14 and General Election 15. The project utilizes data scraping, data preprocessing, and visualization techniques to gain insights into how different alliances perform in elections and how seats are distributed among them based on voting margins. This information can be valuable for political analysts, policymakers, and individuals interested in understanding the dynamics of elections and their outcomes.
 
 # ASTROPHYSICS
 ## Studies on Bipolar Outflows in Star Forming Region AFGL5142 With ALMA
