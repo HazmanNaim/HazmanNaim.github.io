@@ -1,6 +1,6 @@
 ---
 title: Projects
-date: 2023-07-03
+date: 2023-08-24
 description-meta: Exciting projects by Hazman Naim
 published-title: Last updated
 title-block-banner: "#771C6D"
@@ -9,7 +9,38 @@ toc-location: left
 toc-title: "Contents"
 ---
 # DATA SCIENCE
+## Modeling and Predicting Housing Prices in King County, USA: Analyzing House Sales Data
+
+![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=white)
+
+<div>
+  <img src="/img/1-King County Machine Leanring/1.png" style="height: 110%; width: 110%; object-fit: contain; float: left;"onclick="window.open('/img/1-King County Machine Leanring/1.png', '_blank')" />
+  <div style="clear: both;"></div>
+  <div style="text-align: center; font-size: smaller; font-style: italic;">Click to make it larger.</div>
+</div>
+
+|2023-08-23|<a href="https://github.com/HazmanNaim/Project-Portfolio/tree/64b3d18c2d816cec4613bff2fa5bb3df5e07cd7e/Project-1" target="_blank">Code</a>|
+
+My project focused on developing a machine learning model to predict house sales prices in King County. The primary objective of this project is to provide accurate price predictions that empower various stakeholders, including homebuyers, sellers, and real estate professionals, to make well-informed decisions. By analyzing property attributes and historical sales data, the machine learning model aims to uncover the key factors influencing house prices, offer insights into market trends, and contribute to equitable real estate transactions.
+
+
+To build these models, I employed a variety of machine learning techniques, including linear regression, multiple linear regression, support vector regression, and the random forest regressor provided by scikit-learn. Pre-processing of the dataset was a crucial step, and I ensured its reliability by utilizing 5-fold cross-validation. Additionally, I fine-tuned the models through hyperparameter tuning to optimize their performance.
+
+The outcomes of the project are notable. I successfully developed and evaluated 17 distinct machine learning models using various algorithms, such as Ordinary Least Squares, Ridge Regression, Lasso, Multiple Linear Regression, Support Vector Regression, and Random Forest. Through 5-fold cross-validation, I assessed the predictive capabilities of these models and gained insights into their effectiveness. The project underscores the importance of selecting models that align with the dataset while striking a balance between feature adjustments, tuning, and complexity.
+
 ## Electoral Analysis and Visualization: Understanding Seat Distribution by Margin-of-Votes Classification
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=white)
 
 <div>
   <img src="/img/ge14_banner.png" style="height: 50%; width: 50%; object-fit: contain; float: left;"                    onclick="window.open('/img/ge14_banner.png', '_blank')" />
@@ -19,7 +50,7 @@ toc-title: "Contents"
   <div style="text-align: center; font-size: smaller; font-style: italic;">Click to make it larger.</div>
 </div>
 
-|<a href="https://github.com/HazmanNaim/Project-Election-Analysis" target="_blank">Code</a>|
+|2023-07-08|<a href="https://github.com/HazmanNaim/Project-Election-Analysis" target="_blank">Code</a>|
 
 This data analysis project aims to provide a comprehensive analysis and visualization of seat distribution in electoral systems based on margin-of-votes classification in two Malaysian general elections, namely General Election 14 and General Election 15. The project utilizes data scraping, data preprocessing, and visualization techniques to gain insights into how different alliances perform in elections and how seats are distributed among them based on voting margins. This information can be valuable for political analysts, policymakers, and individuals interested in understanding the dynamics of elections and their outcomes.
 
@@ -29,6 +60,6 @@ This data analysis project aims to provide a comprehensive analysis and visualiz
 <img src="/img/fyp_poster.png" style="height: 50%; width: 50%; object-fit: contain;"                   onclick="window.open('/img/fyp_poster.png', '_blank')" />
 <div style="text-align: left; font-size: smaller; font-style: italic;">Click to make it larger.</div>
 
-|<a href="https://drive.google.com/file/d/1U_8bkZJcfawDG1BnndaX3fCaHaOdz9Xp/view?usp=sharing" target="_blank">Thesis</a>|
+|2022-06-28|<a href="https://drive.google.com/file/d/1U_8bkZJcfawDG1BnndaX3fCaHaOdz9Xp/view?usp=sharing" target="_blank">Thesis</a>|
 
 As an undergraduate student, I had the privilege of conducting research in the field of star formation. My final year project, "Studies on Bipolar Outflows in Star Forming Region AFGL 5142 with ALMA," was supervised by a prominent Malaysian radio astronomer, Prof. Dr. Zamri Bin Zainal Abidin. In this project, I analyzed ALMA archival data to investigate the outflows from the AFGL 5142 star forming region. I utilized radio spectroscopy to observe the line emission of 13C17O and detect the bipolar outflows through redshifted and blueshifted emissions. Furthermore, I calculated the properties of the outflows such as mass, momentum, and energy, and proposed that they may have played a role in promoting star formation in neighboring regions. I processed the data using CASA, the primary software for the Atacama Large Millimeter/submillimeter Array (ALMA), and further analyzed the data using Python with Astropy and AplPy packages. I was also honored to work with professional astronomers in the Radio Cosmology Research Laboratory.My research project earned me the Best Presentation Award from the Department of Physics at University of Malaya, reflecting my dedication and hard work. My experience in this project has honed my skills and broadened my knowledge in the field of radio astronomy.
