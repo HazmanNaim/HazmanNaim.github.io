@@ -21,8 +21,8 @@ website:
         href: blog/index.qmd
       - text: "Projects"
         href: projects/index.qmd
-      - text: "Astrophotography"
-        href: astrophotography/index.qmd
+      #- text: "Astrophotography"
+        #href: astrophotography/index.qmd
       - text: "CV"
         href: cv/index.qmd      
     

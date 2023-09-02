@@ -1,6 +1,6 @@
 ---
 title: "Astrophotography"
-description: "UUnlock the secrets of capturing the cosmos through the lens as we delve into the captivating world of astrophotography. From the radiant moon to distant galaxies, this is your gateway to mastering the specialized skills required to immortalize celestial objects in breathtaking detail."
+description: "Unlock the secrets of capturing the cosmos through the lens as we delve into the captivating world of astrophotography. From the radiant moon to distant galaxies, this is your gateway to mastering the specialized skills required to immortalize celestial objects in breathtaking detail."
 date: August-22-2020
 categories: 
   - astronomy

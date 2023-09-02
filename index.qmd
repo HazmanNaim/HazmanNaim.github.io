@@ -30,11 +30,11 @@ listing:
     <div class="hero section_padding">
         <div class="hero_content">
             <h1>Hi, I'm <span class="gradient_text">Hazman</span>.</h1>
-            <p>I'm a physics graduate on an exciting journey to become a data scientist. Here, I                invite you to explore my blog, where I share insights into my personal growth and                 everything in between. 
+            <p>I am a Physics graduate from Universiti Malaya with a strong passion for data science,             AI, and machine learning. My enthusiasm for learning and applying new knowledge and skills             in the field of data science drives me to constantly seek opportunities for growth and                practical experimentation. 
             </p>
-            <p>Alongside my love for data science, you'll discover my passion for astronomy and                 astrophotography. If you're a fellow astrophotography enthusiast, be sure to check                out my captivating cosmic captures.  
+            <p>Outside of my professional pursuits, I am an avid astrophotographer, and I enjoy                     exploring the cosmos through my telescope during my leisure time.   
             </p>
-            <p>Let's embark on this creative and professional adventure together!
+            <p>Let's embark on this professional adventure together!
             </p>
 
         </div>
