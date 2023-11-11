@@ -12,15 +12,122 @@ toc: true
 toc-location: left
 toc-title: "Contents"
 ---
-# A Glimpse into My Journey
 
+# About
 
 ::: {.g-col-12 .g-col-sm-8}
+"Develop a passion for learning. If you do, you will never cease to grow." - Anthony J. D'Angelo
 
-As a recent graduate, I proudly hold a Bachelor of Science degree in Physics from the [University of Malaya](https://www.um.edu.my/), earned in 2023. My current ambition is to establish myself as a successful data scientist, and to that end, I am actively pursuing certifications and engaging in various courses to expand my knowledge in the field of Data Science.
+I have a genuine passion for learning because I believe it's the key to personal growth. To me, knowledge is akin to a precious gem -- valuable and capable of making a positive impact on the world. This mindset has turned me into a naturally curious individual, always eager to acquire and refine skills, with a particular focus on Python, data science, machine learning, and AI.
 
-During my undergraduate years, I had the privilege of being a member of the Radio Cosmology Research Laboratory, where I conducted [research](/projects/#studies-on-bipolar-outflows-in-star-forming-region-afgl5142-with-alma) in radio astronomy as a final year student. Additionally, I gained valuable experience by interning at the Malaysia Nuclear Agency, focusing on research in plasma physics. It was through all of these experiences that my interest in data science was sparked, ultimately guiding me to the path I am now traversing.
+My background in Physics has instilled in me the importance of understanding the fundamental principles that drive algorithms. I don't settle for simply copying and pasting code; I strive for a deeper comprehension of how things work.
 
-In addition to my academic pursuits, I actively volunteer for [Apadilangit](https://apadilangit.com/), an organization dedicated to promoting space education. I firmly believe that fostering a holistic approach to education, especially in fields like space science, can have far-reaching benefits for young individuals. 
+"The only way to grow is to challenge yourself." - Ashley Tisdale
 
+This quote deeply resonates with me. Building on this philosophy, I've come to understand that the only way to truly grow is by challenging oneself. This realization has motivated me to actively explore unfamiliar territories. I eagerly embrace new opportunities, extending beyond my comfort zone.
+
+In addition to my core focus on Python, data science, machine learning, and AI, I have explored into diverse domains. For instance, I've ventured into natural sciences like genetics and biology. Simultaneously, I've explored linguistic domains, utilizing natural language processing to navigate the intricacies of language. Furthermore, I've not shied away from delving into business-related applications, broadening the scope of my knowledge and skills. In addition, I also participate in various data science competitions. These experiences continually push me to improve and evolve.
+:::
+
+# Experience
+
+::: {.g-col-12 .g-col-sm-8}
+<div style="font-size: larger;">
+
+  <strong>AI Developer | October 2023 - Present</strong>
+  <br>
+  Renaissance AI
+
+  <ul>
+    <li>Spearheaded Research and Development initiatives, driving the innovation and implementation of cutting-edge AI technologies for diverse applications.</li>
+    <li>Developed a robust backend system integral to a sophisticated recommendation system for an e-commerce platform. Utilized advanced deep neural network models to generate high-fidelity image embeddings, enhancing product recommendations and user experience.</li>
+    <li>Collaborated with cross-functional teams to analyze business requirements, translating them into scalable and efficient AI solutions that contributed to increased customer engagement and satisfaction.</li>
+    <li>Stayed abreast of the latest advancements in AI and machine learning, actively integrating new methodologies and best practices into project workflows.</li>
+  </ul>
+
+</div>
+:::
+
+# Education
+
+::: {.g-col-12 .g-col-sm-8}
+<div style="font-size: larger;">
+
+  <strong>Universiti Malaya | September 2019 - March 2023</strong>
+  <br>
+  Bachelor of Science in Physics
+
+  <ul>
+    <li>Passed with Honour</li>
+    <li>CGPA: 3.68</li>
+  </ul>
+
+  <strong>Universiti Malaya | September 2018 - June 2019</strong>
+  <br>
+  Physical Science
+
+  <ul>
+    <li>Chemistry, Additional Mathematics, Mathematics, Physics, Programming</li>
+    <li>CGPA: 4.00</li>
+  </ul>
+
+</div>
+:::
+
+# Skills
+
+::: {.g-col-12 .g-col-sm-8}
+<div style="font-size: larger;">
+
+  <strong>Programming Languages</strong>
+  <ul>
+    <li>Python</li>
+    <li>C</li>
+    <li>SQL</li>
+  </ul>
+
+  <strong>Tools</strong>
+  <ul>
+    <li>PyTorch</li>
+    <li>TensorFlow</li>
+    <li>Scikit-Learn</li>
+    <li>Flask</li>
+    <li>MySQL</li>
+  </ul>
+
+</div>
+:::
+
+# Open Source Contributions
+
+::: {.g-col-12 .g-col-sm-8}
+- [Mesolitica-Malaysian Dataset](https://github.com/mesolitica/malaysian-dataset) - Scraped websites to collect over 1 MB of text data for Malaysian language Large Language Model.
+:::
+
+# Awards
+
+::: {.g-col-12 .g-col-sm-8}
+- Gold Honour - International Astronomy Astrophysics Competition 2021
+:::
+
+# Professional Certificates
+
+::: {.g-col-12 .g-col-sm-8}
+**IBM Data Science Professional Certificate**
+
+**IBM AI Engineering Professional Certificate (Ongoing)**
+:::
+
+# Activities
+
+::: {.g-col-12 .g-col-sm-8}
+- Kaggle-Binary Prediction of Smoker Status using Bio-Signals (Ongoing)
+- Kaggle-Binary Classification with a Software Defects Dataset (Top 36%)
+- Kaggle-Predict Health Outcomes of Horses (Top 76%)
+:::
+
+# Interests
+
+::: {.g-col-12 .g-col-sm-8}
+In addition to my work as an AI Developer, I have a passion for astrophotography. I own a computerized telescope that is specifically designed for astrophotography. I capture images of deep sky objects, planets, and galaxies. I share these images on my Facebook page. I also enjoy participating in astronomy outreach programs. Recently, I had the opportunity to serve as a telescope operator for the Kuala Kubu Bharu Starfest 2023, which was organized by Majlis Daerah Hulu Selangor in collaboration with Sahabat Langit Utara.
 :::
