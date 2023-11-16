@@ -1,9 +1,9 @@
 ---
-title: "The Story Behind My Fascination with Data Science"
-description: "Discover the journey that ignited my passion for data science. Explore the origins of my interest, from my fascination with astronomy and astrophysics to the thrill of working with vast amounts of data. "
+title: "How I Accidentally Leaked Data in My First Machine Learning Project"
+description: "Dive into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens and why implementing a pipeline is essential to avoid such pitfalls."
 date: July-7-2023
 categories: 
-  - personal
+  - data science
 image: thumbnail.png
 draft: false
 format:
@@ -19,47 +19,4 @@ resources:
   - "1.jpg"
 ---
 
-My interest in data science was sparked during my undergraduate studies, where my passion for astronomy and astrophysics played a significant role.
-For my final year project, I focused on the topic of radio astronomy.
-Specifically, I conducted research on the properties of bipolar outflows and mapped their dynamics using 13C170 molecular line emission in the star forming region AFGL5142 in the constellation Auriga.
-In the field of radio astronomy, it is common practice to employ line emission as a means to map the structures of outflows, as well as dust clouds and specific regions.
-This approach allows us to penetrate the thick clouds of dust and gases, which often obscure the fascinating activities occurring during star formation.
-By utilizing molecular line emission as a tracer, we gain insights into these hidden processes.
-
-```{=html}
-<div style="text-align: center;">
-  <img src="1.jpg" style="width: 50%; object-fit: contain; box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3); border: 1px solid black;"/>
-  <p style="text-align: center;">Celebrating the completion of my thesis with my supportive mentor.</p>
-</div>
-```
-Astrophysics research generates vast amounts of data.
-Consider the Square Kilometer Array (SKA), the largest radio telescope in the world, which produces over an Exabyte of data on a daily basis.
-A typical sky survey archive contains around 10 terabytes of image data and billions of detected sources, including stars, galaxies, and quasars.
-Each source is associated with hundreds of measured attributes.
-These surveys cover a wide range of wavelengths, from radio to gamma rays, and represent just a glimpse of the immense datasets yet to come.
-With each passing year, advancements in electronics lead to the introduction of new instruments that double the amount of data collected, resulting in the exponential growth of astronomical information.
-Consequently, we can anticipate datasets that are orders of magnitude larger, more complex, and more homogeneous than those of the past.
-To put it into perspective, the size of the human genome is approximately 1 gigabyte, while the Library of Congress contains about 20 terabytes of data.
-Undoubtedly, astronomy has entered the era of big data.
-
-My interest in astronomy and astrophysics played a crucial role in steering me towards the field of data science.
-I have always been fascinated by the vastness of the cosmos and the mysteries it holds.
-However, it was through my exploration of astronomical data that I realized the power and potential of data science.
-
-One aspect that drew me to data science is the opportunity to work with massive datasets.
-I find great excitement in delving into large volumes of data, knowing that within them lie hidden patterns, correlations, and insights waiting to be discovered.
-Data science enables us to uncover knowledge that was previously unknown, pushing the boundaries of our understanding.
-
-While astronomy and astrophysics would have been a natural career path for me, I chose to pursue data science because I believe it offers me the chance to apply my knowledge and skills in diverse fields.
-I wanted to leverage my understanding of data analysis and programming beyond the realm of astrophysics.
-My introduction to programming and computer knowledge during my astrophysics studies laid a strong foundation for me to transition into the field of data science seamlessly.
-For me, embarking on a journey in data science represents a continuation of my learning and growth.
-
-One of the most intriguing aspects of data science is its ability to bridge distant fields together.
-Data scientists possess a unique skill set that allows them to analyze and interpret data from various domains.
-This interdisciplinary nature of data science enables connections to be made between seemingly unrelated fields, fostering collaborations and generating new insights.
-By immersing myself in the world of data science, I am excited to explore the convergence of different disciplines and contribute to the advancement of knowledge.
-
-In summary, my passion for astronomy and astrophysics initially sparked my interest in data science.
-The allure of working with big data, the opportunity to discover hidden insights, the desire to apply my knowledge beyond a single field, and the ability to bridge distant domains together all motivate me to pursue a career as a data scientist.
-I am eager to embark on this journey and contribute to the exciting and ever-evolving field of data science.
+This is the starting of the article...
