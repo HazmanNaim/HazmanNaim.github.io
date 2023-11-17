@@ -68,34 +68,6 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-posts_2020 .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-website','listing-project','listing-execute','listing-format','listing-language','listing-freeze','listing-description-meta','listing-title-block-banner','listing-toc','listing-toc-title','listing-toc-location','listing-author','listing-title','listing-description','listing-date','listing-categories','listing-image','listing-draft','listing-editor','listing-resources','listing-path','listing-outputHref','listing-date-modified','listing-filename','listing-file-modified','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] }],
-      
-      searchColumns: ["listing-website","listing-project","listing-execute","listing-format","listing-language","listing-freeze","listing-description-meta","listing-title-block-banner","listing-toc","listing-toc-title","listing-toc-location","listing-author","listing-title","listing-description","listing-date","listing-categories","listing-image","listing-draft","listing-editor","listing-resources","listing-path","listing-outputHref","listing-date-modified","listing-filename","listing-file-modified","listing-reading-time"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-posts_2020'] = new List('listing-posts_2020', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
     const listingTargetEl = window.document.querySelector('#listing-posts_2023 .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
@@ -157,6 +129,10 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="../about/index.html" rel="" target="">
  <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../blog/index.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../projects/index.html" rel="" target="">
@@ -221,10 +197,9 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2023</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">2020</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="astronomy">astronomy <span class="quarto-category-count">(2)</span></div><div class="category" data-category="mechanics">mechanics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="personal">personal <span class="quarto-category-count">(1)</span></div><div class="category" data-category="physics">physics <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data science">data science <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -236,85 +211,21 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="section">2023</h2>
 <div id="listing-posts_2023" class="quarto-listing quarto-listing-container-custom">
 <div class="list blog">
-    <div class="blog-entry" data-index="0" data-categories="personal" data-listing-date-sort="1688659200000" data-listing-file-modified-sort="1696745298646" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+    <div class="blog-entry" data-index="0" data-categories="data science" data-listing-date-sort="1688659200000" data-listing-file-modified-sort="1700236410175" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
         <div class="metadata">          
             <p class="date listing-date"> July 7, 2023</p>
         </div>
         <div class="body">
-            <p class="title listing-title"><a href="../blog/230707_datascienceastrophysics/index.html">The Story Behind My Fascination with Data Science</a></p>
+            <p class="title listing-title"><a href="../blog/230707_datascienceastrophysics/index.html">How I Accidentally Leaked Data in My First Machine Learning Project</a></p>
             <div class="post-categories listing-categories">
-                <div class="post-category listing-category" onclick="window.quartoListingCategory('personal'); return false;">
-                    personal
+                <div class="post-category listing-category" onclick="window.quartoListingCategory('data science'); return false;">
+                    data science
                 </div>
             </div>
-            <p class="description listing-description">Discover the journey that ignited my passion for data science. Explore the origins of my interest, from my fascination with astronomy and astrophysics to the thrill of working with vast amounts of data. </p>
+            <p class="description listing-description">Dive into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens.</p>
         </div>
         <div class="thumbnail">
-            <img src="../blog/230707_datascienceastrophysics/thumbnail.png" alt="The Story Behind My Fascination with Data Science" title="The Story Behind My Fascination with Data Science">
-        </div>
-    </div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
-</section>
-<section id="section-1" class="level2">
-<h2 class="anchored" data-anchor-id="section-1">2020</h2>
-<div id="listing-posts_2020" class="quarto-listing quarto-listing-container-custom">
-<div class="list blog">
-    <div class="blog-entry" data-index="0" data-categories="physics,mechanics" data-listing-date-sort="1601136000000" data-listing-file-modified-sort="1696745298612" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-        <div class="metadata">          
-            <p class="date listing-date"> September 27, 2020</p>
-        </div>
-        <div class="body">
-            <p class="title listing-title"><a href="../blog/200927_stesen/index.html">Why doesn't the International Space Station fall?</a></p>
-            <div class="post-categories listing-categories">
-                <div class="post-category listing-category" onclick="window.quartoListingCategory('physics'); return false;">
-                    physics
-                </div>
-                <div class="post-category listing-category" onclick="window.quartoListingCategory('mechanics'); return false;">
-                    mechanics
-                </div>
-            </div>
-            <p class="description listing-description">Unlocking the mystery: Why does the International Space Station defy gravity? Discover the mind-blowing science behind its orbit!</p>
-        </div>
-        <div class="thumbnail">
-            <img src="../blog/200927_stesen/thumbnail.png" alt="Why doesn't the International Space Station fall?" title="Why doesn't the International Space Station fall?">
-        </div>
-    </div>
-    <div class="blog-entry" data-index="1" data-categories="astronomy" data-listing-date-sort="1598630400000" data-listing-file-modified-sort="1696745298585" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-        <div class="metadata">          
-            <p class="date listing-date"> August 29, 2020</p>
-        </div>
-        <div class="body">
-            <p class="title listing-title"><a href="../blog/200829_belantik/index.html">Orion, The Night Hunter</a></p>
-            <div class="post-categories listing-categories">
-                <div class="post-category listing-category" onclick="window.quartoListingCategory('astronomy'); return false;">
-                    astronomy
-                </div>
-            </div>
-            <p class="description listing-description">Discover the magic that unfolds above us as we gaze into the vast expanse of the night sky. Among the countless stars that twinkle overhead, there exists a celestial trio that has captivated humanity for centuries: Orion's Belt.</p>
-        </div>
-        <div class="thumbnail">
-            <img src="../blog/200829_belantik/thumbnail.png" alt="Orion, The Night Hunter" title="Orion, The Night Hunter">
-        </div>
-    </div>
-    <div class="blog-entry" data-index="2" data-categories="astronomy" data-listing-date-sort="1598025600000" data-listing-file-modified-sort="1696745298568" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
-        <div class="metadata">          
-            <p class="date listing-date"> August 22, 2020</p>
-        </div>
-        <div class="body">
-            <p class="title listing-title"><a href="../blog/200822_astrofotografi/index.html">Astrophotography</a></p>
-            <div class="post-categories listing-categories">
-                <div class="post-category listing-category" onclick="window.quartoListingCategory('astronomy'); return false;">
-                    astronomy
-                </div>
-            </div>
-            <p class="description listing-description">Unlock the secrets of capturing the cosmos through the lens as we delve into the captivating world of astrophotography. From the radiant moon to distant galaxies, this is your gateway to mastering the specialized skills required to immortalize celestial objects in breathtaking detail.</p>
-        </div>
-        <div class="thumbnail">
-            <img src="../blog/200822_astrofotografi/thumbnail.png" alt="Astrophotography" title="Astrophotography">
+            <img src="../blog/230707_datascienceastrophysics/thumbnail.png" alt="How I Accidentally Leaked Data in My First Machine Learning Project" title="How I Accidentally Leaked Data in My First Machine Learning Project">
         </div>
     </div>
 </div>

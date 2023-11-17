@@ -6,15 +6,6 @@ page-layout: full
 description-meta: "Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you here. Within these digital pages, you'll discover a diverse collection of articles covering a wide array of captivating topics. Feel free to explore and immerse yourself in the content. Thank you for joining me on this exciting journey!"
 
 listing:
-  - id: posts_2020
-    contents: 
-      - "200927_stesen/index.qmd"
-      - "200829_belantik/index.qmd"
-      - "200822_astrofotografi/index.qmd"
-    sort: "date desc"
-    template: ../html/blog/listing.ejs
-    categories: true
-    
   - id: posts_2023
     contents: 
       - "230707_datascienceastrophysics/index.qmd"
@@ -34,11 +25,6 @@ Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you her
 ## 2023
 
 :::{#posts_2023}
-:::
-
-## 2020
-
-:::{#posts_2020}
 :::
 
 ---
