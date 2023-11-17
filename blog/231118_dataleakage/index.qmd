@@ -1,7 +1,7 @@
 ---
 title: "How I Accidentally Leaked Data in My First Machine Learning Project"
-description: "Dive into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."
-date: July-7-2023
+description: "Exploring into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."
+date: November-18-2023
 categories: 
   - data science
 image: thumbnail.png

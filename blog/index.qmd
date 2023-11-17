@@ -8,7 +8,7 @@ description-meta: "Greetings and a warm welcome to my blog! I'm absolutely thril
 listing:
   - id: posts_2023
     contents: 
-      - "230707_datascienceastrophysics/index.qmd"
+      - "231118_dataleakage/index.qmd"
     sort: "date desc"
     template: ../html/blog/listing.ejs
     categories: true
