@@ -33,9 +33,9 @@ In addition to my core focus on Python, data science, machine learning, and AI, 
 
 [Renaissance AI]{.underline}
 
--   Spearheaded Research and Development initiatives, driving the innovation and implementation of cutting-edge AI technologies for diverse applications.
--   Developed a robust backend system integral to a sophisticated recommendation system for an e-commerce platform. Utilized advanced deep neural network models to generate high-fidelity image embeddings, enhancing product recommendations and user experience.
--   Collaborated with cross-functional teams to analyze business requirements, translating them into scalable and efficient AI solutions that contributed to increased customer engagement and satisfaction.
+-   Led Research and Development team, innovating and implementing AI technologies for various applications, including product embedding and the development of a speech-to-text application.
+-   Engineered a recommender system architecture for the backend of an e-commerce platform, optimising product recommendations and improving user experience through the integration of reinforcement learning.
+-   Collaborated with a cross-functional AI backend team to analyse business requirements, skillfully translating them into scalable and efficient AI solutions that significantly contributed to client satisfaction.
 
 # Education
 
@@ -57,17 +57,17 @@ In addition to my core focus on Python, data science, machine learning, and AI, 
 
 [**Programming Languages:**]{.underline}
 
-- Python
-- C
-- SQL
+-   Python
+-   C
+-   SQL
 
 [**Tools:**]{.underline}
 
-- PyTorch
-- TensorFlow
-- Scikit-Learn
-- Flask
-- MySQL
+-   PyTorch
+-   TensorFlow
+-   Scikit-Learn
+-   Flask
+-   MySQL
 
 # Open Source Contributions
 
@@ -77,15 +77,17 @@ In addition to my core focus on Python, data science, machine learning, and AI, 
 
 -   Gold Honour - International Astronomy Astrophysics Competition 2021
 
-# Professional Certificates
+# Courses and Certificates
 
--   **IBM Data Science Professional Certificate**
--   **IBM AI Engineering Professional Certificate**
+-   General Assembly - Data Scientist Bootcamp \[[Link](https://github.com/HazmanNaim/General-Assembly-Data-Analytics-and-Data-Science)\]
+-   IBM AI Engineering Professional Certificate \[[Link](https://github.com/HazmanNaim/IBM-AI-Engineering-Professional-Certificate)\]
+-   IBM Data Science Professional Certificate \[[Link](https://github.com/HazmanNaim/IBM-Data-Science-Professional-Certificate)\]
+-   KPMG AU Data Analytics Virtual Internship \[[Link](https://github.com/HazmanNaim/kpmg-virtual-internship)\]
 
 # Activities
 
--   Kaggle-Binary Prediction of Smoker Status using Bio-Signals (Top 28%)
--   Kaggle-Binary Classification with a Software Defects Dataset (Top 36%)
+-   Kaggle-Binary Prediction of Smoker Status using Bio-Signals (Top 28%) \[[Link](https://www.kaggle.com/code/hazmannaim/binary-classification-weighted-ensemble-top-28)\]
+-   Kaggle-Binary Classification with a Software Defects Dataset (Top 36%) \[[Link](https://www.kaggle.com/code/hazmannaim/software-defect-prediction-simple-ml-ensemble)\]
 -   Kaggle-Predict Health Outcomes of Horses (Top 76%)
 
 # Interests

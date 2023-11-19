@@ -1,14 +1,15 @@
 ---
-title: "My Blog"
+title: "DataWithHazman"
 author: ""
 title-block-banner: "#771C6D"
 page-layout: full
-description-meta: "Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you here. Within these digital pages, you'll discover a diverse collection of articles covering a wide array of captivating topics. Feel free to explore and immerse yourself in the content. Thank you for joining me on this exciting journey!"
+description-meta: "Welcome to my blog DataWithHazman. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think."
 
 listing:
   - id: posts_2023
     contents: 
       - "231118_dataleakage/index.qmd"
+      - "231118_helloworld/index.qmd"
     sort: "date desc"
     template: ../html/blog/listing.ejs
     categories: true
@@ -20,13 +21,14 @@ image: ""
 code-tools: false
 comments: false
 ---
-Greetings and a warm welcome to my blog! I'm absolutely thrilled to have you here. Within these digital pages, you'll discover a diverse collection of articles covering a wide array of captivating topics. Feel free to explore and immerse yourself in the content. Thank you for joining me on this exciting journey!
+
+Welcome to my blog *DataWithHazman*. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think.
 
 ## 2023
 
-:::{#posts_2023}
+::: {#posts_2023}
 :::
 
----
+------------------------------------------------------------------------
 
 The blog post listing is based on the website source of [Marvin Schmitt](https://www.marvinschmitt.com/), who has put together an incredible listing template under CC-BY-SA 4.0 license. Thank you!

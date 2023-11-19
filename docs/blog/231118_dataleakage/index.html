@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Hazman Naim Bin Ahsan">
-<meta name="dcterms.date" content="2023-11-18">
-<meta name="description" content="Exploring into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens.">
+<meta name="dcterms.date" content="2023-11-19">
+<meta name="description" content="Exploring into my early days in machine learning as I am sharing a rookie mistake that led to data leakage. Learn firsthand how data leakage happens.">
 
 <title>Hazman Naim - How I Accidentally Leaked Data in My First Machine Learning Project</title>
 <style>
@@ -134,16 +134,16 @@ background-size: cover;
  <span class="menu-text">About Me</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html" rel="" target="">
- <span class="menu-text">Blog</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../../projects/index.html" rel="" target="">
  <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../cv/index.html" rel="" target="">
  <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog/index.html" rel="" target="">
+ <span class="menu-text">DataWithHazman</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -181,7 +181,7 @@ background-size: cover;
       <div class="quarto-title-block"><div><h1 class="title">How I Accidentally Leaked Data in My First Machine Learning Project</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
                   <div>
         <div class="description">
-          Exploring into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens.
+          Exploring into my early days in machine learning as I am sharing a rookie mistake that led to data leakage. Learn firsthand how data leakage happens.
         </div>
       </div>
                           <div class="quarto-categories">
@@ -203,7 +203,7 @@ background-size: cover;
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 18, 2023</p>
+        <p class="date">November 19, 2023</p>
       </div>
     </div>
     
@@ -237,8 +237,8 @@ background-size: cover;
 
 
 
-<p>In the early stages of my data science journey, I enrolled in the IBM Data Science Professional Certificate on Coursera, eager to kickstart my career. I did my first machine learning project, focused on classifying breast cancer. Despite achieving high accuracy during validation, I later discovered a significant drop when testing with a separate dataset. It was for two months until I realized I had unintentionally leaked training data into the validation set due to improper scaling and transformation practices.</p>
-<p>In this article, I will be demonstrating the common novice mistake that leads to data leakage. The mistakes I show here are exactly what I did before. To start, data leakage generally occurs when our training data is fed with information about the target, but similar data is available when the model is used in predictions. This leads to high performance on the training set, but the model will perform poorly when tested with unseen data. In simple words, data leakage makes a machine learning model look very accurate until we start making predictions with new set of data to the model, and then the model becomes very inaccurate.</p>
+<p>In the early stages of my journey into machine learning, I launched my first project, which was centered around classifying breast cancer. The project initially seemed successful, as I was able to achieve high accuracy during the validation phase. However, I noticed a significant drop when testing with a separate unseen dataset. It was for two months until I realized I had unintentionally leaked training data into the validation set due to improper scaling and transformation practices.</p>
+<p>In this article, I will be demonstrating the common novice mistake that leads to data leakage. The mistakes I show here are exactly what I did before. To start, data leakage generally occurs when our training data is fed with information about the target, but similar data is available when the model is used in predictions. This leads to high score on the training set, but the model will perform poorly when tested with unseen data. In simple words, data leakage makes a machine learning model look very accurate until we start making predictions with new set of data to the model, and then the model becomes very inaccurate.</p>
 <section id="train-test-contamination" class="level1">
 <h1>Train-Test Contamination</h1>
 <p>There are various types of data leakage, and the type I am addressing here is train-test contamination. This kind of leakage happens when the user fails to carefully distinguish between training data and validation data. For instance, during preprocessing tasks such as imputing missing values or data scaling before using <code>train_test_split()</code>. While the model constructed may yield a high validation score, instilling confidence, it ultimately performs poorly when tested with unseen data.</p>
@@ -998,8 +998,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "How I Accidentally Leaked Data in My First Machine Learning Project"</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Exploring into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> November-18-2023</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Exploring into my early days in machine learning as I am sharing a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> November-19-2023</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> </span></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">  - data science</span></span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> thumbnail.png</span></span>
@@ -1017,207 +1017,205 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - "1.png"</span></span>
 <span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>In the early stages of my data science journey, I enrolled in the IBM Data Science Professional Certificate on Coursera, eager to kickstart my career.</span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>I did my first machine learning project, focused on classifying breast cancer.</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>Despite achieving high accuracy during validation, I later discovered a significant drop when testing with a separate dataset.</span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>It was for two months until I realized I had unintentionally leaked training data into the validation set due to improper scaling and transformation practices.</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>In this article, I will be demonstrating the common novice mistake that leads to data leakage.</span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>The mistakes I show here are exactly what I did before.</span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>To start, data leakage generally occurs when our training data is fed with information about the target, but similar data is available when the model is used in predictions.</span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>This leads to high performance on the training set, but the model will perform poorly when tested with unseen data.</span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>In simple words, data leakage makes a machine learning model look very accurate until we start making predictions with new set of data to the model, and then the model becomes very inaccurate.</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>In the early stages of my journey into machine learning, I launched my first project, which was centered around classifying breast cancer. The project initially seemed successful, as I was able to achieve high accuracy during the validation phase. However, I noticed a significant drop when testing with a separate unseen dataset.</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>It was for two months until I realized I had unintentionally leaked training data into the validation set due to improper scaling and transformation practices.</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>In this article, I will be demonstrating the common novice mistake that leads to data leakage.</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>The mistakes I show here are exactly what I did before.</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>To start, data leakage generally occurs when our training data is fed with information about the target, but similar data is available when the model is used in predictions.</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>This leads to high score on the training set, but the model will perform poorly when tested with unseen data.</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>In simple words, data leakage makes a machine learning model look very accurate until we start making predictions with new set of data to the model, and then the model becomes very inaccurate.</span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># Train-Test Contamination</span></span>
 <span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="fu"># Train-Test Contamination</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>There are various types of data leakage, and the type I am addressing here is train-test contamination.</span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>This kind of leakage happens when the user fails to carefully distinguish between training data and validation data.</span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>For instance, during preprocessing tasks such as imputing missing values or data scaling before using <span class="in">`train_test_split()`</span>.</span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>While the model constructed may yield a high validation score, instilling confidence, it ultimately performs poorly when tested with unseen data.</span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>The dataset that I am using here is obtained from <span class="co">[</span><span class="ot">Kaggle competition dataset</span><span class="co">](https://www.kaggle.com/competitions/playground-series-s3e23)</span>.</span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>In this demonstration, we will need to predict whether a software defects or not based on the features given.</span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Import required libraries and packages</span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np                          <span class="co"># For linear algebra</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd                         <span class="co"># For data manipulation</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mlt                    <span class="co"># For visualization</span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt             <span class="co"># For visualization(scripting layer)</span></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns                       <span class="co"># For visualization</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="vs">r'/kaggle/input/playground-series-s3e23/train.csv'</span>, index_col <span class="op">=</span> <span class="st">'id'</span>)</span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the header of the data</span></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>df.head()</span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>| loc  | v(g) | ev(g) | iv(g) |   n   |   v    |  l   |   d   |   i   |    e     |  b   |    t    | lOCode | lOComment | lOBlank | locCodeAndComment | uniq_Op | uniq_Opnd | total_Op | total_Opnd | branchCount | defects |</span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|</span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>| 25.0 | 6.0  |  5.0  |  6.0  | 88.0  | 461.82 | 0.06 | 16.92 | 26.42 | 7621.43  | 0.15 | 423.41  |   19   |     0     |    4    |         0         |  18.0   |   18.0    |   54.0   |    36.0    |    11.0     |  False  |</span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>| 36.0 | 2.0  |  1.0  |  2.0  | 133.0 | 676.63 | 0.03 | 30.23 | 22.23 | 19091.41 | 0.23 | 1060.96 |   27   |     3     |    2    |         1         |  16.0   |   13.0    |   74.0   |    49.0    |     3.0     |  False  |</span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>| 7.0  | 1.0  |  1.0  |  1.0  | 16.0  | 62.51  | 0.40 | 2.50  | 21.59 |  220.18  | 0.02 |  12.23  |   4    |     0     |    1    |         0         |   5.0   |    6.0    |   11.0   |    6.0     |     1.0     |  False  |</span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a>| 22.0 | 2.0  |  1.0  |  1.0  | 94.0  | 456.65 | 0.09 | 11.74 | 39.72 | 5421.87  | 0.15 | 301.22  |   14   |     0     |    3    |         0         |  14.0   |   23.0    |   56.0   |    36.0    |     3.0     |  False  |</span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>| 38.0 | 5.0  |  1.0  |  4.0  | 130.0 | 644.05 | 0.04 | 25.91 | 23.55 | 15572.12 | 0.21 | 865.12  |   22   |     7     |    4    |         0         |  15.0   |   17.0    |   74.0   |    51.0    |     9.0     |  True   |</span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>For demonstration purposes, I skipped much of the data preparation work.</span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a>Now, in this dataset, I aim to log-transform the data since most features are right-skewed.</span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>However, here's where the mistake occurred: in my attempt to perform the log-transform, I applied the transformation to the entire dataset, df.</span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose all the numerical columns</span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"defects"</span>]]</span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a>df_num <span class="op">=</span> df[num_cols]</span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply log transformation to the numerical columns</span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a>df_num_transformed <span class="op">=</span> np.log1p(df_num)</span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the transformed numerical columns with the "defects" column</span></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>df_transformed <span class="op">=</span> pd.concat([df_num_transformed, df[<span class="st">"defects"</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>df_transformed.head()</span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>|   loc    |  v(g)   |  ev(g)  |  iv(g)  |    n    |    v    |    l    |    d    |    i    |    e    |    b    |    t    | lOCode  | lOComment | lOBlank | locCodeAndComment | uniq_Op | uniq_Opnd | total_Op | total_Opnd | branchCount | defects |</span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|</span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>| 3.258097 | 1.94591 | 1.79176 | 1.94591 | 4.48864 | 6.13734 | 0.05827 | 2.88592 | 3.31127 | 8.93885 | 0.13976 | 6.05070 | 2.99573 |  0.00000  | 1.60944 |      0.00000      | 2.94444 |  2.94444  | 4.00733  |  3.61092   |   2.48491   |  False  |</span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>| 3.61092  | 1.09861 | 0.69315 | 1.09861 | 4.89784 | 6.51860 | 0.02956 | 3.44138 | 3.14545 | 9.85705 | 0.20701 | 6.96787 | 3.33221 |  1.38629  | 1.09861 |      0.69315      | 2.83321 |  2.63906  | 4.31749  |  3.91202   |   1.38629   |  False  |</span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>| 2.07944  | 0.69315 | 0.69315 | 0.69315 | 2.83321 | 4.15120 | 0.33647 | 1.25276 | 3.11751 | 5.39898 | 0.01980 | 2.58249 | 1.60944 |  0.00000  | 0.69315 |      0.00000      | 1.79176 |  1.94591  | 2.48491  |  1.94591   |   0.69315   |  False  |</span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>| 3.13549  | 1.09861 | 0.69315 | 0.69315 | 4.55388 | 6.12610 | 0.08618 | 2.54475 | 3.70672 | 8.59838 | 0.13976 | 5.71116 | 2.70805 |  0.00000  | 1.38629 |      0.00000      | 2.70805 |  3.17805  | 4.04305  |  3.61092   |   1.38629   |  False  |</span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>| 3.66356  | 1.79176 | 0.69315 | 1.60944 | 4.87520 | 6.46933 | 0.03922 | 3.29250 | 3.20071 | 9.65330 | 0.19062 | 6.76402 | 3.13549 |  2.07944  | 1.60944 |      0.00000      | 2.77259 |  2.89037  | 4.31749  |  3.95124   |   2.30259   |  True   |</span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a>As we can observe, the entire dataset has now been log-transformed.</span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>Now, let's proceed to develop our classification model using logistic regression.</span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries and packages</span></span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Make empty dictionaries to store accuracy</span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict <span class="op">=</span> {}</span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict <span class="op">=</span> {}</span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the data into predictor (X) and target (Y)</span></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_transformed.drop(<span class="st">'defects'</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df_transformed[<span class="st">'defects'</span>].values</span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and validation set</span></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a>x_train1, x_val1, y_train1, y_val1 <span class="op">=</span> train_test_split(X, Y, stratify<span class="op">=</span>Y, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize and train the logistic regression model. I include 1 to indicate it is Case 1/Model 1</span></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> LogisticRegression()</span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a>model1.fit(x_train1, y_train1)</span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the validation set</span></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>y_pred1 <span class="op">=</span> model1.predict(x_val1)</span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy</span></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a>accuracy1 <span class="op">=</span> accuracy_score(y_val1, y_pred1)</span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="co"># Print and store the accuracy in a dictionary</span></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy1)</span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict[<span class="st">'model 1'</span>] <span class="op">=</span> accuracy1</span>
-<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.8136592556197028</span></span>
-<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>In Case 1, where we transformed the entire dataset, we achieved a validation accuracy of 81%.</span>
-<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a>In practice, it is advisable to perform cross-validation to ensure the reliability of our accuracy score, although we will skip this step for now.</span>
-<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>We can anticipate obtaining a similar accuracy of around 81% when using this model to predict unseen data.</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>There are various types of data leakage, and the type I am addressing here is train-test contamination.</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>This kind of leakage happens when the user fails to carefully distinguish between training data and validation data.</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>For instance, during preprocessing tasks such as imputing missing values or data scaling before using <span class="in">`train_test_split()`</span>.</span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>While the model constructed may yield a high validation score, instilling confidence, it ultimately performs poorly when tested with unseen data.</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>The dataset that I am using here is obtained from <span class="co">[</span><span class="ot">Kaggle competition dataset</span><span class="co">](https://www.kaggle.com/competitions/playground-series-s3e23)</span>.</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>In this demonstration, we will need to predict whether a software defects or not based on the features given.</span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co"># Import required libraries and packages</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np                          <span class="co"># For linear algebra</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd                         <span class="co"># For data manipulation</span></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mlt                    <span class="co"># For visualization</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt             <span class="co"># For visualization(scripting layer)</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns                       <span class="co"># For visualization</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="vs">r'/kaggle/input/playground-series-s3e23/train.csv'</span>, index_col <span class="op">=</span> <span class="st">'id'</span>)</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the header of the data</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>df.head()</span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>| loc  | v(g) | ev(g) | iv(g) |   n   |   v    |  l   |   d   |   i   |    e     |  b   |    t    | lOCode | lOComment | lOBlank | locCodeAndComment | uniq_Op | uniq_Opnd | total_Op | total_Opnd | branchCount | defects |</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|</span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>| 25.0 | 6.0  |  5.0  |  6.0  | 88.0  | 461.82 | 0.06 | 16.92 | 26.42 | 7621.43  | 0.15 | 423.41  |   19   |     0     |    4    |         0         |  18.0   |   18.0    |   54.0   |    36.0    |    11.0     |  False  |</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a>| 36.0 | 2.0  |  1.0  |  2.0  | 133.0 | 676.63 | 0.03 | 30.23 | 22.23 | 19091.41 | 0.23 | 1060.96 |   27   |     3     |    2    |         1         |  16.0   |   13.0    |   74.0   |    49.0    |     3.0     |  False  |</span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>| 7.0  | 1.0  |  1.0  |  1.0  | 16.0  | 62.51  | 0.40 | 2.50  | 21.59 |  220.18  | 0.02 |  12.23  |   4    |     0     |    1    |         0         |   5.0   |    6.0    |   11.0   |    6.0     |     1.0     |  False  |</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a>| 22.0 | 2.0  |  1.0  |  1.0  | 94.0  | 456.65 | 0.09 | 11.74 | 39.72 | 5421.87  | 0.15 | 301.22  |   14   |     0     |    3    |         0         |  14.0   |   23.0    |   56.0   |    36.0    |     3.0     |  False  |</span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a>| 38.0 | 5.0  |  1.0  |  4.0  | 130.0 | 644.05 | 0.04 | 25.91 | 23.55 | 15572.12 | 0.21 | 865.12  |   22   |     7     |    4    |         0         |  15.0   |   17.0    |   74.0   |    51.0    |     9.0     |  True   |</span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>For demonstration purposes, I skipped much of the data preparation work.</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>Now, in this dataset, I aim to log-transform the data since most features are right-skewed.</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>However, here's where the mistake occurred: in my attempt to perform the log-transform, I applied the transformation to the entire dataset, df.</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose all the numerical columns</span></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a>num_cols <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> df.columns <span class="cf">if</span> col <span class="kw">not</span> <span class="kw">in</span> [<span class="st">"defects"</span>]]</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a>df_num <span class="op">=</span> df[num_cols]</span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply log transformation to the numerical columns</span></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>df_num_transformed <span class="op">=</span> np.log1p(df_num)</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the transformed numerical columns with the "defects" column</span></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>df_transformed <span class="op">=</span> pd.concat([df_num_transformed, df[<span class="st">"defects"</span>]], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>df_transformed.head()</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>|   loc    |  v(g)   |  ev(g)  |  iv(g)  |    n    |    v    |    l    |    d    |    i    |    e    |    b    |    t    | lOCode  | lOComment | lOBlank | locCodeAndComment | uniq_Op | uniq_Opnd | total_Op | total_Opnd | branchCount | defects |</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|:--:|</span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>| 3.258097 | 1.94591 | 1.79176 | 1.94591 | 4.48864 | 6.13734 | 0.05827 | 2.88592 | 3.31127 | 8.93885 | 0.13976 | 6.05070 | 2.99573 |  0.00000  | 1.60944 |      0.00000      | 2.94444 |  2.94444  | 4.00733  |  3.61092   |   2.48491   |  False  |</span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>| 3.61092  | 1.09861 | 0.69315 | 1.09861 | 4.89784 | 6.51860 | 0.02956 | 3.44138 | 3.14545 | 9.85705 | 0.20701 | 6.96787 | 3.33221 |  1.38629  | 1.09861 |      0.69315      | 2.83321 |  2.63906  | 4.31749  |  3.91202   |   1.38629   |  False  |</span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>| 2.07944  | 0.69315 | 0.69315 | 0.69315 | 2.83321 | 4.15120 | 0.33647 | 1.25276 | 3.11751 | 5.39898 | 0.01980 | 2.58249 | 1.60944 |  0.00000  | 0.69315 |      0.00000      | 1.79176 |  1.94591  | 2.48491  |  1.94591   |   0.69315   |  False  |</span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>| 3.13549  | 1.09861 | 0.69315 | 0.69315 | 4.55388 | 6.12610 | 0.08618 | 2.54475 | 3.70672 | 8.59838 | 0.13976 | 5.71116 | 2.70805 |  0.00000  | 1.38629 |      0.00000      | 2.70805 |  3.17805  | 4.04305  |  3.61092   |   1.38629   |  False  |</span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a>| 3.66356  | 1.79176 | 0.69315 | 1.60944 | 4.87520 | 6.46933 | 0.03922 | 3.29250 | 3.20071 | 9.65330 | 0.19062 | 6.76402 | 3.13549 |  2.07944  | 1.60944 |      0.00000      | 2.77259 |  2.89037  | 4.31749  |  3.95124   |   2.30259   |  True   |</span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a>As we can observe, the entire dataset has now been log-transformed.</span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>Now, let's proceed to develop our classification model using logistic regression.</span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Import libraries and packages</span></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> accuracy_score</span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Make empty dictionaries to store accuracy</span></span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict <span class="op">=</span> {}</span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict <span class="op">=</span> {}</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the data into predictor (X) and target (Y)</span></span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df_transformed.drop(<span class="st">'defects'</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df_transformed[<span class="st">'defects'</span>].values</span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and validation set</span></span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a>x_train1, x_val1, y_train1, y_val1 <span class="op">=</span> train_test_split(X, Y, stratify<span class="op">=</span>Y, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize and train the logistic regression model. I include 1 to indicate it is Case 1/Model 1</span></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>model1 <span class="op">=</span> LogisticRegression()</span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a>model1.fit(x_train1, y_train1)</span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the validation set</span></span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a>y_pred1 <span class="op">=</span> model1.predict(x_val1)</span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy</span></span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a>accuracy1 <span class="op">=</span> accuracy_score(y_val1, y_pred1)</span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Print and store the accuracy in a dictionary</span></span>
+<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy1)</span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict[<span class="st">'model 1'</span>] <span class="op">=</span> accuracy1</span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.8136592556197028</span></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>In Case 1, where we transformed the entire dataset, we achieved a validation accuracy of 81%.</span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a>In practice, it is advisable to perform cross-validation to ensure the reliability of our accuracy score, although we will skip this step for now.</span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>We can anticipate obtaining a similar accuracy of around 81% when using this model to predict unseen data.</span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a>Now, let's proceed to Case 2, where we followed good practices in transforming the dataset.</span>
 <span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>Now, let's proceed to Case 2, where we followed good practices in transforming the dataset.</span>
-<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the data into predictor (X) and target (Y)</span></span>
-<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">'defects'</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df[<span class="st">'defects'</span>]</span>
-<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and validation set. I include 2 to indicate it is Case 2/Model 2</span></span>
-<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>x_train2, x_val2, y_train2, y_val2 <span class="op">=</span> train_test_split(X, Y, stratify<span class="op">=</span>Y, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose all the numerical columns</span></span>
-<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a>num_cols2 <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> x_train2.columns]</span>
-<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a>numerical_columns2 <span class="op">=</span> x_train2[num_cols2] <span class="co"># Notice here I only select the training set instead of the whole dataset df</span></span>
-<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply log transformation to the numerical columns</span></span>
-<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a>x_train2 <span class="op">=</span> np.log1p(numerical_columns2)</span>
-<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize and train the logistic regression model</span></span>
-<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> LogisticRegression()</span>
-<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a>model2.fit(x_train2, y_train2)</span>
-<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the validation set</span></span>
-<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a>y_pred2 <span class="op">=</span> model2.predict(x_val2)</span>
-<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy</span></span>
-<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a>accuracy2 <span class="op">=</span> accuracy_score(y_val2, y_pred2)</span>
-<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a><span class="co"># Print and store the accuracy in a dictionary</span></span>
-<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy2)</span>
-<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict[<span class="st">'model 2'</span>] <span class="op">=</span> accuracy2</span>
-<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.7716496744871637</span></span>
-<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>Oh, what a surprise!</span>
-<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>Our "good practice" model performed worse on the validation set.</span>
-<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>Shocking, right?</span>
-<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a>Here, we can observe that the validation accuracy of Model 2 is lower compared to the validation accuracy of Model 1.</span>
-<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>Let's now evaluate the performance of both Model 1 and Model 2 with unseen data.</span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate the data into predictor (X) and target (Y)</span></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(<span class="st">'defects'</span>,axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df[<span class="st">'defects'</span>]</span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the dataset into training and validation set. I include 2 to indicate it is Case 2/Model 2</span></span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a>x_train2, x_val2, y_train2, y_val2 <span class="op">=</span> train_test_split(X, Y, stratify<span class="op">=</span>Y, test_size<span class="op">=</span><span class="fl">0.10</span>, random_state<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose all the numerical columns</span></span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a>num_cols2 <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> x_train2.columns]</span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a>numerical_columns2 <span class="op">=</span> x_train2[num_cols2] <span class="co"># Notice here I only select the training set instead of the whole dataset df</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply log transformation to the numerical columns</span></span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>x_train2 <span class="op">=</span> np.log1p(numerical_columns2)</span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize and train the logistic regression model</span></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> LogisticRegression()</span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a>model2.fit(x_train2, y_train2)</span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a><span class="co"># Make predictions on the validation set</span></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a>y_pred2 <span class="op">=</span> model2.predict(x_val2)</span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy</span></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a>accuracy2 <span class="op">=</span> accuracy_score(y_val2, y_pred2)</span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a><span class="co"># Print and store the accuracy in a dictionary</span></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy2)</span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a>val_accuracy_dict[<span class="st">'model 2'</span>] <span class="op">=</span> accuracy2</span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.7716496744871637</span></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a>Oh, what a surprise!</span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>Our "good practice" model performed worse on the validation set.</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>Shocking, right?</span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>Here, we can observe that the validation accuracy of Model 2 is lower compared to the validation accuracy of Model 1.</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>Let's now evaluate the performance of both Model 1 and Model 2 with unseen data.</span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a>Case 1</span>
 <span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a>Case 1</span>
-<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Model 1 to predict unseen data</span></span>
-<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a>pred1 <span class="op">=</span> model1.predict(x_test)</span>
-<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the test accuracy score</span></span>
-<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy_score(y_test, pred1))</span>
-<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict[<span class="st">'model 1'</span>] <span class="op">=</span> accuracy_score(y_test, pred1)</span>
-<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.768387952635975</span></span>
-<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Model 1 to predict unseen data</span></span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a>pred1 <span class="op">=</span> model1.predict(x_test)</span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the test accuracy score</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy_score(y_test, pred1))</span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict[<span class="st">'model 1'</span>] <span class="op">=</span> accuracy_score(y_test, pred1)</span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-186"><a href="#cb11-186" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb11-187"><a href="#cb11-187" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.768387952635975</span></span>
+<span id="cb11-188"><a href="#cb11-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-189"><a href="#cb11-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-190"><a href="#cb11-190" aria-hidden="true" tabindex="-1"></a>Case 2</span>
 <span id="cb11-191"><a href="#cb11-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a>Case 2</span>
-<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
-<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Model 2 to predict unseen data</span></span>
-<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a>pred2 <span class="op">=</span> model2.predict(x_test)</span>
-<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the test accuracy score</span></span>
-<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy_score(y_test, pred2))</span>
-<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict[<span class="st">'model 2'</span>] <span class="op">=</span> accuracy_score(y_test, pred2)</span>
-<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
-<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.768387952635975</span></span>
-<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-192"><a href="#cb11-192" aria-hidden="true" tabindex="-1"></a><span class="in">``` python</span></span>
+<span id="cb11-193"><a href="#cb11-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Use Model 2 to predict unseen data</span></span>
+<span id="cb11-194"><a href="#cb11-194" aria-hidden="true" tabindex="-1"></a>pred2 <span class="op">=</span> model2.predict(x_test)</span>
+<span id="cb11-195"><a href="#cb11-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-196"><a href="#cb11-196" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the test accuracy score</span></span>
+<span id="cb11-197"><a href="#cb11-197" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Accuracy:"</span>, accuracy_score(y_test, pred2))</span>
+<span id="cb11-198"><a href="#cb11-198" aria-hidden="true" tabindex="-1"></a>test_accuracy_dict[<span class="st">'model 2'</span>] <span class="op">=</span> accuracy_score(y_test, pred2)</span>
+<span id="cb11-199"><a href="#cb11-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-200"><a href="#cb11-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-201"><a href="#cb11-201" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb11-202"><a href="#cb11-202" aria-hidden="true" tabindex="-1"></a><span class="in">Accuracy: 0.768387952635975</span></span>
+<span id="cb11-203"><a href="#cb11-203" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-205"><a href="#cb11-205" aria-hidden="true" tabindex="-1"></a><span class="al">![Validation vs Test Accuracy for Model 1 and Model 2.](1.png)</span>{fig-align="center" width="451"}</span>
 <span id="cb11-206"><a href="#cb11-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a><span class="al">![Validation vs Test Accuracy for Model 1 and Model 2.](1.png)</span>{fig-align="center" width="451"}</span>
-<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>The test accuracy for both of our models appears to be the same.</span>
-<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a>However, it's crucial to note the difference in accuracy for Model 1 between the validation set and the test set.</span>
-<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>There is no difference in Model 2, which adhered to the good practice of transforming the training set only.</span>
-<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>This discrepancy highlights the impact of data leakage.</span>
-<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a>When data leakage occurs, the accuracy obtained during the model's development phase tends to be overly optimistic, resulting in a high score during evaluation.</span>
-<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>However, when the model is used to predict unseen data, its performance is notably worse, similar to the scenario in Case 1.</span>
-<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a>During model development, the score obtained should ideally reflect what can be expected when predicting unseen data.</span>
-<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a>Experiencing a drop in accuracy during deployment, as seen in Case 1, is problematic, particularly when the model is intended for business purposes.</span>
-<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a>This underscores the importance of correct data handling and following good practices, as demonstrated by Model 2, to ensure the model's reliability in real-world applications.</span>
-<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-221"><a href="#cb11-221" aria-hidden="true" tabindex="-1"></a>We can enhance the practice of Model 2 by implementing a Pipeline, a topic I will explore into later.</span>
-<span id="cb11-222"><a href="#cb11-222" aria-hidden="true" tabindex="-1"></a>For now, I aim to illustrate the occurrence of data leakage, a rookie mistake I made during my early days in machine learning.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-207"><a href="#cb11-207" aria-hidden="true" tabindex="-1"></a>The test accuracy for both of our models appears to be the same.</span>
+<span id="cb11-208"><a href="#cb11-208" aria-hidden="true" tabindex="-1"></a>However, it's crucial to note the difference in accuracy for Model 1 between the validation set and the test set.</span>
+<span id="cb11-209"><a href="#cb11-209" aria-hidden="true" tabindex="-1"></a>There is no difference in Model 2, which adhered to the good practice of transforming the training set only.</span>
+<span id="cb11-210"><a href="#cb11-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-211"><a href="#cb11-211" aria-hidden="true" tabindex="-1"></a>This discrepancy highlights the impact of data leakage.</span>
+<span id="cb11-212"><a href="#cb11-212" aria-hidden="true" tabindex="-1"></a>When data leakage occurs, the accuracy obtained during the model's development phase tends to be overly optimistic, resulting in a high score during evaluation.</span>
+<span id="cb11-213"><a href="#cb11-213" aria-hidden="true" tabindex="-1"></a>However, when the model is used to predict unseen data, its performance is notably worse, similar to the scenario in Case 1.</span>
+<span id="cb11-214"><a href="#cb11-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-215"><a href="#cb11-215" aria-hidden="true" tabindex="-1"></a>During model development, the score obtained should ideally reflect what can be expected when predicting unseen data.</span>
+<span id="cb11-216"><a href="#cb11-216" aria-hidden="true" tabindex="-1"></a>Experiencing a drop in accuracy during deployment, as seen in Case 1, is problematic, particularly when the model is intended for business purposes.</span>
+<span id="cb11-217"><a href="#cb11-217" aria-hidden="true" tabindex="-1"></a>This underscores the importance of correct data handling and following good practices, as demonstrated by Model 2, to ensure the model's reliability in real-world applications.</span>
+<span id="cb11-218"><a href="#cb11-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-219"><a href="#cb11-219" aria-hidden="true" tabindex="-1"></a>We can enhance the practice of Model 2 by implementing a Pipeline, a topic I will explore into later.</span>
+<span id="cb11-220"><a href="#cb11-220" aria-hidden="true" tabindex="-1"></a>For now, I aim to illustrate the occurrence of data leakage, a rookie mistake I made during my early days in machine learning.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

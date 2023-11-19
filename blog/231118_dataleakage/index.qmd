@@ -1,7 +1,7 @@
 ---
 title: "How I Accidentally Leaked Data in My First Machine Learning Project"
-description: "Exploring into my early days in machine learning as I reveal a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."
-date: November-18-2023
+description: "Exploring into my early days in machine learning as I am sharing a rookie mistake that led to data leakage. Learn firsthand how data leakage happens."
+date: November-19-2023
 categories: 
   - data science
 image: thumbnail.png
@@ -19,15 +19,13 @@ resources:
   - "1.png"
 ---
 
-In the early stages of my data science journey, I enrolled in the IBM Data Science Professional Certificate on Coursera, eager to kickstart my career.
-I did my first machine learning project, focused on classifying breast cancer.
-Despite achieving high accuracy during validation, I later discovered a significant drop when testing with a separate dataset.
+In the early stages of my journey into machine learning, I launched my first project, which was centered around classifying breast cancer. The project initially seemed successful, as I was able to achieve high accuracy during the validation phase. However, I noticed a significant drop when testing with a separate unseen dataset.
 It was for two months until I realized I had unintentionally leaked training data into the validation set due to improper scaling and transformation practices.
 
 In this article, I will be demonstrating the common novice mistake that leads to data leakage.
 The mistakes I show here are exactly what I did before.
 To start, data leakage generally occurs when our training data is fed with information about the target, but similar data is available when the model is used in predictions.
-This leads to high performance on the training set, but the model will perform poorly when tested with unseen data.
+This leads to high score on the training set, but the model will perform poorly when tested with unseen data.
 In simple words, data leakage makes a machine learning model look very accurate until we start making predictions with new set of data to the model, and then the model becomes very inaccurate.
 
 # Train-Test Contamination
