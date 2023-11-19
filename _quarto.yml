@@ -6,12 +6,12 @@ website:
   description: "Physics Graduate & Aspiring Data Scientist | Data Science, Data Analysis, Research | Explore my journey 🔭"   # A brief slogan (optional)
   image: img/my_image.jpg
   
-  favicon: img/favicon.png
+  favicon: img/logo_data.jpeg
   
   # start of the navigation bar at the top of the website
   navbar:
     pinned: true
-    logo: /img/logo.png
+    logo: /img/logo_data.jpeg
     
     # your sub-pages
     left:
