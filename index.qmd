@@ -11,10 +11,8 @@ format:
 listing:
   id: blog-listing
   contents:   
-    - "blog/website-tutorial-quarto/index.qmd"
-    - "blog/agile-methods-for-academia/index.qmd"
-    - "blog/ggsimplex-prerelease/index.qmd"
-#    - "blog/4-realizations-from-atomic-habits/index.qmd"
+    - "blog/231118_helloworld/index.qmd"
+    - "blog/231118_dataleakage/index.qmd"
   sort: "date desc"
   type: grid
   max-items: 3
@@ -30,17 +28,16 @@ listing:
     <div class="hero section_padding">
         <div class="hero_content">
             <h1>Hi, I'm <span class="gradient_text">Hazman</span>.</h1>
-            <p>I am a Physics graduate from Universiti Malaya with a strong passion for data science,             AI, and machine learning. My enthusiasm for learning and applying new knowledge and skills             in the field of data science drives me to constantly seek opportunities for growth and                practical experimentation. 
+            <p>I am a Physics graduate from Universiti Malaya with a strong passion for data science,             AI, and machine  learning. My enthusiasm for learning and applying new knowledge and skills             in the field of data science drives me to constantly seek opportunities for growth and                practical experimentation. 
             </p>
             <p>Outside of my professional pursuits, I am an avid astrophotographer, and I enjoy                     exploring the cosmos through my telescope during my leisure time.   
             </p>
             <p>Let's embark on this professional adventure together!
             </p>
-
         </div>
         <div class="hero_image">
             <img src="/img/Hazman_Front.png"/>
-        </div>
+        </div>   
         <div id="dot_container">
         </div>
     </div>
@@ -58,35 +55,20 @@ listing:
 <script src="html/TweenMax.min.js"></script>
 <script src="html/parallax.js"></script>
 ```
+:::
+
 ::: {#news}
-</html>
+## Current Updates
+-   **October 23, 2023**: Great news! I have begun my on-the-job training as an AI Developer, which is my first baby-step for my data science career. I am part of the AI Backend team that works on developing AI-based applications for E-commerce. I also get to work with other areas of AI such as NLP and LLM. This training will go on for three months.
 
-<head>
+-   **September 9, 2023**: I have been selected for the K-Youth Development Programme, a data science upskilling program offered by Excelerate Asia in partnership with General Assembly. This program is sponsored by Khazanah Nasional and lasts for four months. The first month is dedicated to learning data science skills through a bootcamp, while the remaining three months involve on-the-job training. The program also helps me develop career skills such as resume writing, interviewing, and communication.
 
-```{=html}
-<style>
-.container {
-  width: 80%;
-  margin: auto;
-}
-</style>
-```
-</head>
+-   **July 7, 2023**: I have recently joined Kaggle, the world's largest data science community. This platform provides me with the opportunity to learn from and collaborate with other data scientists, as well as participate in exciting machine learning competitions. I am eager to explore all that Kaggle has to offer and continue to grow in my data science journey. Join me on [Kaggle](https://www.theforage.com/virtual-internships) and let's go explore our data science journey together.
 
-<body>
+-   **June 10, 2023**: I made a career choice to pursue data science. Since I had a physics background and not a computer science one, I began to look for resources that would help me start my journey in data science. I enrolled in the [IBM Data Science Professional Certificate](https://www.coursera.org/professional-certificates/ibm-data-science) program on Coursera which would enable me to improve my skills and knowledge in this field.
 
-::: container
-<h2>Current Update</h2>
-
-<p><strong>August 3, 2023:</strong> I discovered the <a href="https://www.theforage.com/virtual-internships">Forage</a>, which offers job simulations from over 200 of the world's leading companies. I applied for the KPMG AU Virtual Internship Program, which provides a virtual job simulation as a Data Analyst at KPMG AU. As a Data Analyst, I analyzed transaction datasets and recommended that companies target specific customer segments. I learned a lot from the Forage Virtual Internship Program. It was a valuable experience that allowed me to gain practical skills and knowledge in the field of data analysis.</p>
-
-<p><strong>July 7, 2023:</strong> I have recently joined Kaggle, the world's largest data science community. This platform provides me with the opportunity to learn from and collaborate with other data scientists, as well as participate in exciting machine learning competitions. I am eager to explore all that Kaggle has to offer and continue to grow in my data science journey. Join me on <a href="https://www.kaggle.com/hazmannaim">Kaggle</a> and let's go explore our data science journey together.</p>
-
-<p><strong>June 10, 2023:</strong> I have recently enrolled in the <a href="https://www.coursera.org/professional-certificates/ibm-data-science">IBM Data Science Professional Certificate</a> program on Coursera. This program will provide me with the opportunity to enhance my skills and knowledge in the field of data science, and I am looking forward to the learning journey ahead.</p>
 :::
 
-</body>
-
-</html>
-:::
+## Featured Blog Posts
+:::{#blog-listing}
 :::
