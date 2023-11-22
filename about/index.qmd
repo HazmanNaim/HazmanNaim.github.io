@@ -71,7 +71,7 @@ In addition to my core focus on Python, data science, machine learning, and AI, 
 
 # Open Source Contributions
 
--   [Mesolitica-Malaysian Dataset](https://github.com/mesolitica/malaysian-dataset) - Scraped websites to collect over 1 MB of text data for Malaysian language Large Language Model.
+-   [Mesolitica-Malaysian Dataset](https://github.com/mesolitica/malaysian-dataset) - Scraped websites to collect over 50+ pages of data for Malaysian language Large Language Model.
 
 # Awards
 
