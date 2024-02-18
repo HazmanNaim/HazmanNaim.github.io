@@ -34,8 +34,8 @@ listing:
             
             <p><b><span style="color:#E6AA04"">JOB MARKET 2024:</span></b> I am looking for machine learning positions in Malaysia starting in 2024. My current interests revolve around deep learning, computer vision, NLP and also deploying these AI technologies for applications. I am also open to learn new topics. I spend a considerable amount of my time programming in Python (PyTorch + TensorFlow). </p>
             <p>Here is my <a href="cv/index.html"><span style='text-decoration: underline;
-            text-decoration-color: #E6AA04;'>CV (Link)</span></a>. Reach out if you think there might be a fit: <a href="mailto:mail.hazmannaimbinahsan@gmail.com"><span style='text-decoration: underline;
-            text-decoration-color: #E6AA04;'>mail.hazmannaimbinahsan@gmail.com</span></a></p>
+            text-decoration-color: #E6AA04;'>CV (Link)</span></a>. Reach out if you think there might be a fit: <a href="mailto:hazmannaimbinahsan@gmail.com"><span style='text-decoration: underline;
+            text-decoration-color: #E6AA04;'>hazmannaimbinahsan@gmail.com</span></a></p>
         </div>
         <div class="hero_image">
             <img src="/img/Hazman_Front.png"/>
