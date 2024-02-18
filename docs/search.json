@@ -46,7 +46,7 @@
     "href": "blog/240218_gan-first-project/index.html#initialize-the-weights",
     "title": "AI Learns to Generate Synthetic Deep Space Images",
     "section": "Initialize the Weights",
-    "text": "Initialize the Weights\nLet us define the custom weights for our layers. We define a function weigths_init to initialize the weights of our neural network layers. This function is applied to both the generator \\(('netG')\\) and the discriminator \\(('netD')\\).\n# custom weights initialization called on netG and netD\ndef weights_init(m):\n    classname = m.__class__.__name__\n    if classname.find('Conv') != -1:\n        nn.init.normal_(m.weight.data, 0.0, 0.02)\n    elif classname.find('BatchNorm') != -1:\n        nn.init.normal_(m.weight.data, 1.0, 0.02)\n        nn.init.constant_(m.bias.data, 0)"
+    "text": "Initialize the Weights\nLet us define the custom weights for our layers. We define a function weigths_init to initialize the weights of our neural network layers. This function is applied to both the generator (netG) and the discriminator (netD).\n# custom weights initialization called on netG and netD\ndef weights_init(m):\n    classname = m.__class__.__name__\n    if classname.find('Conv') != -1:\n        nn.init.normal_(m.weight.data, 0.0, 0.02)\n    elif classname.find('BatchNorm') != -1:\n        nn.init.normal_(m.weight.data, 1.0, 0.02)\n        nn.init.constant_(m.bias.data, 0)"
   },
   {
     "objectID": "blog/240218_gan-first-project/index.html#build-the-generator",

@@ -125,8 +125,6 @@ background-size: cover;
       }
 </style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -253,7 +251,7 @@ background-size: cover;
   <li><a href="#initializing-loss-function-and-optimizers" id="toc-initializing-loss-function-and-optimizers" class="nav-link" data-scroll-target="#initializing-loss-function-and-optimizers">Initializing Loss Function and Optimizers</a></li>
   <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model Training</a></li>
   <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   </ul>
 </nav>
 </nav>
@@ -379,7 +377,7 @@ background-size: cover;
 <p>As I mentioned in my previous post, GANs are composed of two models, a generator and a discriminator. The task of the generator is to generate fake images whereas the task of the discriminator is to distinguish the fake from the true. In other words, a GAN is a two models that involves in an internal game between two adversarial parties each trying their best to accomplish their task. As this competition progresses, the generator becomes increasingly better at generating fake images and the discriminator also starts to get better and determining the fake from the generated images.</p>
 <section id="initialize-the-weights" class="level2">
 <h2 class="anchored" data-anchor-id="initialize-the-weights">Initialize the Weights</h2>
-<p>Let us define the custom weights for our layers. We define a function <code>weigths_init</code> to initialize the weights of our neural network layers. This function is applied to both the generator <span class="math inline">\(('netG')\)</span> and the discriminator <span class="math inline">\(('netD')\)</span>.</p>
+<p>Let us define the custom weights for our layers. We define a function <code>weigths_init</code> to initialize the weights of our neural network layers. This function is applied to both the generator (<code>netG</code>) and the discriminator (<code>netD</code>).</p>
 <div class="sourceCode" id="custom-weights"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="custom-weights-1"><a href="#custom-weights-1" aria-hidden="true" tabindex="-1"></a><span class="co"># custom weights initialization called on netG and netD</span></span>
 <span id="custom-weights-2"><a href="#custom-weights-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> weights_init(m):</span>
 <span id="custom-weights-3"><a href="#custom-weights-3" aria-hidden="true" tabindex="-1"></a>    classname <span class="op">=</span> m.__class__.<span class="va">__name__</span></span>
@@ -521,7 +519,7 @@ background-size: cover;
 </section>
 <section id="initializing-loss-function-and-optimizers" class="level1">
 <h1>Initializing Loss Function and Optimizers</h1>
-<p>Now, we set up crucial components for training our GAN. First, we initialize the Binary Cross Entropy (BCE) loss function <span class="math inline">\(('criterion')\)</span> using PyTorch’s <code>nn.BCELoss()</code>. This function will help us measure the difference between predicted and target values during training. Additionally, we create a batch of latent vectors <span class="math inline">\(('fixed\_noise')\)</span> to visualize the progression of the generator throughout training. These vectors will serve as input for generating fake images. Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones (<span class="math inline">\(('real\_label')\)</span> and <span class="math inline">\(('fake\_label')\)</span> respectively). Finally, we set up Adam optimizers for both the generator and discriminator (<span class="math inline">\(('optimizerG')\)</span> and <span class="math inline">\(('optimizerD')\)</span>). These optimizers will adjust the model’s parameters during training to minimize the loss and improve performance.</p>
+<p>Now, we set up crucial components for training our GAN. First, we initialize the Binary Cross Entropy (BCE) loss function (<code>criterion</code>) using PyTorch’s <code>nn.BCELoss()</code>. This function will help us measure the difference between predicted and target values during training. Additionally, we create a batch of latent vectors (<code>fixed_noise</code>) to visualize the progression of the generator throughout training. These vectors will serve as input for generating fake images. Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ((<code>real_label</code>) and (<code>fake_label</code>) respectively). Finally, we set up Adam optimizers for both the generator and discriminator ((<code>optimizerG</code>) and (<code>optimizerD</code>)). These optimizers will adjust the model’s parameters during training to minimize the loss and improve performance.</p>
 <div class="sourceCode" id="initialize-loss"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="initialize-loss-1"><a href="#initialize-loss-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize BCELoss function</span></span>
 <span id="initialize-loss-2"><a href="#initialize-loss-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.BCELoss()</span>
 <span id="initialize-loss-3"><a href="#initialize-loss-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -538,9 +536,9 @@ background-size: cover;
 </section>
 <section id="model-training" class="level1">
 <h1>Model Training</h1>
-<p>Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN. We define the training loop for our GAN model. We initialize lists to keep track of the progress, including images generated during training <span class="math inline">\(('img\_list')\)</span> and losses for both the generator and discriminator (<span class="math inline">\('G_losses'\)</span> and <span class="math inline">\('D_losses'\)</span>, respectively). The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.</p>
-<p>During each iteration, we update the discriminator <span class="math inline">\(('netD')\)</span> and generator <span class="math inline">\(('netG')\)</span> networks alternatively to optimize their performance. For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.</p>
-<p>Training progresses by updating the discriminator’s parameters based on the gradients of its loss <span class="math inline">\(('errD')\)</span> calculated from both real and fake samples. Similarly, the generator’s parameters are updated based on the gradients of its loss <span class="math inline">\(('errG')\)</span> calculated from the discriminator’s response to generated images.</p>
+<p>Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN. We define the training loop for our GAN model. We initialize lists to keep track of the progress, including images generated during training (<code>img_list</code>) and losses for both the generator and discriminator (<code>G_losses</code> and <code>D_losses</code>, respectively). The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.</p>
+<p>During each iteration, we update the discriminator (<code>netD</code>) and generator (<code>netG</code>) networks alternatively to optimize their performance. For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.</p>
+<p>Training progresses by updating the discriminator’s parameters based on the gradients of its loss (<code>errD</code>) calculated from both real and fake samples. Similarly, the generator’s parameters are updated based on the gradients of its loss (<code>errG</code>) calculated from the discriminator’s response to generated images.</p>
 <p>Throughout training, we monitor and output the losses for both networks, as well as other relevant statistics. Additionally, we periodically save the generated images for visualization and analysis.</p>
 <div class="sourceCode" id="training-loop"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="training-loop-1"><a href="#training-loop-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training Loop</span></span>
 <span id="training-loop-2"><a href="#training-loop-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -644,7 +642,7 @@ background-size: cover;
 [998/1000][0/6] Loss_D: 1.2623  Loss_G: 1.3359  D(x): 0.5421    D(G(z)): 0.3986 / 0.3066
 [999/1000][0/6] Loss_D: 1.0057  Loss_G: 2.4666  D(x): 0.4860    D(G(z)): 0.1747 / 0.1328
 [1000/1000][0/6]    Loss_D: 2.3245  Loss_G: 0.4596  D(x): 0.7497    D(G(z)): 0.6979 / 0.6514</code></pre>
-<p>For each iteration, the log reports the discriminator <span class="math inline">\(('Loss\_D')\)</span> and generator <span class="math inline">\(('Loss_G')\)</span> losses, as well as the discriminator’s accuracy in classifying real samples <span class="math inline">\(('D(x)')\)</span> and generated samples <span class="math inline">\(('D(G(z))')\)</span>. These metrics provide a comprehensive view of the GAN’s performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.</p>
+<p>For each iteration, the log reports the discriminator (<code>Loss_D</code>) and generator (<code>Loss_G</code>) losses, as well as the discriminator’s accuracy in classifying real samples (<code>D(x)</code>) and generated samples (<code>D(G(z))</code>). These metrics provide a comprehensive view of the GAN’s performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.</p>
 <p>During the training process, fluctuations in both the losses and accuracy metrics are frequently observed, indicating the dynamic nature of the adversarial learning process. This phenomenon is commonplace in GAN training, which is known for its complexity, since it requires balancing the performance of the generator and the discriminator in such a way that one does not dominate over the other. This is referred to as a min-max game in game theory terms, and finding an equilibrium in such structures are known to be difficult.</p>
 <p>Initially, the losses may be high and fluctuate widely as the networks learn to adapt to the data distribution. However, as training progresses, convergence towards lower losses and improved accuracy is expected, indicating that the generator is producing more realistic images and the discriminator is becoming more better in judging the generated images.</p>
 </section>
@@ -670,7 +668,7 @@ background-size: cover;
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">My DCGAN model is learning how to generate images of deep space.</figcaption>
+<figcaption class="figure-caption">My DCGAN model is learning to generate images of deep space.</figcaption>
 </figure>
 </div>
 <p>The generated images exhibit fuzziness, pixelation, and in some cases, they are indistinguishable. Nonetheless, upon closer inspection, some of the images are actually resemble gaseous nebula. To illustrate, we can visualize individual results.</p>
@@ -696,11 +694,18 @@ background-size: cover;
 </div>
 <p>The loss curve exhibits a highly erratic and spiky nature, which presents a challenge in determining the optimal stopping point for GAN training. Unlike classical deep learning training, where we typically observe a gradual decrease in loss until it plateaus upon convergence, the behavior of a GAN’s loss curve is less predictable. There are clear signs of failure, such as one component’s loss diverging exponentially from its counterpart, fortunately this scenario did not happen here. In this case, I allowed the training to continue until reaching the specified number of iterations. As demonstrated by the results above, our task did not encounter failure.</p>
 <p>I prepared a Kaggle notebook if you want to reproduce the result. <a href="https://www.kaggle.com/code/hazmannaim/deep-space-image-synthesis-with-dcgan/notebook#Libraries">Kaggle Notebook</a>.</p>
+<p><strong>Note:</strong></p>
+<p><em>This project is based on PyTorch’s tutorial working with DCGAN <span class="citation" data-cites="pytorch2018gan">Inkawhich (<a href="#ref-pytorch2018gan" role="doc-biblioref">2018</a>)</span>. Some of the insights were taken from <span class="citation" data-cites="tae2020gan">Tae (<a href="#ref-tae2020gan" role="doc-biblioref">2020</a>)</span> work.</em></p>
 </section>
-<section id="references" class="level1">
-<h1>References</h1>
-<div id="refs" role="list">
-
+<section id="reference" class="level1">
+<h1>Reference</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-pytorch2018gan" class="csl-entry" role="listitem">
+Inkawhich, Nathan. 2018. <span>“DCGAN Tutorial.”</span> <a href="https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html" class="uri">https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html</a>.
+</div>
+<div id="ref-tae2020gan" class="csl-entry" role="listitem">
+Tae, Jake. 2020. <span>“My First GAN.”</span> <a href="https://jaketae.github.io/study/gan/" class="uri">https://jaketae.github.io/study/gan/</a>.
+</div>
 </div>
 
 
@@ -1160,7 +1165,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>Let us define the custom weights for our layers.</span>
 <span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>We define a function <span class="in">`weigths_init`</span> to initialize the weights of our neural network layers.</span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>This function is applied to both the generator $('netG')$ and the discriminator $('netD')$.</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>This function is applied to both the generator (<span class="in">`netG`</span>) and the discriminator (<span class="in">`netD`</span>).</span>
 <span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#custom-weights .Python}</span></span>
 <span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="in"># custom weights initialization called on netG and netD</span></span>
@@ -1330,12 +1335,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a><span class="fu"># Initializing Loss Function and Optimizers</span></span>
 <span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a>Now, we set up crucial components for training our GAN.</span>
-<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a>First, we initialize the Binary Cross Entropy (BCE) loss function $('criterion')$ using PyTorch's <span class="in">`nn.BCELoss()`</span>.</span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a>First, we initialize the Binary Cross Entropy (BCE) loss function (<span class="in">`criterion`</span>) using PyTorch's <span class="in">`nn.BCELoss()`</span>.</span>
 <span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a>This function will help us measure the difference between predicted and target values during training.</span>
-<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a>Additionally, we create a batch of latent vectors $('fixed<span class="sc">\_</span>noise')$ to visualize the progression of the generator throughout training.</span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a>Additionally, we create a batch of latent vectors (<span class="in">`fixed_noise`</span>) to visualize the progression of the generator throughout training.</span>
 <span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a>These vectors will serve as input for generating fake images.</span>
-<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a>Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ($('real<span class="sc">\_</span>label')$ and $('fake<span class="sc">\_</span>label')$ respectively).</span>
-<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a>Finally, we set up Adam optimizers for both the generator and discriminator ($('optimizerG')$ and $('optimizerD')$).</span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a>Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ((<span class="in">`real_label`</span>) and (<span class="in">`fake_label`</span>) respectively).</span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a>Finally, we set up Adam optimizers for both the generator and discriminator ((<span class="in">`optimizerG`</span>) and (<span class="in">`optimizerD`</span>)).</span>
 <span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a>These optimizers will adjust the model's parameters during training to minimize the loss and improve performance.</span>
 <span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#initialize-loss .Python}</span></span>
@@ -1358,14 +1363,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a>Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN.</span>
 <span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a>We define the training loop for our GAN model.</span>
-<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>We initialize lists to keep track of the progress, including images generated during training $('img<span class="sc">\_</span>list')$ and losses for both the generator and discriminator ($'G_losses'$ and $'D_losses'$, respectively).</span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>We initialize lists to keep track of the progress, including images generated during training (<span class="in">`img_list`</span>) and losses for both the generator and discriminator (<span class="in">`G_losses`</span> and <span class="in">`D_losses`</span>, respectively).</span>
 <span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a>The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.</span>
 <span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a>During each iteration, we update the discriminator $('netD')$ and generator $('netG')$ networks alternatively to optimize their performance.</span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a>During each iteration, we update the discriminator (<span class="in">`netD`</span>) and generator (<span class="in">`netG`</span>) networks alternatively to optimize their performance.</span>
 <span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a>For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.</span>
 <span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a>Training progresses by updating the discriminator's parameters based on the gradients of its loss $('errD')$ calculated from both real and fake samples.</span>
-<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a>Similarly, the generator's parameters are updated based on the gradients of its loss $('errG')$ calculated from the discriminator's response to generated images.</span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a>Training progresses by updating the discriminator's parameters based on the gradients of its loss (<span class="in">`errD`</span>) calculated from both real and fake samples.</span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a>Similarly, the generator's parameters are updated based on the gradients of its loss (<span class="in">`errG`</span>) calculated from the discriminator's response to generated images.</span>
 <span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a>Throughout training, we monitor and output the losses for both networks, as well as other relevant statistics.</span>
 <span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a>Additionally, we periodically save the generated images for visualization and analysis.</span>
@@ -1479,7 +1484,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-482"><a href="#cb4-482" aria-hidden="true" tabindex="-1"></a><span class="in">[1000/1000][0/6]    Loss_D: 2.3245  Loss_G: 0.4596  D(x): 0.7497    D(G(z)): 0.6979 / 0.6514</span></span>
 <span id="cb4-483"><a href="#cb4-483" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-484"><a href="#cb4-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-485"><a href="#cb4-485" aria-hidden="true" tabindex="-1"></a>For each iteration, the log reports the discriminator $('Loss<span class="sc">\_</span>D')$ and generator $('Loss_G')$ losses, as well as the discriminator's accuracy in classifying real samples $('D(x)')$ and generated samples $('D(G(z))')$.</span>
+<span id="cb4-485"><a href="#cb4-485" aria-hidden="true" tabindex="-1"></a>For each iteration, the log reports the discriminator (<span class="in">`Loss_D`</span>) and generator (<span class="in">`Loss_G`</span>) losses, as well as the discriminator's accuracy in classifying real samples (<span class="in">`D(x)`</span>) and generated samples (<span class="in">`D(G(z))`</span>).</span>
 <span id="cb4-486"><a href="#cb4-486" aria-hidden="true" tabindex="-1"></a>These metrics provide a comprehensive view of the GAN's performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.</span>
 <span id="cb4-487"><a href="#cb4-487" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-488"><a href="#cb4-488" aria-hidden="true" tabindex="-1"></a>During the training process, fluctuations in both the losses and accuracy metrics are frequently observed, indicating the dynamic nature of the adversarial learning process.</span>
@@ -1512,7 +1517,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-515"><a href="#cb4-515" aria-hidden="true" tabindex="-1"></a><span class="in">plt.show()</span></span>
 <span id="cb4-516"><a href="#cb4-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-517"><a href="#cb4-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a><span class="al">![My DCGAN model is learning how to generate images of deep space.](img/2.png)</span></span>
+<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a><span class="al">![My DCGAN model is learning to generate images of deep space.](img/2.png)</span></span>
 <span id="cb4-519"><a href="#cb4-519" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-520"><a href="#cb4-520" aria-hidden="true" tabindex="-1"></a>The generated images exhibit fuzziness, pixelation, and in some cases, they are indistinguishable. Nonetheless, upon closer inspection, some of the images are actually resemble gaseous nebula. To illustrate, we can visualize individual results.</span>
 <span id="cb4-521"><a href="#cb4-521" aria-hidden="true" tabindex="-1"></a></span>
@@ -1546,10 +1551,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-549"><a href="#cb4-549" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-550"><a href="#cb4-550" aria-hidden="true" tabindex="-1"></a>I prepared a Kaggle notebook if you want to reproduce the result. <span class="co">[</span><span class="ot">Kaggle Notebook</span><span class="co">](https://www.kaggle.com/code/hazmannaim/deep-space-image-synthesis-with-dcgan/notebook#Libraries)</span>.</span>
 <span id="cb4-551"><a href="#cb4-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-552"><a href="#cb4-552" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb4-552"><a href="#cb4-552" aria-hidden="true" tabindex="-1"></a>**Note:**</span>
 <span id="cb4-553"><a href="#cb4-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-554"><a href="#cb4-554" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
-<span id="cb4-555"><a href="#cb4-555" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-554"><a href="#cb4-554" aria-hidden="true" tabindex="-1"></a>*This project is based on PyTorch's tutorial working with DCGAN @pytorch2018gan. Some of the insights were taken from @tae2020gan work.*</span>
+<span id="cb4-555"><a href="#cb4-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-556"><a href="#cb4-556" aria-hidden="true" tabindex="-1"></a><span class="fu"># Reference</span></span>
+<span id="cb4-557"><a href="#cb4-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-558"><a href="#cb4-558" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb4-559"><a href="#cb4-559" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

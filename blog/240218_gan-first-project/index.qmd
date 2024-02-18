@@ -163,7 +163,7 @@ As this competition progresses, the generator becomes increasingly better at gen
 
 Let us define the custom weights for our layers.
 We define a function `weigths_init` to initialize the weights of our neural network layers.
-This function is applied to both the generator $('netG')$ and the discriminator $('netD')$.
+This function is applied to both the generator (`netG`) and the discriminator (`netD`).
 
 ``` {#custom-weights .Python}
 # custom weights initialization called on netG and netD
@@ -333,12 +333,12 @@ Discriminator(
 # Initializing Loss Function and Optimizers
 
 Now, we set up crucial components for training our GAN.
-First, we initialize the Binary Cross Entropy (BCE) loss function $('criterion')$ using PyTorch's `nn.BCELoss()`.
+First, we initialize the Binary Cross Entropy (BCE) loss function (`criterion`) using PyTorch's `nn.BCELoss()`.
 This function will help us measure the difference between predicted and target values during training.
-Additionally, we create a batch of latent vectors $('fixed\_noise')$ to visualize the progression of the generator throughout training.
+Additionally, we create a batch of latent vectors (`fixed_noise`) to visualize the progression of the generator throughout training.
 These vectors will serve as input for generating fake images.
-Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ($('real\_label')$ and $('fake\_label')$ respectively).
-Finally, we set up Adam optimizers for both the generator and discriminator ($('optimizerG')$ and $('optimizerD')$).
+Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ((`real_label`) and (`fake_label`) respectively).
+Finally, we set up Adam optimizers for both the generator and discriminator ((`optimizerG`) and (`optimizerD`)).
 These optimizers will adjust the model's parameters during training to minimize the loss and improve performance.
 
 ``` {#initialize-loss .Python}
@@ -361,14 +361,14 @@ optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=(beta1, 0.999))
 
 Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN.
 We define the training loop for our GAN model.
-We initialize lists to keep track of the progress, including images generated during training $('img\_list')$ and losses for both the generator and discriminator ($'G_losses'$ and $'D_losses'$, respectively).
+We initialize lists to keep track of the progress, including images generated during training (`img_list`) and losses for both the generator and discriminator (`G_losses` and `D_losses`, respectively).
 The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.
 
-During each iteration, we update the discriminator $('netD')$ and generator $('netG')$ networks alternatively to optimize their performance.
+During each iteration, we update the discriminator (`netD`) and generator (`netG`) networks alternatively to optimize their performance.
 For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.
 
-Training progresses by updating the discriminator's parameters based on the gradients of its loss $('errD')$ calculated from both real and fake samples.
-Similarly, the generator's parameters are updated based on the gradients of its loss $('errG')$ calculated from the discriminator's response to generated images.
+Training progresses by updating the discriminator's parameters based on the gradients of its loss (`errD`) calculated from both real and fake samples.
+Similarly, the generator's parameters are updated based on the gradients of its loss (`errG`) calculated from the discriminator's response to generated images.
 
 Throughout training, we monitor and output the losses for both networks, as well as other relevant statistics.
 Additionally, we periodically save the generated images for visualization and analysis.
@@ -482,7 +482,7 @@ Starting Training Loop...
 [1000/1000][0/6]    Loss_D: 2.3245  Loss_G: 0.4596  D(x): 0.7497    D(G(z)): 0.6979 / 0.6514
 ```
 
-For each iteration, the log reports the discriminator $('Loss\_D')$ and generator $('Loss_G')$ losses, as well as the discriminator's accuracy in classifying real samples $('D(x)')$ and generated samples $('D(G(z))')$.
+For each iteration, the log reports the discriminator (`Loss_D`) and generator (`Loss_G`) losses, as well as the discriminator's accuracy in classifying real samples (`D(x)`) and generated samples (`D(G(z))`).
 These metrics provide a comprehensive view of the GAN's performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.
 
 During the training process, fluctuations in both the losses and accuracy metrics are frequently observed, indicating the dynamic nature of the adversarial learning process.
@@ -515,7 +515,7 @@ plt.imshow(np.transpose(img_list[-1],(1,2,0)))
 plt.show()
 ```
 
-![My DCGAN model is learning how to generate images of deep space.](img/2.png)
+![My DCGAN model is learning to generate images of deep space.](img/2.png)
 
 The generated images exhibit fuzziness, pixelation, and in some cases, they are indistinguishable. Nonetheless, upon closer inspection, some of the images are actually resemble gaseous nebula. To illustrate, we can visualize individual results.
 
@@ -549,7 +549,11 @@ The loss curve exhibits a highly erratic and spiky nature, which presents a chal
 
 I prepared a Kaggle notebook if you want to reproduce the result. [Kaggle Notebook](https://www.kaggle.com/code/hazmannaim/deep-space-image-synthesis-with-dcgan/notebook#Libraries).
 
-# References
+**Note:**
+
+*This project is based on PyTorch's tutorial working with DCGAN @pytorch2018gan. Some of the insights were taken from @tae2020gan work.*
+
+# Reference
 
 ::: {#refs}
 :::
