@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Hazman Naim Bin Ahsan">
+<meta name="dcterms.date" content="2024-02-18">
+<meta name="description" content="Training AI with DCGAN to generate synthetic deep space images.">
+
+<title>Hazman Naim - AI Learns to Generate Synthetic Deep Space Images</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/logo_data.jpeg" rel="icon" type="image/jpeg">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(../../img/milkyway_bg.png);
+background-size: cover;
+      }
+</style>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="floating nav-fixed slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../img/logo_data.jpeg" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Hazman Naim</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about/index.html" rel="" target="">
+ <span class="menu-text">About Me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv/index.html" rel="" target="">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog/index.html" rel="" target="">
+ <span class="menu-text">NeuralBites</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/HazmanNaim" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/hazmannaim/" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:mail.hazmannaimbinahsan@gmail.com" rel="" target=""><i class="bi bi-envelope" role="img" aria-label="email">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.kaggle.com/hazmannaim" rel="" target=""><i class="bi bi-window-fullscreen" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default blog-post page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <div class="quarto-title-block"><div><h1 class="title">AI Learns to Generate Synthetic Deep Space Images</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+                  <div>
+        <div class="description">
+          Training AI with DCGAN to generate synthetic deep space images.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">data science</div>
+                <div class="quarto-category">project</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://www.linkedin.com/in/hazmannaim/">Hazman Naim Bin Ahsan</a> </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 18, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-dcgan" id="toc-what-is-dcgan" class="nav-link active" data-scroll-target="#what-is-dcgan">What is DCGAN</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#configurations" id="toc-configurations" class="nav-link" data-scroll-target="#configurations">Configurations</a></li>
+  <li><a href="#dataset-preparation" id="toc-dataset-preparation" class="nav-link" data-scroll-target="#dataset-preparation">Dataset Preparation</a></li>
+  <li><a href="#building-the-model" id="toc-building-the-model" class="nav-link" data-scroll-target="#building-the-model">Building the Model</a>
+  <ul class="collapse">
+  <li><a href="#initialize-the-weights" id="toc-initialize-the-weights" class="nav-link" data-scroll-target="#initialize-the-weights">Initialize the Weights</a></li>
+  <li><a href="#build-the-generator" id="toc-build-the-generator" class="nav-link" data-scroll-target="#build-the-generator">Build the Generator</a></li>
+  <li><a href="#build-the-discriminator" id="toc-build-the-discriminator" class="nav-link" data-scroll-target="#build-the-discriminator">Build the Discriminator</a></li>
+  </ul></li>
+  <li><a href="#initializing-loss-function-and-optimizers" id="toc-initializing-loss-function-and-optimizers" class="nav-link" data-scroll-target="#initializing-loss-function-and-optimizers">Initializing Loss Function and Optimizers</a></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model Training</a></li>
+  <li><a href="#result" id="toc-result" class="nav-link" data-scroll-target="#result">Result</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
+<div class="no-row-height column-margin column-container">
+  <div class="">
+    <img src="img/thumbnail.png" style="width:100%">
+  </div>
+</div>
+
+
+
+
+<p>In this post, we will explore how I utilize DCGAN to generate synthetic images of deep space objects. Employing PyTorch, we implement a straightforward DCGAN model. Our objective is to train a neural network capable of producing deep space objects images. This serves as a post in practical work on using DCGAN and continuation of <a href="https://hazmannaim.github.io\blog\240214_gan-math\index.html">previous post</a> where we learn the mathematics behind the beauty of GAN.</p>
+<section id="what-is-dcgan" class="level1">
+<h1>What is DCGAN</h1>
+<p>DCGAN, short for Deep Convolutional Generative Adversarial Network, is a specialized variant within the broader category of Generative Adversarial Networks (GANs). While both DCGAN and GAN share the core principle of adversarial training, where a generator network competes with a discriminator network to create realistic images, they primarily differ in their architectural design. DCGANs use deep convolutional neural networks (CNNs) in both the generator and discriminator components, enabling the effective learning of hierarchical representations in image data. This architectural choice enables DCGANs to generate higher-quality images with finer details compared to traditional GANs, which typically rely on fully connected layers. In my previous post, I explored into the mathematical aspects of GANs. Given the differing architectures, there are variations in the mathematical framework between DCGAN and GAN. Nevertheless, the main goal remains the same: to illustrate the concept of GANs in generating synthetic images.</p>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<p>Here are the dependencies and libraries that I used for this project.</p>
+<div class="sourceCode" id="import-libraries"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="import-libraries-1"><a href="#import-libraries-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import necessary libraries</span></span>
+<span id="import-libraries-2"><a href="#import-libraries-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="import-libraries-3"><a href="#import-libraries-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="import-libraries-4"><a href="#import-libraries-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="import-libraries-5"><a href="#import-libraries-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="import-libraries-6"><a href="#import-libraries-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.parallel</span>
+<span id="import-libraries-7"><a href="#import-libraries-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.backends.cudnn <span class="im">as</span> cudnn</span>
+<span id="import-libraries-8"><a href="#import-libraries-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="import-libraries-9"><a href="#import-libraries-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils.data</span>
+<span id="import-libraries-10"><a href="#import-libraries-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.datasets <span class="im">as</span> dset</span>
+<span id="import-libraries-11"><a href="#import-libraries-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.transforms <span class="im">as</span> transforms</span>
+<span id="import-libraries-12"><a href="#import-libraries-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torchvision.utils <span class="im">as</span> vutils</span>
+<span id="import-libraries-13"><a href="#import-libraries-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="import-libraries-14"><a href="#import-libraries-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="import-libraries-15"><a href="#import-libraries-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
+<span id="import-libraries-16"><a href="#import-libraries-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> HTML</span>
+<span id="import-libraries-17"><a href="#import-libraries-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="import-libraries-18"><a href="#import-libraries-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="import-libraries-19"><a href="#import-libraries-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Set matplotlib to inline mode</span></span>
+<span id="import-libraries-20"><a href="#import-libraries-20" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="import-libraries-21"><a href="#import-libraries-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="import-libraries-22"><a href="#import-libraries-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Set random seed for reproducibility</span></span>
+<span id="import-libraries-23"><a href="#import-libraries-23" aria-hidden="true" tabindex="-1"></a>manualSeed <span class="op">=</span> <span class="dv">42</span></span>
+<span id="import-libraries-24"><a href="#import-libraries-24" aria-hidden="true" tabindex="-1"></a><span class="co"># manualSeed = random.randint(1, 10000) # Use if you want new results</span></span>
+<span id="import-libraries-25"><a href="#import-libraries-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Random Seed: "</span>, manualSeed)</span>
+<span id="import-libraries-26"><a href="#import-libraries-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="import-libraries-27"><a href="#import-libraries-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set random seed for Python, Torch</span></span>
+<span id="import-libraries-28"><a href="#import-libraries-28" aria-hidden="true" tabindex="-1"></a>random.seed(manualSeed)</span>
+<span id="import-libraries-29"><a href="#import-libraries-29" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(manualSeed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="configurations" class="level1">
+<h1>Configurations</h1>
+<p>Here are the configurations applied for the project. This includes the parameters of the convolutional layers, such as the dimensionality of images, the number of color channels, and the size of the latent dimension.</p>
+<div class="sourceCode" id="configs"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="configs-1"><a href="#configs-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Batch size during training</span></span>
+<span id="configs-2"><a href="#configs-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">64</span></span>
+<span id="configs-3"><a href="#configs-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs-4"><a href="#configs-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Spatial size of training images. All images will be resized to this size using a transformer.</span></span>
+<span id="configs-5"><a href="#configs-5" aria-hidden="true" tabindex="-1"></a>image_size <span class="op">=</span> <span class="dv">64</span></span>
+<span id="configs-6"><a href="#configs-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs-7"><a href="#configs-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of channels in the training images. For color images this is 3</span></span>
+<span id="configs-8"><a href="#configs-8" aria-hidden="true" tabindex="-1"></a>nc <span class="op">=</span> <span class="dv">3</span></span>
+<span id="configs-9"><a href="#configs-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs-10"><a href="#configs-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Size of z latent vector (i.e. size of generator input)</span></span>
+<span id="configs-11"><a href="#configs-11" aria-hidden="true" tabindex="-1"></a>nz <span class="op">=</span> <span class="dv">5</span></span>
+<span id="configs-12"><a href="#configs-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs-13"><a href="#configs-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Size of feature maps in generator</span></span>
+<span id="configs-14"><a href="#configs-14" aria-hidden="true" tabindex="-1"></a>ngf <span class="op">=</span> <span class="dv">128</span></span>
+<span id="configs-15"><a href="#configs-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs-16"><a href="#configs-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Size of feature maps in discriminator</span></span>
+<span id="configs-17"><a href="#configs-17" aria-hidden="true" tabindex="-1"></a>ndf <span class="op">=</span> <span class="dv">128</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can also configure the training parameters. This includes the number of epochs we want to train the GAN (which I set to 1000 epochs), learning rate and model hyperparameter.</p>
+<div class="sourceCode" id="configs2"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="configs2-1"><a href="#configs2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs2-2"><a href="#configs2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of training epochs</span></span>
+<span id="configs2-3"><a href="#configs2-3" aria-hidden="true" tabindex="-1"></a>num_epochs <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="configs2-4"><a href="#configs2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs2-5"><a href="#configs2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Learning rate for optimizers</span></span>
+<span id="configs2-6"><a href="#configs2-6" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> <span class="fl">0.0004</span></span>
+<span id="configs2-7"><a href="#configs2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs2-8"><a href="#configs2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Beta1 hyperparam for Adam optimizers</span></span>
+<span id="configs2-9"><a href="#configs2-9" aria-hidden="true" tabindex="-1"></a>beta1 <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="configs2-10"><a href="#configs2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="configs2-11"><a href="#configs2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of GPUs available. Use 0 for CPU mode.</span></span>
+<span id="configs2-12"><a href="#configs2-12" aria-hidden="true" tabindex="-1"></a>ngpu <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="dataset-preparation" class="level1">
+<h1>Dataset Preparation</h1>
+<p>I have prepared a sample dataset for this project, consisting of 322 deep space object images. It is a small dataset, ideally you will need more than that for better result. For the sake of this demonstration, we will just stick with this dataset. The dataset is hosted on Kaggle, and you can access it <a href="https://www.kaggle.com/datasets/hazmannaim/astrophotography-collection">here</a>. To prepare our dataset, we will build a Data Loader. A Data Loader is essentially a class that aids in shuffling and organizing the data into minibatches. This is particularly helpful considering that our dataset may consume a large amount of memory during training. By utilizing a Data Loader, we can efficiently load samples determined by the batch size from the entire dataset iteratively. When all the samples in the entire dataset have been loaded into the model once, it is referred to as one epoch.</p>
+<div class="sourceCode" id="dataset-dataloader"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="dataset-dataloader-1"><a href="#dataset-dataloader-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Root directory for dataset</span></span>
+<span id="dataset-dataloader-2"><a href="#dataset-dataloader-2" aria-hidden="true" tabindex="-1"></a>dataroot <span class="op">=</span> <span class="st">"/kaggle/input/astrophotography-collection/"</span></span>
+<span id="dataset-dataloader-3"><a href="#dataset-dataloader-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="dataset-dataloader-4"><a href="#dataset-dataloader-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dataset</span></span>
+<span id="dataset-dataloader-5"><a href="#dataset-dataloader-5" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> dset.ImageFolder(root<span class="op">=</span>dataroot,</span>
+<span id="dataset-dataloader-6"><a href="#dataset-dataloader-6" aria-hidden="true" tabindex="-1"></a>                           transform<span class="op">=</span>transforms.Compose([</span>
+<span id="dataset-dataloader-7"><a href="#dataset-dataloader-7" aria-hidden="true" tabindex="-1"></a>                               transforms.Resize(image_size),</span>
+<span id="dataset-dataloader-8"><a href="#dataset-dataloader-8" aria-hidden="true" tabindex="-1"></a>                               transforms.CenterCrop(image_size),</span>
+<span id="dataset-dataloader-9"><a href="#dataset-dataloader-9" aria-hidden="true" tabindex="-1"></a>                               transforms.ToTensor(),</span>
+<span id="dataset-dataloader-10"><a href="#dataset-dataloader-10" aria-hidden="true" tabindex="-1"></a>                               transforms.Normalize((<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>), (<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>)),</span>
+<span id="dataset-dataloader-11"><a href="#dataset-dataloader-11" aria-hidden="true" tabindex="-1"></a>                           ]))</span>
+<span id="dataset-dataloader-12"><a href="#dataset-dataloader-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="dataset-dataloader-13"><a href="#dataset-dataloader-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the dataloader</span></span>
+<span id="dataset-dataloader-14"><a href="#dataset-dataloader-14" aria-hidden="true" tabindex="-1"></a>dataloader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span>batch_size,</span>
+<span id="dataset-dataloader-15"><a href="#dataset-dataloader-15" aria-hidden="true" tabindex="-1"></a>                                         shuffle<span class="op">=</span><span class="va">True</span>, num_workers<span class="op">=</span>workers)</span>
+<span id="dataset-dataloader-16"><a href="#dataset-dataloader-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="dataset-dataloader-17"><a href="#dataset-dataloader-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Decide which device we want to run on</span></span>
+<span id="dataset-dataloader-18"><a href="#dataset-dataloader-18" aria-hidden="true" tabindex="-1"></a>device <span class="op">=</span> torch.device(<span class="st">"cuda:0"</span> <span class="cf">if</span> (torch.cuda.is_available() <span class="kw">and</span> ngpu <span class="op">&gt;</span> <span class="dv">0</span>) <span class="cf">else</span> <span class="st">"cpu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We can view the our prepared training dataset by plotting some of our training images.</p>
+<div class="sourceCode" id="load-training-dataset"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="load-training-dataset-1"><a href="#load-training-dataset-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot some training images</span></span>
+<span id="load-training-dataset-2"><a href="#load-training-dataset-2" aria-hidden="true" tabindex="-1"></a>real_batch <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(dataloader))</span>
+<span id="load-training-dataset-3"><a href="#load-training-dataset-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="load-training-dataset-4"><a href="#load-training-dataset-4" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
+<span id="load-training-dataset-5"><a href="#load-training-dataset-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Training Images"</span>)</span>
+<span id="load-training-dataset-6"><a href="#load-training-dataset-6" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.transpose(vutils.make_grid(real_batch[<span class="dv">0</span>].to(device)[:<span class="dv">64</span>], padding<span class="op">=</span><span class="dv">2</span>, normalize<span class="op">=</span><span class="va">True</span>).cpu(),(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="img/1.png" class="img-fluid" width="531"></p>
+</section>
+<section id="building-the-model" class="level1">
+<h1>Building the Model</h1>
+<p>As I mentioned in my previous post, GANs are composed of two models, a generator and a discriminator. The task of the generator is to generate fake images whereas the task of the discriminator is to distinguish the fake from the true. In other words, a GAN is a two models that involves in an internal game between two adversarial parties each trying their best to accomplish their task. As this competition progresses, the generator becomes increasingly better at generating fake images and the discriminator also starts to get better and determining the fake from the generated images.</p>
+<section id="initialize-the-weights" class="level2">
+<h2 class="anchored" data-anchor-id="initialize-the-weights">Initialize the Weights</h2>
+<p>Let us define the custom weights for our layers. We define a function <code>weigths_init</code> to initialize the weights of our neural network layers. This function is applied to both the generator <span class="math inline">\(('netG')\)</span> and the discriminator <span class="math inline">\(('netD')\)</span>.</p>
+<div class="sourceCode" id="custom-weights"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="custom-weights-1"><a href="#custom-weights-1" aria-hidden="true" tabindex="-1"></a><span class="co"># custom weights initialization called on netG and netD</span></span>
+<span id="custom-weights-2"><a href="#custom-weights-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> weights_init(m):</span>
+<span id="custom-weights-3"><a href="#custom-weights-3" aria-hidden="true" tabindex="-1"></a>    classname <span class="op">=</span> m.__class__.<span class="va">__name__</span></span>
+<span id="custom-weights-4"><a href="#custom-weights-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> classname.find(<span class="st">'Conv'</span>) <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="custom-weights-5"><a href="#custom-weights-5" aria-hidden="true" tabindex="-1"></a>        nn.init.normal_(m.weight.data, <span class="fl">0.0</span>, <span class="fl">0.02</span>)</span>
+<span id="custom-weights-6"><a href="#custom-weights-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> classname.find(<span class="st">'BatchNorm'</span>) <span class="op">!=</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="custom-weights-7"><a href="#custom-weights-7" aria-hidden="true" tabindex="-1"></a>        nn.init.normal_(m.weight.data, <span class="fl">1.0</span>, <span class="fl">0.02</span>)</span>
+<span id="custom-weights-8"><a href="#custom-weights-8" aria-hidden="true" tabindex="-1"></a>        nn.init.constant_(m.bias.data, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="build-the-generator" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-generator">Build the Generator</h2>
+<p>Let’s construct the generator model for our GAN. We begin by defining the <code>Generator</code> class, which comprises functions that return the following neural network architecture:</p>
+<div class="sourceCode" id="generator-class"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="generator-class-1"><a href="#generator-class-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Generator(nn.Module):</span>
+<span id="generator-class-2"><a href="#generator-class-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ngpu):</span>
+<span id="generator-class-3"><a href="#generator-class-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Generator, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="generator-class-4"><a href="#generator-class-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ngpu <span class="op">=</span> ngpu</span>
+<span id="generator-class-5"><a href="#generator-class-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.main <span class="op">=</span> nn.Sequential(</span>
+<span id="generator-class-6"><a href="#generator-class-6" aria-hidden="true" tabindex="-1"></a>            <span class="co"># input is Z, going into a convolution</span></span>
+<span id="generator-class-7"><a href="#generator-class-7" aria-hidden="true" tabindex="-1"></a>            nn.ConvTranspose2d( nz, ngf <span class="op">*</span> <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="generator-class-8"><a href="#generator-class-8" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ngf <span class="op">*</span> <span class="dv">8</span>),</span>
+<span id="generator-class-9"><a href="#generator-class-9" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(<span class="va">True</span>),</span>
+<span id="generator-class-10"><a href="#generator-class-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ngf*8) x 4 x 4</span></span>
+<span id="generator-class-11"><a href="#generator-class-11" aria-hidden="true" tabindex="-1"></a>            nn.ConvTranspose2d(ngf <span class="op">*</span> <span class="dv">8</span>, ngf <span class="op">*</span> <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="generator-class-12"><a href="#generator-class-12" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ngf <span class="op">*</span> <span class="dv">4</span>),</span>
+<span id="generator-class-13"><a href="#generator-class-13" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(<span class="va">True</span>),</span>
+<span id="generator-class-14"><a href="#generator-class-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ngf*4) x 8 x 8</span></span>
+<span id="generator-class-15"><a href="#generator-class-15" aria-hidden="true" tabindex="-1"></a>            nn.ConvTranspose2d( ngf <span class="op">*</span> <span class="dv">4</span>, ngf <span class="op">*</span> <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="generator-class-16"><a href="#generator-class-16" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ngf <span class="op">*</span> <span class="dv">2</span>),</span>
+<span id="generator-class-17"><a href="#generator-class-17" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(<span class="va">True</span>),</span>
+<span id="generator-class-18"><a href="#generator-class-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ngf*2) x 16 x 16</span></span>
+<span id="generator-class-19"><a href="#generator-class-19" aria-hidden="true" tabindex="-1"></a>            nn.ConvTranspose2d( ngf <span class="op">*</span> <span class="dv">2</span>, ngf, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="generator-class-20"><a href="#generator-class-20" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ngf),</span>
+<span id="generator-class-21"><a href="#generator-class-21" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(<span class="va">True</span>),</span>
+<span id="generator-class-22"><a href="#generator-class-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ngf) x 32 x 32</span></span>
+<span id="generator-class-23"><a href="#generator-class-23" aria-hidden="true" tabindex="-1"></a>            nn.ConvTranspose2d( ngf, nc, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="generator-class-24"><a href="#generator-class-24" aria-hidden="true" tabindex="-1"></a>            nn.Tanh()</span>
+<span id="generator-class-25"><a href="#generator-class-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (nc) x 64 x 64</span></span>
+<span id="generator-class-26"><a href="#generator-class-26" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="generator-class-27"><a href="#generator-class-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="generator-class-28"><a href="#generator-class-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, <span class="bu">input</span>):</span>
+<span id="generator-class-29"><a href="#generator-class-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.main(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we instantiate the <code>Generator</code> class and apply the custom weight initialization defined in the <code>weights_init</code> function to the layers of our generator:</p>
+<div class="sourceCode" id="generator-build"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="generator-build-1"><a href="#generator-build-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the generator</span></span>
+<span id="generator-build-2"><a href="#generator-build-2" aria-hidden="true" tabindex="-1"></a>netG <span class="op">=</span> Generator(ngpu).to(device)</span>
+<span id="generator-build-3"><a href="#generator-build-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="generator-build-4"><a href="#generator-build-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle multi-gpu if desired</span></span>
+<span id="generator-build-5"><a href="#generator-build-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (device.<span class="bu">type</span> <span class="op">==</span> <span class="st">'cuda'</span>) <span class="kw">and</span> (ngpu <span class="op">&gt;</span> <span class="dv">1</span>):</span>
+<span id="generator-build-6"><a href="#generator-build-6" aria-hidden="true" tabindex="-1"></a>    netG <span class="op">=</span> nn.DataParallel(netG, <span class="bu">list</span>(<span class="bu">range</span>(ngpu)))</span>
+<span id="generator-build-7"><a href="#generator-build-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="generator-build-8"><a href="#generator-build-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the weights_init function to randomly initialize all weights to mean=0, stdev=0.02.</span></span>
+<span id="generator-build-9"><a href="#generator-build-9" aria-hidden="true" tabindex="-1"></a>netG.<span class="bu">apply</span>(weights_init)</span>
+<span id="generator-build-10"><a href="#generator-build-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="generator-build-11"><a href="#generator-build-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the model</span></span>
+<span id="generator-build-12"><a href="#generator-build-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(netG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let us visualize the architecture of our generator model:</p>
+<pre><code>Generator(
+  (main): Sequential(
+    (0): ConvTranspose2d(5, 1024, kernel_size=(4, 4), stride=(1, 1), bias=False)
+    (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU(inplace=True)
+    (3): ConvTranspose2d(1024, 512, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (4): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (5): ReLU(inplace=True)
+    (6): ConvTranspose2d(512, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (7): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (8): ReLU(inplace=True)
+    (9): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (10): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (11): ReLU(inplace=True)
+    (12): ConvTranspose2d(128, 3, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (13): Tanh()
+  )
+)</code></pre>
+</section>
+<section id="build-the-discriminator" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-discriminator">Build the Discriminator</h2>
+<p>Let’s build a corresponding discriminator class for our GAN. The discriminator is essentially a simple binary classifier that decides whether a given image is real or fake. If we examine the final output layer, we will see one neuron with a sigmoid activation function.</p>
+<div class="sourceCode" id="discriminator-class"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="discriminator-class-1"><a href="#discriminator-class-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Discriminator(nn.Module):</span>
+<span id="discriminator-class-2"><a href="#discriminator-class-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, ngpu):</span>
+<span id="discriminator-class-3"><a href="#discriminator-class-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(Discriminator, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="discriminator-class-4"><a href="#discriminator-class-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ngpu <span class="op">=</span> ngpu</span>
+<span id="discriminator-class-5"><a href="#discriminator-class-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.main <span class="op">=</span> nn.Sequential(</span>
+<span id="discriminator-class-6"><a href="#discriminator-class-6" aria-hidden="true" tabindex="-1"></a>            <span class="co"># input is (nc) x 64 x 64</span></span>
+<span id="discriminator-class-7"><a href="#discriminator-class-7" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(nc, ndf, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="discriminator-class-8"><a href="#discriminator-class-8" aria-hidden="true" tabindex="-1"></a>            nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="discriminator-class-9"><a href="#discriminator-class-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ndf) x 32 x 32</span></span>
+<span id="discriminator-class-10"><a href="#discriminator-class-10" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(ndf, ndf <span class="op">*</span> <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="discriminator-class-11"><a href="#discriminator-class-11" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ndf <span class="op">*</span> <span class="dv">2</span>),</span>
+<span id="discriminator-class-12"><a href="#discriminator-class-12" aria-hidden="true" tabindex="-1"></a>            nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="discriminator-class-13"><a href="#discriminator-class-13" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ndf*2) x 16 x 16</span></span>
+<span id="discriminator-class-14"><a href="#discriminator-class-14" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(ndf <span class="op">*</span> <span class="dv">2</span>, ndf <span class="op">*</span> <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="discriminator-class-15"><a href="#discriminator-class-15" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ndf <span class="op">*</span> <span class="dv">4</span>),</span>
+<span id="discriminator-class-16"><a href="#discriminator-class-16" aria-hidden="true" tabindex="-1"></a>            nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="discriminator-class-17"><a href="#discriminator-class-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ndf*4) x 8 x 8</span></span>
+<span id="discriminator-class-18"><a href="#discriminator-class-18" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(ndf <span class="op">*</span> <span class="dv">4</span>, ndf <span class="op">*</span> <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="discriminator-class-19"><a href="#discriminator-class-19" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(ndf <span class="op">*</span> <span class="dv">8</span>),</span>
+<span id="discriminator-class-20"><a href="#discriminator-class-20" aria-hidden="true" tabindex="-1"></a>            nn.LeakyReLU(<span class="fl">0.2</span>, inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="discriminator-class-21"><a href="#discriminator-class-21" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="discriminator-class-22"><a href="#discriminator-class-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># state size. (ndf*8) x 4 x 4</span></span>
+<span id="discriminator-class-23"><a href="#discriminator-class-23" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(ndf <span class="op">*</span> <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="discriminator-class-24"><a href="#discriminator-class-24" aria-hidden="true" tabindex="-1"></a>            nn.Sigmoid()</span>
+<span id="discriminator-class-25"><a href="#discriminator-class-25" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="discriminator-class-26"><a href="#discriminator-class-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="discriminator-class-27"><a href="#discriminator-class-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, <span class="bu">input</span>):</span>
+<span id="discriminator-class-28"><a href="#discriminator-class-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.main(<span class="bu">input</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we instantiate the <code>Discriminator</code> class and apply the custom weight initialization defined in the <code>weights_init</code> function to the layers of our discriminator:</p>
+<div class="sourceCode" id="discriminator-build"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="discriminator-build-1"><a href="#discriminator-build-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the Discriminator</span></span>
+<span id="discriminator-build-2"><a href="#discriminator-build-2" aria-hidden="true" tabindex="-1"></a>netD <span class="op">=</span> Discriminator(ngpu).to(device)</span>
+<span id="discriminator-build-3"><a href="#discriminator-build-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="discriminator-build-4"><a href="#discriminator-build-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Handle multi-gpu if desired</span></span>
+<span id="discriminator-build-5"><a href="#discriminator-build-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (device.<span class="bu">type</span> <span class="op">==</span> <span class="st">'cuda'</span>) <span class="kw">and</span> (ngpu <span class="op">&gt;</span> <span class="dv">1</span>):</span>
+<span id="discriminator-build-6"><a href="#discriminator-build-6" aria-hidden="true" tabindex="-1"></a>    netD <span class="op">=</span> nn.DataParallel(netD, <span class="bu">list</span>(<span class="bu">range</span>(ngpu)))</span>
+<span id="discriminator-build-7"><a href="#discriminator-build-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="discriminator-build-8"><a href="#discriminator-build-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the weights_init function to randomly initialize all weights</span></span>
+<span id="discriminator-build-9"><a href="#discriminator-build-9" aria-hidden="true" tabindex="-1"></a><span class="co">#  to mean=0, stdev=0.2.</span></span>
+<span id="discriminator-build-10"><a href="#discriminator-build-10" aria-hidden="true" tabindex="-1"></a>netD.<span class="bu">apply</span>(weights_init)</span>
+<span id="discriminator-build-11"><a href="#discriminator-build-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="discriminator-build-12"><a href="#discriminator-build-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the model</span></span>
+<span id="discriminator-build-13"><a href="#discriminator-build-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(netD)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let us visualize the architecture of our discriminator model:</p>
+<pre><code>Discriminator(
+  (main): Sequential(
+    (0): Conv2d(3, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (1): LeakyReLU(negative_slope=0.2, inplace=True)
+    (2): Conv2d(128, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (4): LeakyReLU(negative_slope=0.2, inplace=True)
+    (5): Conv2d(256, 512, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (6): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (7): LeakyReLU(negative_slope=0.2, inplace=True)
+    (8): Conv2d(512, 1024, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)
+    (9): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (10): LeakyReLU(negative_slope=0.2, inplace=True)
+    (11): Conv2d(1024, 1, kernel_size=(4, 4), stride=(1, 1), bias=False)
+    (12): Sigmoid()
+  )
+)</code></pre>
+</section>
+</section>
+<section id="initializing-loss-function-and-optimizers" class="level1">
+<h1>Initializing Loss Function and Optimizers</h1>
+<p>Now, we set up crucial components for training our GAN. First, we initialize the Binary Cross Entropy (BCE) loss function <span class="math inline">\(('criterion')\)</span> using PyTorch’s <code>nn.BCELoss()</code>. This function will help us measure the difference between predicted and target values during training. Additionally, we create a batch of latent vectors <span class="math inline">\(('fixed\_noise')\)</span> to visualize the progression of the generator throughout training. These vectors will serve as input for generating fake images. Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones (<span class="math inline">\(('real\_label')\)</span> and <span class="math inline">\(('fake\_label')\)</span> respectively). Finally, we set up Adam optimizers for both the generator and discriminator (<span class="math inline">\(('optimizerG')\)</span> and <span class="math inline">\(('optimizerD')\)</span>). These optimizers will adjust the model’s parameters during training to minimize the loss and improve performance.</p>
+<div class="sourceCode" id="initialize-loss"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="initialize-loss-1"><a href="#initialize-loss-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize BCELoss function</span></span>
+<span id="initialize-loss-2"><a href="#initialize-loss-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.BCELoss()</span>
+<span id="initialize-loss-3"><a href="#initialize-loss-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="initialize-loss-4"><a href="#initialize-loss-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create batch of latent vectors that we will use to visualize the progression of the generator</span></span>
+<span id="initialize-loss-5"><a href="#initialize-loss-5" aria-hidden="true" tabindex="-1"></a>fixed_noise <span class="op">=</span> torch.randn(<span class="dv">128</span>, nz, <span class="dv">1</span>, <span class="dv">1</span>, device<span class="op">=</span>device)</span>
+<span id="initialize-loss-6"><a href="#initialize-loss-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="initialize-loss-7"><a href="#initialize-loss-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Establish convention for real and fake labels during training</span></span>
+<span id="initialize-loss-8"><a href="#initialize-loss-8" aria-hidden="true" tabindex="-1"></a>real_label <span class="op">=</span> <span class="fl">1.</span></span>
+<span id="initialize-loss-9"><a href="#initialize-loss-9" aria-hidden="true" tabindex="-1"></a>fake_label <span class="op">=</span> <span class="fl">0.</span></span>
+<span id="initialize-loss-10"><a href="#initialize-loss-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="initialize-loss-11"><a href="#initialize-loss-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup Adam optimizers for both G and D</span></span>
+<span id="initialize-loss-12"><a href="#initialize-loss-12" aria-hidden="true" tabindex="-1"></a>optimizerD <span class="op">=</span> optim.Adam(netD.parameters(), lr<span class="op">=</span>lr, betas<span class="op">=</span>(beta1, <span class="fl">0.999</span>))</span>
+<span id="initialize-loss-13"><a href="#initialize-loss-13" aria-hidden="true" tabindex="-1"></a>optimizerG <span class="op">=</span> optim.Adam(netG.parameters(), lr<span class="op">=</span>lr, betas<span class="op">=</span>(beta1, <span class="fl">0.999</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="model-training" class="level1">
+<h1>Model Training</h1>
+<p>Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN. We define the training loop for our GAN model. We initialize lists to keep track of the progress, including images generated during training <span class="math inline">\(('img\_list')\)</span> and losses for both the generator and discriminator (<span class="math inline">\('G_losses'\)</span> and <span class="math inline">\('D_losses'\)</span>, respectively). The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.</p>
+<p>During each iteration, we update the discriminator <span class="math inline">\(('netD')\)</span> and generator <span class="math inline">\(('netG')\)</span> networks alternatively to optimize their performance. For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.</p>
+<p>Training progresses by updating the discriminator’s parameters based on the gradients of its loss <span class="math inline">\(('errD')\)</span> calculated from both real and fake samples. Similarly, the generator’s parameters are updated based on the gradients of its loss <span class="math inline">\(('errG')\)</span> calculated from the discriminator’s response to generated images.</p>
+<p>Throughout training, we monitor and output the losses for both networks, as well as other relevant statistics. Additionally, we periodically save the generated images for visualization and analysis.</p>
+<div class="sourceCode" id="training-loop"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="training-loop-1"><a href="#training-loop-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training Loop</span></span>
+<span id="training-loop-2"><a href="#training-loop-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-3"><a href="#training-loop-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Lists to keep track of progress</span></span>
+<span id="training-loop-4"><a href="#training-loop-4" aria-hidden="true" tabindex="-1"></a>img_list <span class="op">=</span> []</span>
+<span id="training-loop-5"><a href="#training-loop-5" aria-hidden="true" tabindex="-1"></a>G_losses <span class="op">=</span> []</span>
+<span id="training-loop-6"><a href="#training-loop-6" aria-hidden="true" tabindex="-1"></a>D_losses <span class="op">=</span> []</span>
+<span id="training-loop-7"><a href="#training-loop-7" aria-hidden="true" tabindex="-1"></a>iters <span class="op">=</span> <span class="dv">0</span></span>
+<span id="training-loop-8"><a href="#training-loop-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-9"><a href="#training-loop-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Starting Training Loop..."</span>)</span>
+<span id="training-loop-10"><a href="#training-loop-10" aria-hidden="true" tabindex="-1"></a><span class="co"># For each epoch</span></span>
+<span id="training-loop-11"><a href="#training-loop-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
+<span id="training-loop-12"><a href="#training-loop-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># For each batch in the dataloader</span></span>
+<span id="training-loop-13"><a href="#training-loop-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, data <span class="kw">in</span> <span class="bu">enumerate</span>(dataloader, <span class="dv">0</span>):</span>
+<span id="training-loop-14"><a href="#training-loop-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-15"><a href="#training-loop-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">############################</span></span>
+<span id="training-loop-16"><a href="#training-loop-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))</span></span>
+<span id="training-loop-17"><a href="#training-loop-17" aria-hidden="true" tabindex="-1"></a>        <span class="co">###########################</span></span>
+<span id="training-loop-18"><a href="#training-loop-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">## Train with all-real batch</span></span>
+<span id="training-loop-19"><a href="#training-loop-19" aria-hidden="true" tabindex="-1"></a>        netD.zero_grad()</span>
+<span id="training-loop-20"><a href="#training-loop-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Format batch</span></span>
+<span id="training-loop-21"><a href="#training-loop-21" aria-hidden="true" tabindex="-1"></a>        real_cpu <span class="op">=</span> data[<span class="dv">0</span>].to(device)</span>
+<span id="training-loop-22"><a href="#training-loop-22" aria-hidden="true" tabindex="-1"></a>        b_size <span class="op">=</span> real_cpu.size(<span class="dv">0</span>)  </span>
+<span id="training-loop-23"><a href="#training-loop-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Forward pass real batch through D</span></span>
+<span id="training-loop-24"><a href="#training-loop-24" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> netD(real_cpu).view(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="training-loop-25"><a href="#training-loop-25" aria-hidden="true" tabindex="-1"></a>        label <span class="op">=</span> torch.full((output.size(<span class="dv">0</span>),), real_label, dtype<span class="op">=</span>torch.<span class="bu">float</span>, device<span class="op">=</span>device)</span>
+<span id="training-loop-26"><a href="#training-loop-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate loss on all-real batch</span></span>
+<span id="training-loop-27"><a href="#training-loop-27" aria-hidden="true" tabindex="-1"></a>        errD_real <span class="op">=</span> criterion(output, label)</span>
+<span id="training-loop-28"><a href="#training-loop-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate gradients for D in backward pass</span></span>
+<span id="training-loop-29"><a href="#training-loop-29" aria-hidden="true" tabindex="-1"></a>        errD_real.backward()</span>
+<span id="training-loop-30"><a href="#training-loop-30" aria-hidden="true" tabindex="-1"></a>        D_x <span class="op">=</span> output.mean().item()</span>
+<span id="training-loop-31"><a href="#training-loop-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-32"><a href="#training-loop-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">## Train with all-fake batch</span></span>
+<span id="training-loop-33"><a href="#training-loop-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Generate batch of latent vectors</span></span>
+<span id="training-loop-34"><a href="#training-loop-34" aria-hidden="true" tabindex="-1"></a>        noise <span class="op">=</span> torch.randn(output.size(<span class="dv">0</span>), nz, <span class="dv">1</span>, <span class="dv">1</span>, device<span class="op">=</span>device)</span>
+<span id="training-loop-35"><a href="#training-loop-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Generate fake image batch with G</span></span>
+<span id="training-loop-36"><a href="#training-loop-36" aria-hidden="true" tabindex="-1"></a>        fake <span class="op">=</span> netG(noise)</span>
+<span id="training-loop-37"><a href="#training-loop-37" aria-hidden="true" tabindex="-1"></a>        label.fill_(fake_label)</span>
+<span id="training-loop-38"><a href="#training-loop-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Classify all fake batch with D</span></span>
+<span id="training-loop-39"><a href="#training-loop-39" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> netD(fake.detach()).view(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="training-loop-40"><a href="#training-loop-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate D's loss on the all-fake batch</span></span>
+<span id="training-loop-41"><a href="#training-loop-41" aria-hidden="true" tabindex="-1"></a>        errD_fake <span class="op">=</span> criterion(output, label)</span>
+<span id="training-loop-42"><a href="#training-loop-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate the gradients for this batch, accumulated (summed) with previous gradients</span></span>
+<span id="training-loop-43"><a href="#training-loop-43" aria-hidden="true" tabindex="-1"></a>        errD_fake.backward()</span>
+<span id="training-loop-44"><a href="#training-loop-44" aria-hidden="true" tabindex="-1"></a>        D_G_z1 <span class="op">=</span> output.mean().item()</span>
+<span id="training-loop-45"><a href="#training-loop-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Compute error of D as sum over the fake and the real batches</span></span>
+<span id="training-loop-46"><a href="#training-loop-46" aria-hidden="true" tabindex="-1"></a>        errD <span class="op">=</span> errD_real <span class="op">+</span> errD_fake</span>
+<span id="training-loop-47"><a href="#training-loop-47" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update D</span></span>
+<span id="training-loop-48"><a href="#training-loop-48" aria-hidden="true" tabindex="-1"></a>        optimizerD.step()</span>
+<span id="training-loop-49"><a href="#training-loop-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-50"><a href="#training-loop-50" aria-hidden="true" tabindex="-1"></a>        <span class="co">############################</span></span>
+<span id="training-loop-51"><a href="#training-loop-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># (2) Update G network: maximize log(D(G(z)))</span></span>
+<span id="training-loop-52"><a href="#training-loop-52" aria-hidden="true" tabindex="-1"></a>        <span class="co">###########################</span></span>
+<span id="training-loop-53"><a href="#training-loop-53" aria-hidden="true" tabindex="-1"></a>        netG.zero_grad()</span>
+<span id="training-loop-54"><a href="#training-loop-54" aria-hidden="true" tabindex="-1"></a>        label.fill_(real_label)  <span class="co"># fake labels are real for generator cost</span></span>
+<span id="training-loop-55"><a href="#training-loop-55" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Since we just updated D, perform another forward pass of all-fake batch through D</span></span>
+<span id="training-loop-56"><a href="#training-loop-56" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> netD(fake).view(<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="training-loop-57"><a href="#training-loop-57" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate G's loss based on this output</span></span>
+<span id="training-loop-58"><a href="#training-loop-58" aria-hidden="true" tabindex="-1"></a>        errG <span class="op">=</span> criterion(output, label)</span>
+<span id="training-loop-59"><a href="#training-loop-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Calculate gradients for G</span></span>
+<span id="training-loop-60"><a href="#training-loop-60" aria-hidden="true" tabindex="-1"></a>        errG.backward()</span>
+<span id="training-loop-61"><a href="#training-loop-61" aria-hidden="true" tabindex="-1"></a>        D_G_z2 <span class="op">=</span> output.mean().item()</span>
+<span id="training-loop-62"><a href="#training-loop-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Update G</span></span>
+<span id="training-loop-63"><a href="#training-loop-63" aria-hidden="true" tabindex="-1"></a>        optimizerG.step()</span>
+<span id="training-loop-64"><a href="#training-loop-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-65"><a href="#training-loop-65" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Output training stats</span></span>
+<span id="training-loop-66"><a href="#training-loop-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">50</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="training-loop-67"><a href="#training-loop-67" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'[</span><span class="sc">%d</span><span class="st">/</span><span class="sc">%d</span><span class="st">][</span><span class="sc">%d</span><span class="st">/</span><span class="sc">%d</span><span class="st">]</span><span class="ch">\t</span><span class="st">Loss_D: </span><span class="sc">%.4f</span><span class="ch">\t</span><span class="st">Loss_G: </span><span class="sc">%.4f</span><span class="ch">\t</span><span class="st">D(x): </span><span class="sc">%.4f</span><span class="ch">\t</span><span class="st">D(G(z)): </span><span class="sc">%.4f</span><span class="st"> / </span><span class="sc">%.4f</span><span class="st">'</span></span>
+<span id="training-loop-68"><a href="#training-loop-68" aria-hidden="true" tabindex="-1"></a>                  <span class="op">%</span> (epoch<span class="op">+</span><span class="dv">1</span>, num_epochs, i, <span class="bu">len</span>(dataloader),</span>
+<span id="training-loop-69"><a href="#training-loop-69" aria-hidden="true" tabindex="-1"></a>                     errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))</span>
+<span id="training-loop-70"><a href="#training-loop-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-71"><a href="#training-loop-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Save Losses for plotting later</span></span>
+<span id="training-loop-72"><a href="#training-loop-72" aria-hidden="true" tabindex="-1"></a>        G_losses.append(errG.item())</span>
+<span id="training-loop-73"><a href="#training-loop-73" aria-hidden="true" tabindex="-1"></a>        D_losses.append(errD.item())</span>
+<span id="training-loop-74"><a href="#training-loop-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-75"><a href="#training-loop-75" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Check how the generator is doing by saving G's output on fixed_noise</span></span>
+<span id="training-loop-76"><a href="#training-loop-76" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (iters <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span>) <span class="kw">or</span> ((epoch <span class="op">==</span> num_epochs<span class="op">-</span><span class="dv">1</span>) <span class="kw">and</span> (i <span class="op">==</span> <span class="bu">len</span>(dataloader)<span class="op">-</span><span class="dv">1</span>)):</span>
+<span id="training-loop-77"><a href="#training-loop-77" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> torch.no_grad():</span>
+<span id="training-loop-78"><a href="#training-loop-78" aria-hidden="true" tabindex="-1"></a>                fake <span class="op">=</span> netG(fixed_noise).detach().cpu()</span>
+<span id="training-loop-79"><a href="#training-loop-79" aria-hidden="true" tabindex="-1"></a>            img_list.append(vutils.make_grid(fake, padding<span class="op">=</span><span class="dv">2</span>, normalize<span class="op">=</span><span class="va">True</span>))</span>
+<span id="training-loop-80"><a href="#training-loop-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="training-loop-81"><a href="#training-loop-81" aria-hidden="true" tabindex="-1"></a>        iters <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Examine the training log:</p>
+<pre class="{#training-log}"><code>Starting Training Loop...
+[1/1000][0/6]   Loss_D: 2.2758  Loss_G: 17.0022 D(x): 0.2834    D(G(z)): 0.3927 / 0.0010
+[2/1000][0/6]   Loss_D: 44.7588 Loss_G: 25.3654 D(x): 0.6291    D(G(z)): 0.7448 / 0.0186
+[3/1000][0/6]   Loss_D: 17.9932 Loss_G: 40.2899 D(x): 0.0010    D(G(z)): 0.0000 / 0.0000
+[4/1000][0/6]   Loss_D: 21.4372 Loss_G: 12.6890 D(x): 0.1892    D(G(z)): 0.2395 / 0.1450
+[5/1000][0/6]   Loss_D: 25.8914 Loss_G: 10.6171 D(x): 0.3253    D(G(z)): 0.2953 / 0.2394
+[6/1000][0/6]   Loss_D: 5.2777  Loss_G: 11.2162 D(x): 0.0964    D(G(z)): 0.0000 / 0.1247
+'''
+'''
+&lt;output truncated&gt;
+'''
+'''
+[993/1000][0/6] Loss_D: 1.3663  Loss_G: 1.0782  D(x): 0.5472    D(G(z)): 0.4720 / 0.3682
+[994/1000][0/6] Loss_D: 1.1256  Loss_G: 0.9345  D(x): 0.5948    D(G(z)): 0.4337 / 0.3996
+[995/1000][0/6] Loss_D: 1.0744  Loss_G: 1.1576  D(x): 0.5452    D(G(z)): 0.3503 / 0.3248
+[996/1000][0/6] Loss_D: 1.3176  Loss_G: 1.2700  D(x): 0.4744    D(G(z)): 0.2765 / 0.3008
+[997/1000][0/6] Loss_D: 1.5503  Loss_G: 0.8097  D(x): 0.8141    D(G(z)): 0.6486 / 0.4586
+[998/1000][0/6] Loss_D: 1.2623  Loss_G: 1.3359  D(x): 0.5421    D(G(z)): 0.3986 / 0.3066
+[999/1000][0/6] Loss_D: 1.0057  Loss_G: 2.4666  D(x): 0.4860    D(G(z)): 0.1747 / 0.1328
+[1000/1000][0/6]    Loss_D: 2.3245  Loss_G: 0.4596  D(x): 0.7497    D(G(z)): 0.6979 / 0.6514</code></pre>
+<p>For each iteration, the log reports the discriminator <span class="math inline">\(('Loss\_D')\)</span> and generator <span class="math inline">\(('Loss_G')\)</span> losses, as well as the discriminator’s accuracy in classifying real samples <span class="math inline">\(('D(x)')\)</span> and generated samples <span class="math inline">\(('D(G(z))')\)</span>. These metrics provide a comprehensive view of the GAN’s performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.</p>
+<p>During the training process, fluctuations in both the losses and accuracy metrics are frequently observed, indicating the dynamic nature of the adversarial learning process. This phenomenon is commonplace in GAN training, which is known for its complexity, since it requires balancing the performance of the generator and the discriminator in such a way that one does not dominate over the other. This is referred to as a min-max game in game theory terms, and finding an equilibrium in such structures are known to be difficult.</p>
+<p>Initially, the losses may be high and fluctuate widely as the networks learn to adapt to the data distribution. However, as training progresses, convergence towards lower losses and improved accuracy is expected, indicating that the generator is producing more realistic images and the discriminator is becoming more better in judging the generated images.</p>
+</section>
+<section id="result" class="level1">
+<h1>Result</h1>
+<p>Let’s take a look at the results now that the iterations are over.</p>
+<div class="sourceCode" id="result-after-iteration"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="result-after-iteration-1"><a href="#result-after-iteration-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Grab a batch of real images from the dataloader</span></span>
+<span id="result-after-iteration-2"><a href="#result-after-iteration-2" aria-hidden="true" tabindex="-1"></a>real_batch <span class="op">=</span> <span class="bu">next</span>(<span class="bu">iter</span>(dataloader))</span>
+<span id="result-after-iteration-3"><a href="#result-after-iteration-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="result-after-iteration-4"><a href="#result-after-iteration-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the real images</span></span>
+<span id="result-after-iteration-5"><a href="#result-after-iteration-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">15</span>))</span>
+<span id="result-after-iteration-6"><a href="#result-after-iteration-6" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="result-after-iteration-7"><a href="#result-after-iteration-7" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
+<span id="result-after-iteration-8"><a href="#result-after-iteration-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Real Images"</span>)</span>
+<span id="result-after-iteration-9"><a href="#result-after-iteration-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.transpose(vutils.make_grid(real_batch[<span class="dv">0</span>].to(device)[:<span class="dv">64</span>], padding<span class="op">=</span><span class="dv">5</span>, normalize<span class="op">=</span><span class="va">True</span>).cpu(),(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)))</span>
+<span id="result-after-iteration-10"><a href="#result-after-iteration-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="result-after-iteration-11"><a href="#result-after-iteration-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the fake images from the last epoch</span></span>
+<span id="result-after-iteration-12"><a href="#result-after-iteration-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="result-after-iteration-13"><a href="#result-after-iteration-13" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>)</span>
+<span id="result-after-iteration-14"><a href="#result-after-iteration-14" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Fake Images"</span>)</span>
+<span id="result-after-iteration-15"><a href="#result-after-iteration-15" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.transpose(img_list[<span class="op">-</span><span class="dv">1</span>],(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>)))</span>
+<span id="result-after-iteration-16"><a href="#result-after-iteration-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/2.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">My DCGAN model is learning how to generate images of deep space.</figcaption>
+</figure>
+</div>
+<p>The generated images exhibit fuzziness, pixelation, and in some cases, they are indistinguishable. Nonetheless, upon closer inspection, some of the images are actually resemble gaseous nebula. To illustrate, we can visualize individual results.</p>
+<div class="sourceCode" id="plot-individually"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="plot-individually-1"><a href="#plot-individually-1" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.transpose(img_list[<span class="op">-</span><span class="dv">1</span>],(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">0</span>))[<span class="dv">64</span><span class="op">*</span><span class="dv">4</span><span class="op">+</span><span class="dv">7</span>:<span class="dv">64</span><span class="op">*</span><span class="dv">5</span><span class="op">+</span><span class="dv">5</span>, :<span class="dv">64</span>, :])</span>
+<span id="plot-individually-2"><a href="#plot-individually-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Modify the code to change to another image</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="img/4.png" class="img-fluid"></p>
+<p><img src="img/5.png" class="img-fluid"></p>
+<p>Considering the simplicity of our network’s structure and the limited size of our dataset, I consider this a successful demonstration of the GAN’s capabilities.</p>
+<p>Now, let’s examine the learning curve of the GAN.</p>
+<div class="sourceCode" id="learning-curve"><pre class="sourceCode Python code-with-copy"><code class="sourceCode python"><span id="learning-curve-1"><a href="#learning-curve-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="learning-curve-2"><a href="#learning-curve-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Generator and Discriminator Loss During Training"</span>)</span>
+<span id="learning-curve-3"><a href="#learning-curve-3" aria-hidden="true" tabindex="-1"></a>plt.plot(G_losses,label<span class="op">=</span><span class="st">"G"</span>)</span>
+<span id="learning-curve-4"><a href="#learning-curve-4" aria-hidden="true" tabindex="-1"></a>plt.plot(D_losses,label<span class="op">=</span><span class="st">"D"</span>)</span>
+<span id="learning-curve-5"><a href="#learning-curve-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"iterations"</span>)</span>
+<span id="learning-curve-6"><a href="#learning-curve-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Loss"</span>)</span>
+<span id="learning-curve-7"><a href="#learning-curve-7" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="learning-curve-8"><a href="#learning-curve-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/3.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Learning curve of discriminator and generator during training.</figcaption>
+</figure>
+</div>
+<p>The loss curve exhibits a highly erratic and spiky nature, which presents a challenge in determining the optimal stopping point for GAN training. Unlike classical deep learning training, where we typically observe a gradual decrease in loss until it plateaus upon convergence, the behavior of a GAN’s loss curve is less predictable. There are clear signs of failure, such as one component’s loss diverging exponentially from its counterpart, fortunately this scenario did not happen here. In this case, I allowed the training to continue until reaching the specified number of iterations. As demonstrated by the results above, our task did not encounter failure.</p>
+<p>I prepared a Kaggle notebook if you want to reproduce the result. <a href="https://www.kaggle.com/code/hazmannaim/deep-space-image-synthesis-with-dcgan/notebook#Libraries">Kaggle Notebook</a>.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" role="list">
+
+</div>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="marvinschmitt/marvinschmitt-dot-com" data-repo-id="R_kgDOHXcoOQ" data-category="Announcements" data-category-id="DIC_kwDOHXcoOc4CTeQ4" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "AI Learns to Generate Synthetic Deep Space Images"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Training AI with DCGAN to generate synthetic deep space images."</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> February-18-2024</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">  - data science</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">  - project</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> img/thumbnail.png</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="an">draft:</span><span class="co"> false</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-cap-location: bottom</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    include-before-body: ../../html/margin_image.html</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">    #include-after-body: ../../html/blog_footer.html</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> </span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">  markdown: </span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co">    wrap: sentence</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="an">resources:</span><span class="co"> </span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - "img/thumbnail.png"</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - "img/1.png"</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>In this post, we will explore how I utilize DCGAN to generate synthetic images of deep space objects.</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Employing PyTorch, we implement a straightforward DCGAN model.</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>Our objective is to train a neural network capable of producing deep space objects images.</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>This serves as a post in practical work on using DCGAN and continuation of <span class="co">[</span><span class="ot">previous post</span><span class="co">](https://hazmannaim.github.io\blog\240214_gan-math\index.html)</span> where we learn the mathematics behind the beauty of GAN.</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is DCGAN</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>DCGAN, short for Deep Convolutional Generative Adversarial Network, is a specialized variant within the broader category of Generative Adversarial Networks (GANs). While both DCGAN and GAN share the core principle of adversarial training, where a generator network competes with a discriminator network to create realistic images, they primarily differ in their architectural design. DCGANs use deep convolutional neural networks (CNNs) in both the generator and discriminator components, enabling the effective learning of hierarchical representations in image data. This architectural choice enables DCGANs to generate higher-quality images with finer details compared to traditional GANs, which typically rely on fully connected layers. In my previous post, I explored into the mathematical aspects of GANs. Given the differing architectures, there are variations in the mathematical framework between DCGAN and GAN. Nevertheless, the main goal remains the same: to illustrate the concept of GANs in generating synthetic images.</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu"># Setup</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>Here are the dependencies and libraries that I used for this project.</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#import-libraries .Python}</span></span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="in"># Import necessary libraries</span></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="in">import os</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="in">import random</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a><span class="in">import torch</span></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="in">import torch.nn as nn</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="in">import torch.nn.parallel</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="in">import torch.backends.cudnn as cudnn</span></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a><span class="in">import torch.optim as optim</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="in">import torch.utils.data</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a><span class="in">import torchvision.datasets as dset</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="in">import torchvision.transforms as transforms</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="in">import torchvision.utils as vutils</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="in">import numpy as np</span></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="in">import matplotlib.pyplot as plt</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a><span class="in">import matplotlib.animation as animation</span></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="in">from IPython.display import HTML</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="in">from PIL import Image</span></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="in"># Set matplotlib to inline mode</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="in">%matplotlib inline</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="in"># Set random seed for reproducibility</span></span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="in">manualSeed = 42</span></span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="in"># manualSeed = random.randint(1, 10000) # Use if you want new results</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="in">print("Random Seed: ", manualSeed)</span></span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="in"># Set random seed for Python, Torch</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a><span class="in">random.seed(manualSeed)</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a><span class="in">torch.manual_seed(manualSeed)</span></span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a><span class="fu"># Configurations</span></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>Here are the configurations applied for the project.</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>This includes the parameters of the convolutional layers, such as the dimensionality of images, the number of color channels, and the size of the latent dimension.</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#configs .Python}</span></span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="in"># Batch size during training</span></span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a><span class="in">batch_size = 64</span></span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a><span class="in"># Spatial size of training images. All images will be resized to this size using a transformer.</span></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a><span class="in">image_size = 64</span></span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="in"># Number of channels in the training images. For color images this is 3</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a><span class="in">nc = 3</span></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a><span class="in"># Size of z latent vector (i.e. size of generator input)</span></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a><span class="in">nz = 5</span></span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a><span class="in"># Size of feature maps in generator</span></span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a><span class="in">ngf = 128</span></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="in"># Size of feature maps in discriminator</span></span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="in">ndf = 128</span></span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>We can also configure the training parameters. This includes the number of epochs we want to train the GAN (which I set to 1000 epochs), learning rate and model hyperparameter. </span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#configs2 .Python}</span></span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a><span class="in"># Number of training epochs</span></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="in">num_epochs = 1000</span></span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="in"># Learning rate for optimizers</span></span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a><span class="in">lr = 0.0004</span></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a><span class="in"># Beta1 hyperparam for Adam optimizers</span></span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a><span class="in">beta1 = 0.5</span></span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="in"># Number of GPUs available. Use 0 for CPU mode.</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a><span class="in">ngpu = 1</span></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset Preparation</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>I have prepared a sample dataset for this project, consisting of 322 deep space object images. It is a small dataset, ideally you will need more than that for better result. For the sake of this demonstration, we will just stick with this dataset.</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>The dataset is hosted on Kaggle, and you can access it <span class="co">[</span><span class="ot">here</span><span class="co">](https://www.kaggle.com/datasets/hazmannaim/astrophotography-collection)</span>.</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>To prepare our dataset, we will build a Data Loader.</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>A Data Loader is essentially a class that aids in shuffling and organizing the data into minibatches.</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>This is particularly helpful considering that our dataset may consume a large amount of memory during training.</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>By utilizing a Data Loader, we can efficiently load samples determined by the batch size from the entire dataset iteratively.</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>When all the samples in the entire dataset have been loaded into the model once, it is referred to as one epoch.</span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#dataset-dataloader .Python}</span></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a><span class="in"># Root directory for dataset</span></span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a><span class="in">dataroot = "/kaggle/input/astrophotography-collection/"</span></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a><span class="in"># Create the dataset</span></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="in">dataset = dset.ImageFolder(root=dataroot,</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a><span class="in">                           transform=transforms.Compose([</span></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a><span class="in">                               transforms.Resize(image_size),</span></span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a><span class="in">                               transforms.CenterCrop(image_size),</span></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a><span class="in">                               transforms.ToTensor(),</span></span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="in">                               transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),</span></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a><span class="in">                           ]))</span></span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a><span class="in"># Create the dataloader</span></span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a><span class="in">dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size,</span></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="in">                                         shuffle=True, num_workers=workers)</span></span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a><span class="in"># Decide which device we want to run on</span></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a><span class="in">device = torch.device("cuda:0" if (torch.cuda.is_available() and ngpu &gt; 0) else "cpu")</span></span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>We can view the our prepared training dataset by plotting some of our training images.</span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#load-training-dataset .Python}</span></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a><span class="in"># Plot some training images</span></span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a><span class="in">real_batch = next(iter(dataloader))</span></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a><span class="in">plt.figure(figsize=(8,8))</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a><span class="in">plt.axis("off")</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="in">plt.title("Training Images")</span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="in">plt.imshow(np.transpose(vutils.make_grid(real_batch[0].to(device)[:64], padding=2, normalize=True).cpu(),(1,2,0)))</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/1.png)</span>{width="531"}</span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a><span class="fu"># Building the Model</span></span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>As I mentioned in my previous post, GANs are composed of two models, a generator and a discriminator.</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>The task of the generator is to generate fake images whereas the task of the discriminator is to distinguish the fake from the true.</span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a>In other words, a GAN is a two models that involves in an internal game between two adversarial parties each trying their best to accomplish their task.</span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a>As this competition progresses, the generator becomes increasingly better at generating fake images and the discriminator also starts to get better and determining the fake from the generated images.</span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="fu">## Initialize the Weights</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>Let us define the custom weights for our layers.</span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>We define a function <span class="in">`weigths_init`</span> to initialize the weights of our neural network layers.</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>This function is applied to both the generator $('netG')$ and the discriminator $('netD')$.</span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#custom-weights .Python}</span></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="in"># custom weights initialization called on netG and netD</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a><span class="in">def weights_init(m):</span></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a><span class="in">    classname = m.__class__.__name__</span></span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a><span class="in">    if classname.find('Conv') != -1:</span></span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a><span class="in">        nn.init.normal_(m.weight.data, 0.0, 0.02)</span></span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a><span class="in">    elif classname.find('BatchNorm') != -1:</span></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a><span class="in">        nn.init.normal_(m.weight.data, 1.0, 0.02)</span></span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a><span class="in">        nn.init.constant_(m.bias.data, 0)</span></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build the Generator</span></span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>Let's construct the generator model for our GAN.</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>We begin by defining the <span class="in">`Generator`</span> class, which comprises functions that return the following neural network architecture:</span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#generator-class .Python}</span></span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a><span class="in">class Generator(nn.Module):</span></span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a><span class="in">    def __init__(self, ngpu):</span></span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a><span class="in">        super(Generator, self).__init__()</span></span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a><span class="in">        self.ngpu = ngpu</span></span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a><span class="in">        self.main = nn.Sequential(</span></span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a><span class="in">            # input is Z, going into a convolution</span></span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ConvTranspose2d( nz, ngf * 8, 4, 1, 0, bias=False),</span></span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ngf * 8),</span></span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ReLU(True),</span></span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ngf*8) x 4 x 4</span></span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ConvTranspose2d(ngf * 8, ngf * 4, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ngf * 4),</span></span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ReLU(True),</span></span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ngf*4) x 8 x 8</span></span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ConvTranspose2d( ngf * 4, ngf * 2, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ngf * 2),</span></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ReLU(True),</span></span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ngf*2) x 16 x 16</span></span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ConvTranspose2d( ngf * 2, ngf, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ngf),</span></span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ReLU(True),</span></span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ngf) x 32 x 32</span></span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.ConvTranspose2d( ngf, nc, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Tanh()</span></span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (nc) x 64 x 64</span></span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a><span class="in">        )</span></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a><span class="in">    def forward(self, input):</span></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a><span class="in">        return self.main(input)</span></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>Next, we instantiate the <span class="in">`Generator`</span> class and apply the custom weight initialization defined in the <span class="in">`weights_init`</span> function to the layers of our generator:</span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#generator-build .Python}</span></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a><span class="in"># Create the generator</span></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a><span class="in">netG = Generator(ngpu).to(device)</span></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a><span class="in"># Handle multi-gpu if desired</span></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a><span class="in">if (device.type == 'cuda') and (ngpu &gt; 1):</span></span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a><span class="in">    netG = nn.DataParallel(netG, list(range(ngpu)))</span></span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a><span class="in"># Apply the weights_init function to randomly initialize all weights to mean=0, stdev=0.02.</span></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="in">netG.apply(weights_init)</span></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a><span class="in"># Print the model</span></span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a><span class="in">print(netG)</span></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>Let us visualize the architecture of our generator model:</span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a><span class="in">Generator(</span></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="in">  (main): Sequential(</span></span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a><span class="in">    (0): ConvTranspose2d(5, 1024, kernel_size=(4, 4), stride=(1, 1), bias=False)</span></span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a><span class="in">    (1): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a><span class="in">    (2): ReLU(inplace=True)</span></span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a><span class="in">    (3): ConvTranspose2d(1024, 512, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="in">    (4): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a><span class="in">    (5): ReLU(inplace=True)</span></span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a><span class="in">    (6): ConvTranspose2d(512, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a><span class="in">    (7): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a><span class="in">    (8): ReLU(inplace=True)</span></span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a><span class="in">    (9): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a><span class="in">    (10): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a><span class="in">    (11): ReLU(inplace=True)</span></span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a><span class="in">    (12): ConvTranspose2d(128, 3, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a><span class="in">    (13): Tanh()</span></span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a><span class="fu">## Build the Discriminator</span></span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a>Let's build a corresponding discriminator class for our GAN.</span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a>The discriminator is essentially a simple binary classifier that decides whether a given image is real or fake.</span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a>If we examine the final output layer, we will see one neuron with a sigmoid activation function.</span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#discriminator-class .Python}</span></span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a><span class="in">class Discriminator(nn.Module):</span></span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a><span class="in">    def __init__(self, ngpu):</span></span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a><span class="in">        super(Discriminator, self).__init__()</span></span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a><span class="in">        self.ngpu = ngpu</span></span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a><span class="in">        self.main = nn.Sequential(</span></span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a><span class="in">            # input is (nc) x 64 x 64</span></span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Conv2d(nc, ndf, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.LeakyReLU(0.2, inplace=True),</span></span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ndf) x 32 x 32</span></span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Conv2d(ndf, ndf * 2, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ndf * 2),</span></span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.LeakyReLU(0.2, inplace=True),</span></span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ndf*2) x 16 x 16</span></span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Conv2d(ndf * 2, ndf * 4, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ndf * 4),</span></span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.LeakyReLU(0.2, inplace=True),</span></span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ndf*4) x 8 x 8</span></span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False),</span></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.BatchNorm2d(ndf * 8),</span></span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.LeakyReLU(0.2, inplace=True),</span></span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a><span class="in">            </span></span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a><span class="in">            # state size. (ndf*8) x 4 x 4</span></span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),</span></span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a><span class="in">            nn.Sigmoid()</span></span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a><span class="in">        )</span></span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a><span class="in">    def forward(self, input):</span></span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a><span class="in">        return self.main(input)</span></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a>Next, we instantiate the <span class="in">`Discriminator`</span> class and apply the custom weight initialization defined in the <span class="in">`weights_init`</span> function to the layers of our discriminator:</span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#discriminator-build .Python}</span></span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a><span class="in"># Create the Discriminator</span></span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a><span class="in">netD = Discriminator(ngpu).to(device)</span></span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a><span class="in"># Handle multi-gpu if desired</span></span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a><span class="in">if (device.type == 'cuda') and (ngpu &gt; 1):</span></span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a><span class="in">    netD = nn.DataParallel(netD, list(range(ngpu)))</span></span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a><span class="in"># Apply the weights_init function to randomly initialize all weights</span></span>
+<span id="cb4-304"><a href="#cb4-304" aria-hidden="true" tabindex="-1"></a><span class="in">#  to mean=0, stdev=0.2.</span></span>
+<span id="cb4-305"><a href="#cb4-305" aria-hidden="true" tabindex="-1"></a><span class="in">netD.apply(weights_init)</span></span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a><span class="in"># Print the model</span></span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a><span class="in">print(netD)</span></span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>Let us visualize the architecture of our discriminator model:</span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a><span class="in">Discriminator(</span></span>
+<span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a><span class="in">  (main): Sequential(</span></span>
+<span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a><span class="in">    (0): Conv2d(3, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a><span class="in">    (1): LeakyReLU(negative_slope=0.2, inplace=True)</span></span>
+<span id="cb4-318"><a href="#cb4-318" aria-hidden="true" tabindex="-1"></a><span class="in">    (2): Conv2d(128, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-319"><a href="#cb4-319" aria-hidden="true" tabindex="-1"></a><span class="in">    (3): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-320"><a href="#cb4-320" aria-hidden="true" tabindex="-1"></a><span class="in">    (4): LeakyReLU(negative_slope=0.2, inplace=True)</span></span>
+<span id="cb4-321"><a href="#cb4-321" aria-hidden="true" tabindex="-1"></a><span class="in">    (5): Conv2d(256, 512, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-322"><a href="#cb4-322" aria-hidden="true" tabindex="-1"></a><span class="in">    (6): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a><span class="in">    (7): LeakyReLU(negative_slope=0.2, inplace=True)</span></span>
+<span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a><span class="in">    (8): Conv2d(512, 1024, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1), bias=False)</span></span>
+<span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a><span class="in">    (9): BatchNorm2d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)</span></span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a><span class="in">    (10): LeakyReLU(negative_slope=0.2, inplace=True)</span></span>
+<span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a><span class="in">    (11): Conv2d(1024, 1, kernel_size=(4, 4), stride=(1, 1), bias=False)</span></span>
+<span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a><span class="in">    (12): Sigmoid()</span></span>
+<span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb4-330"><a href="#cb4-330" aria-hidden="true" tabindex="-1"></a><span class="in">)</span></span>
+<span id="cb4-331"><a href="#cb4-331" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-332"><a href="#cb4-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a><span class="fu"># Initializing Loss Function and Optimizers</span></span>
+<span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a>Now, we set up crucial components for training our GAN.</span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a>First, we initialize the Binary Cross Entropy (BCE) loss function $('criterion')$ using PyTorch's <span class="in">`nn.BCELoss()`</span>.</span>
+<span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a>This function will help us measure the difference between predicted and target values during training.</span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a>Additionally, we create a batch of latent vectors $('fixed<span class="sc">\_</span>noise')$ to visualize the progression of the generator throughout training.</span>
+<span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a>These vectors will serve as input for generating fake images.</span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a>Moreover, we establish the convention for labeling real and fake samples during training, assigning a label of 1.0 for real samples and 0.0 for fake ones ($('real<span class="sc">\_</span>label')$ and $('fake<span class="sc">\_</span>label')$ respectively).</span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a>Finally, we set up Adam optimizers for both the generator and discriminator ($('optimizerG')$ and $('optimizerD')$).</span>
+<span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a>These optimizers will adjust the model's parameters during training to minimize the loss and improve performance.</span>
+<span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#initialize-loss .Python}</span></span>
+<span id="cb4-345"><a href="#cb4-345" aria-hidden="true" tabindex="-1"></a><span class="in"># Initialize BCELoss function</span></span>
+<span id="cb4-346"><a href="#cb4-346" aria-hidden="true" tabindex="-1"></a><span class="in">criterion = nn.BCELoss()</span></span>
+<span id="cb4-347"><a href="#cb4-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-348"><a href="#cb4-348" aria-hidden="true" tabindex="-1"></a><span class="in"># Create batch of latent vectors that we will use to visualize the progression of the generator</span></span>
+<span id="cb4-349"><a href="#cb4-349" aria-hidden="true" tabindex="-1"></a><span class="in">fixed_noise = torch.randn(128, nz, 1, 1, device=device)</span></span>
+<span id="cb4-350"><a href="#cb4-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-351"><a href="#cb4-351" aria-hidden="true" tabindex="-1"></a><span class="in"># Establish convention for real and fake labels during training</span></span>
+<span id="cb4-352"><a href="#cb4-352" aria-hidden="true" tabindex="-1"></a><span class="in">real_label = 1.</span></span>
+<span id="cb4-353"><a href="#cb4-353" aria-hidden="true" tabindex="-1"></a><span class="in">fake_label = 0.</span></span>
+<span id="cb4-354"><a href="#cb4-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-355"><a href="#cb4-355" aria-hidden="true" tabindex="-1"></a><span class="in"># Setup Adam optimizers for both G and D</span></span>
+<span id="cb4-356"><a href="#cb4-356" aria-hidden="true" tabindex="-1"></a><span class="in">optimizerD = optim.Adam(netD.parameters(), lr=lr, betas=(beta1, 0.999))</span></span>
+<span id="cb4-357"><a href="#cb4-357" aria-hidden="true" tabindex="-1"></a><span class="in">optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=(beta1, 0.999))</span></span>
+<span id="cb4-358"><a href="#cb4-358" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-359"><a href="#cb4-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-360"><a href="#cb4-360" aria-hidden="true" tabindex="-1"></a><span class="fu"># Model Training</span></span>
+<span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a>Now that we have both the discriminator and the generator in place, it is time to establish the connection between them to build our GAN.</span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a>We define the training loop for our GAN model.</span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a>We initialize lists to keep track of the progress, including images generated during training $('img<span class="sc">\_</span>list')$ and losses for both the generator and discriminator ($'G_losses'$ and $'D_losses'$, respectively).</span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a>The training loop iterates over each epoch, with each epoch consisting of batches from the data loader.</span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a>During each iteration, we update the discriminator $('netD')$ and generator $('netG')$ networks alternatively to optimize their performance.</span>
+<span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a>For the discriminator, we aim to maximize the probability of correctly classifying real and fake images, while for the generator, we aim to maximize the probability of the discriminator being fooled by the generated images.</span>
+<span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a>Training progresses by updating the discriminator's parameters based on the gradients of its loss $('errD')$ calculated from both real and fake samples.</span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a>Similarly, the generator's parameters are updated based on the gradients of its loss $('errG')$ calculated from the discriminator's response to generated images.</span>
+<span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a>Throughout training, we monitor and output the losses for both networks, as well as other relevant statistics.</span>
+<span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a>Additionally, we periodically save the generated images for visualization and analysis.</span>
+<span id="cb4-375"><a href="#cb4-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-376"><a href="#cb4-376" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#training-loop .Python}</span></span>
+<span id="cb4-377"><a href="#cb4-377" aria-hidden="true" tabindex="-1"></a><span class="in"># Training Loop</span></span>
+<span id="cb4-378"><a href="#cb4-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-379"><a href="#cb4-379" aria-hidden="true" tabindex="-1"></a><span class="in"># Lists to keep track of progress</span></span>
+<span id="cb4-380"><a href="#cb4-380" aria-hidden="true" tabindex="-1"></a><span class="in">img_list = []</span></span>
+<span id="cb4-381"><a href="#cb4-381" aria-hidden="true" tabindex="-1"></a><span class="in">G_losses = []</span></span>
+<span id="cb4-382"><a href="#cb4-382" aria-hidden="true" tabindex="-1"></a><span class="in">D_losses = []</span></span>
+<span id="cb4-383"><a href="#cb4-383" aria-hidden="true" tabindex="-1"></a><span class="in">iters = 0</span></span>
+<span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a><span class="in">print("Starting Training Loop...")</span></span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a><span class="in"># For each epoch</span></span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a><span class="in">for epoch in range(num_epochs):</span></span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a><span class="in">    # For each batch in the dataloader</span></span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a><span class="in">    for i, data in enumerate(dataloader, 0):</span></span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a><span class="in">        ############################</span></span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a><span class="in">        # (1) Update D network: maximize log(D(x)) + log(1 - D(G(z)))</span></span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a><span class="in">        ###########################</span></span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a><span class="in">        ## Train with all-real batch</span></span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a><span class="in">        netD.zero_grad()</span></span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a><span class="in">        # Format batch</span></span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a><span class="in">        real_cpu = data[0].to(device)</span></span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a><span class="in">        b_size = real_cpu.size(0)  </span></span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a><span class="in">        # Forward pass real batch through D</span></span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a><span class="in">        output = netD(real_cpu).view(-1)</span></span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a><span class="in">        label = torch.full((output.size(0),), real_label, dtype=torch.float, device=device)</span></span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate loss on all-real batch</span></span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a><span class="in">        errD_real = criterion(output, label)</span></span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate gradients for D in backward pass</span></span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a><span class="in">        errD_real.backward()</span></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a><span class="in">        D_x = output.mean().item()</span></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a><span class="in">        ## Train with all-fake batch</span></span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a><span class="in">        # Generate batch of latent vectors</span></span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a><span class="in">        noise = torch.randn(output.size(0), nz, 1, 1, device=device)</span></span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a><span class="in">        # Generate fake image batch with G</span></span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a><span class="in">        fake = netG(noise)</span></span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a><span class="in">        label.fill_(fake_label)</span></span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a><span class="in">        # Classify all fake batch with D</span></span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a><span class="in">        output = netD(fake.detach()).view(-1)</span></span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate D's loss on the all-fake batch</span></span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a><span class="in">        errD_fake = criterion(output, label)</span></span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate the gradients for this batch, accumulated (summed) with previous gradients</span></span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a><span class="in">        errD_fake.backward()</span></span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a><span class="in">        D_G_z1 = output.mean().item()</span></span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a><span class="in">        # Compute error of D as sum over the fake and the real batches</span></span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a><span class="in">        errD = errD_real + errD_fake</span></span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a><span class="in">        # Update D</span></span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a><span class="in">        optimizerD.step()</span></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a><span class="in">        ############################</span></span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a><span class="in">        # (2) Update G network: maximize log(D(G(z)))</span></span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a><span class="in">        ###########################</span></span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a><span class="in">        netG.zero_grad()</span></span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a><span class="in">        label.fill_(real_label)  # fake labels are real for generator cost</span></span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a><span class="in">        # Since we just updated D, perform another forward pass of all-fake batch through D</span></span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a><span class="in">        output = netD(fake).view(-1)</span></span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate G's loss based on this output</span></span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a><span class="in">        errG = criterion(output, label)</span></span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a><span class="in">        # Calculate gradients for G</span></span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a><span class="in">        errG.backward()</span></span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a><span class="in">        D_G_z2 = output.mean().item()</span></span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a><span class="in">        # Update G</span></span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a><span class="in">        optimizerG.step()</span></span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a><span class="in">        # Output training stats</span></span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a><span class="in">        if i % 50 == 0:</span></span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a><span class="in">            print('[%d/%d][%d/%d]\tLoss_D: %.4f\tLoss_G: %.4f\tD(x): %.4f\tD(G(z)): %.4f / %.4f'</span></span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a><span class="in">                  % (epoch+1, num_epochs, i, len(dataloader),</span></span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a><span class="in">                     errD.item(), errG.item(), D_x, D_G_z1, D_G_z2))</span></span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a><span class="in">        # Save Losses for plotting later</span></span>
+<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a><span class="in">        G_losses.append(errG.item())</span></span>
+<span id="cb4-449"><a href="#cb4-449" aria-hidden="true" tabindex="-1"></a><span class="in">        D_losses.append(errD.item())</span></span>
+<span id="cb4-450"><a href="#cb4-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-451"><a href="#cb4-451" aria-hidden="true" tabindex="-1"></a><span class="in">        # Check how the generator is doing by saving G's output on fixed_noise</span></span>
+<span id="cb4-452"><a href="#cb4-452" aria-hidden="true" tabindex="-1"></a><span class="in">        if (iters % 100 == 0) or ((epoch == num_epochs-1) and (i == len(dataloader)-1)):</span></span>
+<span id="cb4-453"><a href="#cb4-453" aria-hidden="true" tabindex="-1"></a><span class="in">            with torch.no_grad():</span></span>
+<span id="cb4-454"><a href="#cb4-454" aria-hidden="true" tabindex="-1"></a><span class="in">                fake = netG(fixed_noise).detach().cpu()</span></span>
+<span id="cb4-455"><a href="#cb4-455" aria-hidden="true" tabindex="-1"></a><span class="in">            img_list.append(vutils.make_grid(fake, padding=2, normalize=True))</span></span>
+<span id="cb4-456"><a href="#cb4-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-457"><a href="#cb4-457" aria-hidden="true" tabindex="-1"></a><span class="in">        iters += 1</span></span>
+<span id="cb4-458"><a href="#cb4-458" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-459"><a href="#cb4-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-460"><a href="#cb4-460" aria-hidden="true" tabindex="-1"></a>Examine the training log:</span>
+<span id="cb4-461"><a href="#cb4-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-462"><a href="#cb4-462" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#training-log}</span></span>
+<span id="cb4-463"><a href="#cb4-463" aria-hidden="true" tabindex="-1"></a><span class="in">Starting Training Loop...</span></span>
+<span id="cb4-464"><a href="#cb4-464" aria-hidden="true" tabindex="-1"></a><span class="in">[1/1000][0/6]   Loss_D: 2.2758  Loss_G: 17.0022 D(x): 0.2834    D(G(z)): 0.3927 / 0.0010</span></span>
+<span id="cb4-465"><a href="#cb4-465" aria-hidden="true" tabindex="-1"></a><span class="in">[2/1000][0/6]   Loss_D: 44.7588 Loss_G: 25.3654 D(x): 0.6291    D(G(z)): 0.7448 / 0.0186</span></span>
+<span id="cb4-466"><a href="#cb4-466" aria-hidden="true" tabindex="-1"></a><span class="in">[3/1000][0/6]   Loss_D: 17.9932 Loss_G: 40.2899 D(x): 0.0010    D(G(z)): 0.0000 / 0.0000</span></span>
+<span id="cb4-467"><a href="#cb4-467" aria-hidden="true" tabindex="-1"></a><span class="in">[4/1000][0/6]   Loss_D: 21.4372 Loss_G: 12.6890 D(x): 0.1892    D(G(z)): 0.2395 / 0.1450</span></span>
+<span id="cb4-468"><a href="#cb4-468" aria-hidden="true" tabindex="-1"></a><span class="in">[5/1000][0/6]   Loss_D: 25.8914 Loss_G: 10.6171 D(x): 0.3253    D(G(z)): 0.2953 / 0.2394</span></span>
+<span id="cb4-469"><a href="#cb4-469" aria-hidden="true" tabindex="-1"></a><span class="in">[6/1000][0/6]   Loss_D: 5.2777  Loss_G: 11.2162 D(x): 0.0964    D(G(z)): 0.0000 / 0.1247</span></span>
+<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a><span class="in">'''</span></span>
+<span id="cb4-471"><a href="#cb4-471" aria-hidden="true" tabindex="-1"></a><span class="in">'''</span></span>
+<span id="cb4-472"><a href="#cb4-472" aria-hidden="true" tabindex="-1"></a><span class="in">&lt;output truncated&gt;</span></span>
+<span id="cb4-473"><a href="#cb4-473" aria-hidden="true" tabindex="-1"></a><span class="in">'''</span></span>
+<span id="cb4-474"><a href="#cb4-474" aria-hidden="true" tabindex="-1"></a><span class="in">'''</span></span>
+<span id="cb4-475"><a href="#cb4-475" aria-hidden="true" tabindex="-1"></a><span class="in">[993/1000][0/6] Loss_D: 1.3663  Loss_G: 1.0782  D(x): 0.5472    D(G(z)): 0.4720 / 0.3682</span></span>
+<span id="cb4-476"><a href="#cb4-476" aria-hidden="true" tabindex="-1"></a><span class="in">[994/1000][0/6] Loss_D: 1.1256  Loss_G: 0.9345  D(x): 0.5948    D(G(z)): 0.4337 / 0.3996</span></span>
+<span id="cb4-477"><a href="#cb4-477" aria-hidden="true" tabindex="-1"></a><span class="in">[995/1000][0/6] Loss_D: 1.0744  Loss_G: 1.1576  D(x): 0.5452    D(G(z)): 0.3503 / 0.3248</span></span>
+<span id="cb4-478"><a href="#cb4-478" aria-hidden="true" tabindex="-1"></a><span class="in">[996/1000][0/6] Loss_D: 1.3176  Loss_G: 1.2700  D(x): 0.4744    D(G(z)): 0.2765 / 0.3008</span></span>
+<span id="cb4-479"><a href="#cb4-479" aria-hidden="true" tabindex="-1"></a><span class="in">[997/1000][0/6] Loss_D: 1.5503  Loss_G: 0.8097  D(x): 0.8141    D(G(z)): 0.6486 / 0.4586</span></span>
+<span id="cb4-480"><a href="#cb4-480" aria-hidden="true" tabindex="-1"></a><span class="in">[998/1000][0/6] Loss_D: 1.2623  Loss_G: 1.3359  D(x): 0.5421    D(G(z)): 0.3986 / 0.3066</span></span>
+<span id="cb4-481"><a href="#cb4-481" aria-hidden="true" tabindex="-1"></a><span class="in">[999/1000][0/6] Loss_D: 1.0057  Loss_G: 2.4666  D(x): 0.4860    D(G(z)): 0.1747 / 0.1328</span></span>
+<span id="cb4-482"><a href="#cb4-482" aria-hidden="true" tabindex="-1"></a><span class="in">[1000/1000][0/6]    Loss_D: 2.3245  Loss_G: 0.4596  D(x): 0.7497    D(G(z)): 0.6979 / 0.6514</span></span>
+<span id="cb4-483"><a href="#cb4-483" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-484"><a href="#cb4-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-485"><a href="#cb4-485" aria-hidden="true" tabindex="-1"></a>For each iteration, the log reports the discriminator $('Loss<span class="sc">\_</span>D')$ and generator $('Loss_G')$ losses, as well as the discriminator's accuracy in classifying real samples $('D(x)')$ and generated samples $('D(G(z))')$.</span>
+<span id="cb4-486"><a href="#cb4-486" aria-hidden="true" tabindex="-1"></a>These metrics provide a comprehensive view of the GAN's performance, with the discriminator task is to distinguish between real and fake images while the generator aims to produce images that deceive the discriminator.</span>
+<span id="cb4-487"><a href="#cb4-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-488"><a href="#cb4-488" aria-hidden="true" tabindex="-1"></a>During the training process, fluctuations in both the losses and accuracy metrics are frequently observed, indicating the dynamic nature of the adversarial learning process.</span>
+<span id="cb4-489"><a href="#cb4-489" aria-hidden="true" tabindex="-1"></a>This phenomenon is commonplace in GAN training, which is known for its complexity, since it requires balancing the performance of the generator and the discriminator in such a way that one does not dominate over the other.</span>
+<span id="cb4-490"><a href="#cb4-490" aria-hidden="true" tabindex="-1"></a>This is referred to as a min-max game in game theory terms, and finding an equilibrium in such structures are known to be difficult.</span>
+<span id="cb4-491"><a href="#cb4-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-492"><a href="#cb4-492" aria-hidden="true" tabindex="-1"></a>Initially, the losses may be high and fluctuate widely as the networks learn to adapt to the data distribution.</span>
+<span id="cb4-493"><a href="#cb4-493" aria-hidden="true" tabindex="-1"></a>However, as training progresses, convergence towards lower losses and improved accuracy is expected, indicating that the generator is producing more realistic images and the discriminator is becoming more better in judging the generated images.</span>
+<span id="cb4-494"><a href="#cb4-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-495"><a href="#cb4-495" aria-hidden="true" tabindex="-1"></a><span class="fu"># Result</span></span>
+<span id="cb4-496"><a href="#cb4-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-497"><a href="#cb4-497" aria-hidden="true" tabindex="-1"></a>Let’s take a look at the results now that the iterations are over.</span>
+<span id="cb4-498"><a href="#cb4-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-499"><a href="#cb4-499" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#result-after-iteration .Python}</span></span>
+<span id="cb4-500"><a href="#cb4-500" aria-hidden="true" tabindex="-1"></a><span class="in"># Grab a batch of real images from the dataloader</span></span>
+<span id="cb4-501"><a href="#cb4-501" aria-hidden="true" tabindex="-1"></a><span class="in">real_batch = next(iter(dataloader))</span></span>
+<span id="cb4-502"><a href="#cb4-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-503"><a href="#cb4-503" aria-hidden="true" tabindex="-1"></a><span class="in"># Plot the real images</span></span>
+<span id="cb4-504"><a href="#cb4-504" aria-hidden="true" tabindex="-1"></a><span class="in">plt.figure(figsize=(15,15))</span></span>
+<span id="cb4-505"><a href="#cb4-505" aria-hidden="true" tabindex="-1"></a><span class="in">plt.subplot(1,2,1)</span></span>
+<span id="cb4-506"><a href="#cb4-506" aria-hidden="true" tabindex="-1"></a><span class="in">plt.axis("off")</span></span>
+<span id="cb4-507"><a href="#cb4-507" aria-hidden="true" tabindex="-1"></a><span class="in">plt.title("Real Images")</span></span>
+<span id="cb4-508"><a href="#cb4-508" aria-hidden="true" tabindex="-1"></a><span class="in">plt.imshow(np.transpose(vutils.make_grid(real_batch[0].to(device)[:64], padding=5, normalize=True).cpu(),(1,2,0)))</span></span>
+<span id="cb4-509"><a href="#cb4-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-510"><a href="#cb4-510" aria-hidden="true" tabindex="-1"></a><span class="in"># Plot the fake images from the last epoch</span></span>
+<span id="cb4-511"><a href="#cb4-511" aria-hidden="true" tabindex="-1"></a><span class="in">plt.subplot(1,2,2)</span></span>
+<span id="cb4-512"><a href="#cb4-512" aria-hidden="true" tabindex="-1"></a><span class="in">plt.axis("off")</span></span>
+<span id="cb4-513"><a href="#cb4-513" aria-hidden="true" tabindex="-1"></a><span class="in">plt.title("Fake Images")</span></span>
+<span id="cb4-514"><a href="#cb4-514" aria-hidden="true" tabindex="-1"></a><span class="in">plt.imshow(np.transpose(img_list[-1],(1,2,0)))</span></span>
+<span id="cb4-515"><a href="#cb4-515" aria-hidden="true" tabindex="-1"></a><span class="in">plt.show()</span></span>
+<span id="cb4-516"><a href="#cb4-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-517"><a href="#cb4-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-518"><a href="#cb4-518" aria-hidden="true" tabindex="-1"></a><span class="al">![My DCGAN model is learning how to generate images of deep space.](img/2.png)</span></span>
+<span id="cb4-519"><a href="#cb4-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-520"><a href="#cb4-520" aria-hidden="true" tabindex="-1"></a>The generated images exhibit fuzziness, pixelation, and in some cases, they are indistinguishable. Nonetheless, upon closer inspection, some of the images are actually resemble gaseous nebula. To illustrate, we can visualize individual results.</span>
+<span id="cb4-521"><a href="#cb4-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-522"><a href="#cb4-522" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#plot-individually .Python}</span></span>
+<span id="cb4-523"><a href="#cb4-523" aria-hidden="true" tabindex="-1"></a><span class="in">plt.imshow(np.transpose(img_list[-1],(1,2,0))[64*4+7:64*5+5, :64, :])</span></span>
+<span id="cb4-524"><a href="#cb4-524" aria-hidden="true" tabindex="-1"></a><span class="in"># Modify the code to change to another image</span></span>
+<span id="cb4-525"><a href="#cb4-525" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-526"><a href="#cb4-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-527"><a href="#cb4-527" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/4.png)</span></span>
+<span id="cb4-528"><a href="#cb4-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-529"><a href="#cb4-529" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/5.png)</span></span>
+<span id="cb4-530"><a href="#cb4-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-531"><a href="#cb4-531" aria-hidden="true" tabindex="-1"></a>Considering the simplicity of our network's structure and the limited size of our dataset, I consider this a successful demonstration of the GAN's capabilities.</span>
+<span id="cb4-532"><a href="#cb4-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-533"><a href="#cb4-533" aria-hidden="true" tabindex="-1"></a>Now, let's examine the learning curve of the GAN.</span>
+<span id="cb4-534"><a href="#cb4-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-535"><a href="#cb4-535" aria-hidden="true" tabindex="-1"></a><span class="in">``` {#learning-curve .Python}</span></span>
+<span id="cb4-536"><a href="#cb4-536" aria-hidden="true" tabindex="-1"></a><span class="in">plt.figure(figsize=(10,5))</span></span>
+<span id="cb4-537"><a href="#cb4-537" aria-hidden="true" tabindex="-1"></a><span class="in">plt.title("Generator and Discriminator Loss During Training")</span></span>
+<span id="cb4-538"><a href="#cb4-538" aria-hidden="true" tabindex="-1"></a><span class="in">plt.plot(G_losses,label="G")</span></span>
+<span id="cb4-539"><a href="#cb4-539" aria-hidden="true" tabindex="-1"></a><span class="in">plt.plot(D_losses,label="D")</span></span>
+<span id="cb4-540"><a href="#cb4-540" aria-hidden="true" tabindex="-1"></a><span class="in">plt.xlabel("iterations")</span></span>
+<span id="cb4-541"><a href="#cb4-541" aria-hidden="true" tabindex="-1"></a><span class="in">plt.ylabel("Loss")</span></span>
+<span id="cb4-542"><a href="#cb4-542" aria-hidden="true" tabindex="-1"></a><span class="in">plt.legend()</span></span>
+<span id="cb4-543"><a href="#cb4-543" aria-hidden="true" tabindex="-1"></a><span class="in">plt.show()</span></span>
+<span id="cb4-544"><a href="#cb4-544" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-545"><a href="#cb4-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-546"><a href="#cb4-546" aria-hidden="true" tabindex="-1"></a><span class="al">![Learning curve of discriminator and generator during training.](img/3.png)</span></span>
+<span id="cb4-547"><a href="#cb4-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-548"><a href="#cb4-548" aria-hidden="true" tabindex="-1"></a>The loss curve exhibits a highly erratic and spiky nature, which presents a challenge in determining the optimal stopping point for GAN training. Unlike classical deep learning training, where we typically observe a gradual decrease in loss until it plateaus upon convergence, the behavior of a GAN's loss curve is less predictable. There are clear signs of failure, such as one component's loss diverging exponentially from its counterpart, fortunately this scenario did not happen here. In this case, I allowed the training to continue until reaching the specified number of iterations. As demonstrated by the results above, our task did not encounter failure.</span>
+<span id="cb4-549"><a href="#cb4-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-550"><a href="#cb4-550" aria-hidden="true" tabindex="-1"></a>I prepared a Kaggle notebook if you want to reproduce the result. <span class="co">[</span><span class="ot">Kaggle Notebook</span><span class="co">](https://www.kaggle.com/code/hazmannaim/deep-space-image-synthesis-with-dcgan/notebook#Libraries)</span>.</span>
+<span id="cb4-551"><a href="#cb4-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-552"><a href="#cb4-552" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb4-553"><a href="#cb4-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-554"><a href="#cb4-554" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb4-555"><a href="#cb4-555" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left"><span class="faux-block">© 2024 Hazman Naim CC BY-SA 4.0</span></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right"><span class="faux-block">Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a></span> <span class="faux-block"><a href="https://github.com/HazmanNaim/HazmanNaim.github.io">View source on GitHub</a></span></div>
+  </div>
+</footer>
+
+
+
+</body></html>

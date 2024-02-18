@@ -2,6 +2,8 @@
   {
     "listing": "/blog/index.html",
     "items": [
+      "/blog/240218_gan-first-project/index.html",
+      "/blog/240214_gan-math/index.html",
       "/blog/231118_dataleakage/index.html",
       "/blog/231118_helloworld/index.html"
     ]
@@ -9,8 +11,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/blog/231118_dataleakage/index.html",
-      "/blog/231118_helloworld/index.html"
+      "/blog/240214_gan-math/index.html",
+      "/blog/231118_dataleakage/index.html"
     ]
   }
 ]

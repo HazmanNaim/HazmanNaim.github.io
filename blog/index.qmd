@@ -1,11 +1,18 @@
 ---
-title: "DataWithHazman"
+title: "NeuralBites"
 author: ""
 title-block-banner: "#771C6D"
 page-layout: full
-description-meta: "Welcome to my blog DataWithHazman. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think."
+description-meta: "Welcome to my blog NeuralBites. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think."
 
 listing:
+  - id: posts_2024
+    contents: 
+      - "240218_gan-first-project"
+      - "240214_gan-math/index.qmd"
+    sort: "date desc"
+    template: ../html/blog/listing.ejs
+    categories: true
   - id: posts_2023
     contents: 
       - "231118_dataleakage/index.qmd"
@@ -22,7 +29,12 @@ code-tools: false
 comments: false
 ---
 
-Welcome to my blog *DataWithHazman*. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think.
+Welcome to my blog *NeuralBites*. I am excited that you are here! You will find a collection of articles on a wide variety of topics. As a learner, I want to share with you what I pick up along the way. I hope you will find something of interest in my writing. So, take a look around and let me know what you think.
+
+## 2024
+
+::: {#posts_2024}
+:::
 
 ## 2023
 

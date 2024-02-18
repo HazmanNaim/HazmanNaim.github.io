@@ -7,8 +7,8 @@
     --color-bg: #fff;
     --color-bg-1: #b3a69f;
     --color-bg-2: #d8f2ea;
-    --color-text: #fff;
-    --color-subtext: #FF8A71;
+    --color-text: #000;
+    --color-subtext: #E6AA04;
 }
 
 * {
@@ -26,34 +26,18 @@ body{
   overflow: visible;
   width: 100%;
   margin-top: -35px;
-  background: linear-gradient(180deg, rgba(6, 129, 148, 1) 0%, rgba(28, 11, 25, 1) 100%);
-  /*background: linear-gradient(90deg, rgba(0, 97, 242, 1) 0%, rgba(105, 0, 199, 1) 100%);*/
+  /*background: linear-gradient(180deg, rgba(6, 129, 148, 1) 0%, rgba(28, 11, 25, 1) 100%);*/
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255, 255, 255, 1) 100%);
 }
 
 h1 {
-    color: white;
+    color: black;
 }
 
 a {
     color: unset;
     text-decoration: none;
 }
-
-/*.gradient_bg {*/
-/*    background:-moz-radial-gradient(circle at 3% 25%, var(--color-bg-1) 0%, var(--color-bg-2) 25%);*/
-
-/*    !* safari 5.1+,chrome 10+ *!*/
-/*    background:-webkit-radial-gradient(circle at 3% 25%, var(--color-bg-1) 0%, var(--color-bg-2) 25%);*/
-
-/*    !* opera 11.10+ *!*/
-/*    background:-o-radial-gradient(circle at 3% 25%, var(--color-bg-1) 0%, var(--color-bg-2) 25%);*/
-
-/*    !* ie 10+ *!*/
-/*    background:-ms-radial-gradient(circle at 3% 25%, var(--color-bg-1) 0%, var(--color-bg-2) 25%);*/
-
-/*    !* global 92%+ browsers support *!*/
-/*    background:radial-gradient(circle at 3% 25%, var(--color-bg-1) 0%, var(--color-bg-2) 25%);*/
-/*}*/
 
 .gradient_text {
     background: var(--gradient-text);
@@ -208,6 +192,15 @@ a {
     margin: auto;
     max-width: 350px;
     min-width: 250px;
+    border-radius: 50%;
+    box-shadow: 
+    rgba(0, 0, 0, 0.25) 0px 54px 55px, 
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, 
+    rgba(0, 0, 0, 0.12) 0px 4px 6px, 
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, 
+    rgba(0, 0, 0, 0.09) 0px -3px 5px
+    ;
+    border: 0px solid black;
 }
 
 
@@ -270,22 +263,4 @@ a {
 #bottom_wave{
   z-index: 7;
   position:relative;
-}
-
-.parallax{
-  
-}
-
-#dot_container{
-  height: 60%;
-  width: 100%;
-  z-index: 5;
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
-.dot{
-  border-radius: 50%;
-  opacity: 50%;
 }

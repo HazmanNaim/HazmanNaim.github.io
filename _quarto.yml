@@ -1,11 +1,10 @@
-# This file controls the settings for your Quarto template from www.marvinschmitt.com
+# This file controls the settings for Quarto template inspired from www.marvinschmitt.com
 
 # website settings
 website:
-  title: "Hazman Naim"  # Your name
+  title: "Hazman Naim"  # name
   description: "Physics Graduate & Aspiring Data Scientist | Data Science, Data Analysis, Research | Explore my journey 🔭"   # A brief slogan (optional)
   image: img/my_image.jpg
-  
   favicon: img/logo_data.jpeg
   
   # start of the navigation bar at the top of the website
@@ -13,7 +12,7 @@ website:
     pinned: true
     logo: /img/logo_data.jpeg
     
-    # your sub-pages
+    # Sub-pages
     left:
       - text: "About Me"
         href: about/index.qmd
@@ -21,10 +20,10 @@ website:
         href: projects/index.qmd
       - text: "CV"
         href: cv/index.qmd    
-      - text: "DataWithHazman"
+      - text: "NeuralBites"
         href: blog/index.qmd
     
-    # your social media handles
+    # Social media handles
     right:
       - icon: github
         href: https://github.com/HazmanNaim
@@ -36,15 +35,12 @@ website:
       - icon: window-fullscreen
         href: https://www.kaggle.com/hazmannaim
   
-  
-
-# Don't touch unless you know what you are doing :) ------------
   search: 
     location: navbar
     type: textbox
   page-footer: 
     left: |
-      <span class="faux-block">&#169; 2023 Hazman Naim CC BY-SA 4.0</span>
+      <span class="faux-block">&#169; 2024 Hazman Naim CC BY-SA 4.0</span>
     right: |
       <span class="faux-block">Made with {{< fa brands r-project >}} and [Quarto](https://quarto.org/)</span>
       <span class="faux-block"><a href="https://github.com/HazmanNaim/HazmanNaim.github.io">View source on GitHub</a></span>
