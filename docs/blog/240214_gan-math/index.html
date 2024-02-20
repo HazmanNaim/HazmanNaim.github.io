@@ -282,15 +282,20 @@ background-size: cover;
 <p>In this post, we will explore the mathematics behind GANs. This serves as an introductory post before I demonstrate and engage in practical work on using DCGAN to generate synthetic images of deep space objects in the <a href="https://hazmannaim.github.io\blog\240218_gan-first-project\index.html">next post</a>. The intention behind this post is to deepen my understanding of GANs and their mathematical framework, which greatly interests me. It is one of the reasons why I love AI, due to its extensive mathematical applications.</p>
 <section id="what-is-gan" class="level1">
 <h1>What is GAN ?</h1>
-<p>Generative Adversarial Networks (GANs) refer to a family of generative models that seek to discover the underlying distribution behind a certain data generating process, enabling the generation of new data from that same distribution.</p>
-<p>GANs have revolutionized deep learning over the past decade since the release of the first version of GAN in 2014 by Ian Goodfellow et al., there have been numerous variants of GAN with some groundbreaking applications.</p>
+<p>Generative Adversarial Networks (GANs) refer to a family of generative models that seek to discover the underlying distribution behind a certain data generating process, enabling the generation of new data from that same distribution. GANs have revolutionized deep learning over the past decade since the release of the first version of GAN in 2014 by Ian Goodfellow et al. Before GANs, the state-of-the-art in image generation was primarily dominated by techniques like Variational Autoencoders (VAEs) and Restricted Boltzmann Machines (RBMs). However, GANs quickly emerged as a powerful alternative, that have unique capabilities in generating images. Although recent advancements in generative modeling have introduced techniques like diffusion models and transformers, GANs still a cornerstone technology in image generation and have continued to evolve with new architectures and applications.</p>
 </section>
 <section id="gan-theoretical-overview" class="level1">
 <h1>GAN Theoretical Overview</h1>
 <p>This theoretical overview is based on the original paper by <span class="citation" data-cites="goodfellow2014generative">(<a href="#ref-goodfellow2014generative" role="doc-biblioref">Goodfellow et al. 2014</a>)</span> titled ‘Generative Adversarial Nets’. Additionally, insights were drawn from Jake Tae’s writing <span class="citation" data-cites="tae2020gan">(<a href="#ref-tae2020gan" role="doc-biblioref">Tae 2020</a>)</span> and the paper by <span class="citation" data-cites="DBLP:journals/corr/abs-2009-00169">(<a href="#ref-DBLP:journals/corr/abs-2009-00169" role="doc-biblioref">Wang 2020</a>)</span> titled ‘A Mathematical Introduction to Generative Adversarial Nets’. Without these references, understanding GAN would have been challenging.</p>
 <section id="loss-function" class="level2">
 <h2 class="anchored" data-anchor-id="loss-function">Loss Function</h2>
-<p>GAN consists of two distinct models: a generative model (G) that captures the data distribution and a discriminative model (D) that estimates the probability that a sample came from the training data rather than from G. The generator produces images that resemble the training images or “fake” images. During training, the generator continuously tries to outsmart the discriminator by generating better and better fakes, while the discriminator strives to become a better detective and accurately classify real and fake images. Equilibrium is achieved when the generator produces perfect fakes that closely resemble samples from the training data, and the discriminator is left guessing at a 50% confidence level whether the generator output is real. Thus, there will be a loss function to evaluate the performance of each of the models.</p>
+<p>GAN consists of two distinct models: a generative model (G) that captures the data distribution and a discriminative model (D) that estimates the probability that a sample came from the training data rather than from G. The generator produces images that resemble the training images or “fake” images. During training, the generator continuously tries to outsmart the discriminator by generating better and better fakes, while the discriminator strives to become a better detective and accurately classify real and fake images. As discriminator learns to discriminate between the two, it provides feedback to the generator about the quality of its generated samples. This is why the term “adversarial” is used here. Equilibrium is achieved when the generator produces perfect fakes that closely resemble samples from the training data, and the discriminator is left guessing at a 50% confidence level whether the generator output is real. Thus, there will be a loss function to evaluate the performance of each of the models.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/GAN_Illustration.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Illustration of GAN training. Credit image: <em>blog.ovhcloud.com</em>.</figcaption>
+</figure>
+</div>
 <section id="notation" class="level3">
 <h3 class="anchored" data-anchor-id="notation">Notation</h3>
 <p>Defining notation that we will be using in this post: <span class="math display">\[
@@ -360,7 +365,7 @@ background-size: cover;
 </section>
 <section id="the-generator" class="level3">
 <h3 class="anchored" data-anchor-id="the-generator">The Generator</h3>
-<p>The generator task is to confuse the disciminator as much as possible such that it mislabels generated images as being true. The loss function for the generator is written as:</p>
+<p>The generator task is to confuse the discriminator as much as possible such that it mislabels generated images as being true. The loss function for the generator is written as:</p>
 <p><span id="eq-lg_loss"><span class="math display">\[
 \begin{aligned}
 &amp; L_{G} = \text{Error}(D(G(z)),1)
@@ -393,19 +398,19 @@ background-size: cover;
 &amp; V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D(x))] + \mathbb{E}_{y \sim p_g}[\log(1 - D(y))]
 \end{aligned}
 \tag{10}\]</span></span></p>
-<p>In cases where the dimensionality of the output space <span class="math inline">\((y)\)</span> is higher than the dimensionality of the input space <span class="math inline">\((z)\)</span>, we can represent <a href="#eq-obj_function2">Equation&nbsp;11</a> as an integral over the input space:</p>
-<p><span id="eq-obj_function2"><span class="math display">\[
+<p>In cases where the dimensionality of the output space <span class="math inline">\((y)\)</span> is higher than the dimensionality of the input space <span class="math inline">\((z)\)</span>, we can represent <a href="#eq-obj_function2">Equation&nbsp;10</a> as an integral over the input space:</p>
+<p><span class="math display">\[
 \begin{aligned}
 &amp; V(G, D) = \int_{x \in \chi} p_{\text{data}}(x) \log(D(x)) + p_g(x) \log(1 - D(x)) \, dx
 \end{aligned}
-\tag{11}\]</span></span></p>
-<p>In the <a href="#eq-obj_function2">Equation&nbsp;11</a>, the first term represents the expected value of the logarithm of the discriminator’s output when fed with real data <span class="math inline">\(x\)</span> sampled from the true data distribution <span class="math inline">\(p_{\text{data}}(x)\)</span> and the second term represents the expected value of the logarithm of <span class="math inline">\(\log(1 - D(x))\)</span> when <span class="math inline">\(x\)</span> is sampled from the generator’s distribution <span class="math inline">\(p_g(x)\)</span> (Read more about <a href="https://stats.libretexts.org/Courses/Las_Positas_College/Math_40%3A_Statistics_and_Probability/05%3A_Discrete_Probability_Distributions/5.02%3A_Mean_or_Expected_Value_and_Standard_Deviation">Expectation Value</a>).</p>
+\]</span></p>
+<p>In the <a href="#eq-obj_function2">Equation&nbsp;10</a>, the first term represents the expected value of the logarithm of the discriminator’s output when fed with real data <span class="math inline">\(x\)</span> sampled from the true data distribution <span class="math inline">\(p_{\text{data}}(x)\)</span> and the second term represents the expected value of the logarithm of <span class="math inline">\(\log(1 - D(x))\)</span> when <span class="math inline">\(x\)</span> is sampled from the generator’s distribution <span class="math inline">\(p_g(x)\)</span> (Read more about <a href="https://stats.libretexts.org/Courses/Las_Positas_College/Math_40%3A_Statistics_and_Probability/05%3A_Discrete_Probability_Distributions/5.02%3A_Mean_or_Expected_Value_and_Standard_Deviation">Expectation Value</a>).</p>
 <p>The optimization of the generator and discriminator involves a minimax game, where the generator tries to minimize its loss while the discriminator tries to maximize its own. In other words:</p>
 <p><span id="eq-minimax"><span class="math display">\[
 \begin{aligned}
 &amp; \min_G \max_D V(D, G)
 \end{aligned}
-\tag{12}\]</span></span></p>
+\tag{11}\]</span></span></p>
 </section>
 <section id="training-discriminator" class="level3">
 <h3 class="anchored" data-anchor-id="training-discriminator">Training Discriminator</h3>
@@ -413,25 +418,25 @@ background-size: cover;
 \begin{aligned}
 D_{\text{Optimal}}(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}
 \end{aligned}
-\tag{13}\]</span></span></p>
+\tag{12}\]</span></span></p>
 <p>This equation represents the optimal discriminator for a given input <span class="math inline">\(x\)</span>. It calculates the probability that the input <span class="math inline">\(x\)</span> belongs to the real data distribution <span class="math inline">\(p_{\text{data}}(x)\)</span> relative to the sum of probabilities from both the real and generated data distributions.</p>
-<p>To explain the <a href="#eq-optimalD">Equation&nbsp;13</a> intuitively, <span class="math inline">\(D_{\text{Optimal}}(x)\)</span> assigns a value close to 1 when the sample <span class="math inline">\(x\)</span> is highly likely to come from the real data distribution, and a value close to 0 when it is more likely to come from the generator’s distribution. This ensures that the discriminator effectively distinguishes between real and generated samples.</p>
+<p>To explain the <a href="#eq-optimalD">Equation&nbsp;12</a> intuitively, <span class="math inline">\(D_{\text{Optimal}}(x)\)</span> assigns a value close to 1 when the sample <span class="math inline">\(x\)</span> is highly likely to come from the real data distribution, and a value close to 0 when it is more likely to come from the generator’s distribution. This ensures that the discriminator effectively distinguishes between real and generated samples.</p>
 </section>
 <section id="training-generator" class="level3">
 <h3 class="anchored" data-anchor-id="training-generator">Training Generator</h3>
-<p>Training the generator, we assume the discriminator to be fixed. Substitute the equation <a href="#eq-optimalD">Equation&nbsp;13</a> into our objective function <a href="#eq-obj_function">Equation&nbsp;9</a>: <span id="eq-substitute"><span class="math display">\[
+<p>Training the generator, we assume the discriminator to be fixed. Substitute the equation <a href="#eq-optimalD">Equation&nbsp;12</a> into our objective function <a href="#eq-obj_function">Equation&nbsp;9</a>: <span id="eq-substitute"><span class="math display">\[
 \begin{aligned}
 &amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D_{\text{Optimal}}(x))] + \mathbb{E}_{y \sim p_g}[\log(1 - D_{\text{Optimal}}(x))] \\
 &amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log{\frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}}] + \mathbb{E}_{x \sim p_{\text{g}}}[\log{\frac{p_{\text{g}}(x)}{p_{\text{data}}(x) + p_g(x)}}]
 \end{aligned}
-\tag{14}\]</span></span></p>
+\tag{13}\]</span></span></p>
 <p>The equation eventually is expressed as a <a href="https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence">Jensen-Shannon divergence</a>: <span id="eq-js-div"><span class="math display">\[
 \begin{aligned}
 &amp; V(G,D^*) = -\log 4 + 2 \cdot D_{JS}(p_{\text{data}} \| p_g)
 \end{aligned}
-\tag{15}\]</span></span></p>
+\tag{14}\]</span></span></p>
 <p>This occurs through a process after the substitution with clever tricks to interpret the expectations as <a href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback-Leibler divergence</a>, derived from the properties of logarithms in the equation.</p>
-<p>Finally, we can interpret <a href="#eq-js-div">Equation&nbsp;15</a> as follows: during training of the generator, the goal is to minimize the objective function <span class="math inline">\(V(G,D)\)</span> such that we want the Jensen-Shannon divergence between the distribution of the data and the distribution of the generated samples to be as small as possible. The part here, <span class="math inline">\(p_{\text{data}} \| p_g\)</span>, implies that the distributions <span class="math inline">\(p_{g}\)</span> and <span class="math inline">\(p_{data}\)</span> should be as close to each other as possible. Therefore, the optimal generator <span class="math inline">\(G\)</span> is the one that able to mimic <span class="math inline">\(p_{data}\)</span> from the generated sample distribution <span class="math inline">\(p_{g}\)</span>.</p>
+<p>Finally, we can interpret <a href="#eq-js-div">Equation&nbsp;14</a> as follows: during training of the generator, the goal is to minimize the objective function <span class="math inline">\(V(G,D)\)</span> such that we want the Jensen-Shannon divergence between the distribution of the data and the distribution of the generated samples to be as small as possible. The part here, <span class="math inline">\(p_{\text{data}} \| p_g\)</span>, implies that the distributions <span class="math inline">\(p_{g}\)</span> and <span class="math inline">\(p_{data}\)</span> should be as close to each other as possible. Therefore, the optimal generator <span class="math inline">\(G\)</span> is the one that able to mimic <span class="math inline">\(p_{data}\)</span> from the generated sample distribution <span class="math inline">\(p_{g}\)</span>.</p>
 </section>
 </section>
 </section>
@@ -768,228 +773,241 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co">  - "img/1.png"</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>In this post, we will explore the mathematics behind GANs. This serves as an introductory post before I demonstrate and engage in practical work on using DCGAN to generate synthetic images of deep space objects in the <span class="co">[</span><span class="ot">next post</span><span class="co">](https://hazmannaim.github.io\blog\240218_gan-first-project\index.html)</span>. The intention behind this post is to deepen my understanding of GANs and their mathematical framework, which greatly interests me. It is one of the reasons why I love AI, due to its extensive mathematical applications.</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is GAN ?</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>Generative Adversarial Networks (GANs) refer to a family of generative models that seek to discover the underlying distribution behind a certain data generating process, enabling the generation of new data from that same distribution.</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>GANs have revolutionized deep learning over the past decade since the release of the first version of GAN in 2014 by Ian Goodfellow et al., there have been numerous variants of GAN with some groundbreaking applications.</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># GAN Theoretical Overview</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>This theoretical overview is based on the original paper by <span class="co">[</span><span class="ot">@goodfellow2014generative</span><span class="co">]</span> titled 'Generative Adversarial Nets'. Additionally, insights were drawn from Jake Tae's writing <span class="co">[</span><span class="ot">@tae2020gan</span><span class="co">]</span> and the paper by <span class="co">[</span><span class="ot">@DBLP:journals/corr/abs-2009-00169</span><span class="co">]</span> titled 'A Mathematical Introduction to Generative Adversarial Nets'. Without these references, understanding GAN would have been challenging.</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>In this post, we will explore the mathematics behind GANs.</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>This serves as an introductory post before I demonstrate and engage in practical work on using DCGAN to generate synthetic images of deep space objects in the <span class="co">[</span><span class="ot">next post</span><span class="co">](https://hazmannaim.github.io\blog\240218_gan-first-project\index.html)</span>.</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>The intention behind this post is to deepen my understanding of GANs and their mathematical framework, which greatly interests me.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>It is one of the reasons why I love AI, due to its extensive mathematical applications.</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu"># What is GAN ?</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>Generative Adversarial Networks (GANs) refer to a family of generative models that seek to discover the underlying distribution behind a certain data generating process, enabling the generation of new data from that same distribution.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>GANs have revolutionized deep learning over the past decade since the release of the first version of GAN in 2014 by Ian Goodfellow et al.</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>Before GANs, the state-of-the-art in image generation was primarily dominated by techniques like Variational Autoencoders (VAEs) and Restricted Boltzmann Machines (RBMs).</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>However, GANs quickly emerged as a powerful alternative, that have unique capabilities in generating images.</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Although recent advancements in generative modeling have introduced techniques like diffusion models and transformers, GANs still a cornerstone technology in image generation and have continued to evolve with new architectures and applications.</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loss Function</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="fu"># GAN Theoretical Overview</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>GAN consists of two distinct models: a generative model (G) that captures the data distribution and a discriminative model (D) that estimates the probability that a sample came from the training data rather than from G.</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>The generator produces images that resemble the training images or "fake" images.</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>During training, the generator continuously tries to outsmart the discriminator by generating better and better fakes, while the discriminator strives to become a better detective and accurately classify real and fake images.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>Equilibrium is achieved when the generator produces perfect fakes that closely resemble samples from the training data, and the discriminator is left guessing at a 50% confidence level whether the generator output is real.</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>Thus, there will be a loss function to evaluate the performance of each of the models.</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>This theoretical overview is based on the original paper by <span class="co">[</span><span class="ot">@goodfellow2014generative</span><span class="co">]</span> titled 'Generative Adversarial Nets'.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Additionally, insights were drawn from Jake Tae's writing <span class="co">[</span><span class="ot">@tae2020gan</span><span class="co">]</span> and the paper by <span class="co">[</span><span class="ot">@DBLP:journals/corr/abs-2009-00169</span><span class="co">]</span> titled 'A Mathematical Introduction to Generative Adversarial Nets'.</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>Without these references, understanding GAN would have been challenging.</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Loss Function</span></span>
 <span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="fu">### Notation</span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>Defining notation that we will be using in this post: </span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>&amp; x \ \text{: Real data} <span class="sc">\\</span></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>&amp; z \ \text{: Latent space vector sampled from a standard normal distribution} <span class="sc">\\</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>&amp; G(z) \ \text{: Fake data} <span class="sc">\\</span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>&amp; D(x) \ \text{: Discriminator's evaluation of real data} <span class="sc">\\</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>&amp; D(G(x)) \ \text{: Discriminator's evaluation of fake data} <span class="sc">\\</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>&amp; \text{Error}(a,b) \ \text{: Error between a and b} <span class="sc">\\</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary Cross Entropy</span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>A common loss function that is used in binary classification problems is binary cross entropy.</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>This mathematically described as: </span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>&amp; H(p,q) = \mathbb{E}_{x \sim p_{(x)}}<span class="co">[</span><span class="ot">- \log q (x)</span><span class="co">]</span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss}</span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>For a classification task, the random variable is discrete.</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>Therefore, the @eq-bce_loss can be expressed as a summation: </span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>GAN consists of two distinct models: a generative model (G) that captures the data distribution and a discriminative model (D) that estimates the probability that a sample came from the training data rather than from G.</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>The generator produces images that resemble the training images or "fake" images.</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>During training, the generator continuously tries to outsmart the discriminator by generating better and better fakes, while the discriminator strives to become a better detective and accurately classify real and fake images.</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>As discriminator learns to discriminate between the two, it provides feedback to the generator about the quality of its generated samples.</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>This is why the term "adversarial" is used here.</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>Equilibrium is achieved when the generator produces perfect fakes that closely resemble samples from the training data, and the discriminator is left guessing at a 50% confidence level whether the generator output is real.</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>Thus, there will be a loss function to evaluate the performance of each of the models.</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="al">![Illustration of GAN training. Credit image: *blog.ovhcloud.com*.](img/GAN_Illustration.png)</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Notation</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>Defining notation that we will be using in this post: $$</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>&amp; x \ \text{: Real data} <span class="sc">\\</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>&amp; z \ \text{: Latent space vector sampled from a standard normal distribution} <span class="sc">\\</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>&amp; G(z) \ \text{: Fake data} <span class="sc">\\</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>&amp; D(x) \ \text{: Discriminator's evaluation of real data} <span class="sc">\\</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>&amp; D(G(x)) \ \text{: Discriminator's evaluation of fake data} <span class="sc">\\</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>&amp; \text{Error}(a,b) \ \text{: Error between a and b} <span class="sc">\\</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### Binary Cross Entropy</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>A common loss function that is used in binary classification problems is binary cross entropy.</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>This mathematically described as: $$</span>
 <span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>&amp; H(p,q) = -\sum_{x \in \chi}p(x)\log q (x)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>&amp; H(p,q) = \mathbb{E}_{x \sim p_{(x)}}<span class="co">[</span><span class="ot">- \log q (x)</span><span class="co">]</span></span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_sum}</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss}</span>
 <span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>In the context of binary classification, we have two possible labels: 0 and 1.</span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Therefore, the sum in the above expression would involve only two terms, corresponding to these two labels.</span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>Let's denote the true label as $y$ and the predicted probability for class 1 as $\hat{y}$.</span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>Thus, we have:</span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>For a real input, $y = 1$. Substituting this into the binary cross-entropy loss function gives the following loss value:</span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y})  = - (y \log(\hat{y}) + (1 - y) \log(1 - \hat{y}))</span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>&amp; H(1,\hat{y})  = - y \log(\hat{y})</span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_1}</span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Similarly, for a fake input, $y = 0$. Substituting this into the binary cross-entropy loss function gives the following loss value:</span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y})  = - (y \log(\hat{y}) + (1 - y) \log(1 - \hat{y})) <span class="sc">\\</span></span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>&amp; H(0,\hat{y})  = (1 - y) \log(1 - \hat{y}) </span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_0}</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>For a classification task, the random variable is discrete.</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>Therefore, the @eq-bce_loss can be expressed as a summation: $$</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>&amp; H(p,q) = -\sum_{x \in \chi}p(x)\log q (x)</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_sum}</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>In the context of binary classification, we have two possible labels: 0 and 1.</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>Therefore, the sum in the above expression would involve only two terms, corresponding to these two labels.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>Let's denote the true label as $y$ and the predicted probability for class 1 as $\hat{y}$.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>Thus, we have:</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>For a real input, $y = 1$. Substituting this into the binary cross-entropy loss function gives the following loss value:</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y})  = - (y \log(\hat{y}) + (1 - y) \log(1 - \hat{y}))</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>&amp; H(1,\hat{y})  = - y \log(\hat{y})</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_1}</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Similarly, for a fake input, $y = 0$. Substituting this into the binary cross-entropy loss function gives the following loss value:</span>
 <span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>Therefore, we can rewrite the expression for the binary cross-entropy loss as: </span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y}) = -\sum y\log (\hat{y}) + (1-y)\log (1-\hat{y})</span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Discriminator</span></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>The discriminator task is to correctly label generated images as false and empirical data points as true.</span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>We might consider the loss function of the discriminator: </span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a>&amp; L_{D} = \text{Error}(D(x),1) + \text{Error}(D(G(z)),0)</span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ld_loss}</span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>Applying @eq-bce_loss_sum into @eq-ld_loss, the expression will be written as:</span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>&amp; L_{D} = -\sum_{x \in \chi, z \in \zeta} \log(D(x)) + \log(1-D(G(z)))</span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ld_loss_bce}</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y})  = - (y \log(\hat{y}) + (1 - y) \log(1 - \hat{y})) <span class="sc">\\</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>&amp; H(0,\hat{y})  = (1 - y) \log(1 - \hat{y}) </span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>$$ {#eq-bce_loss_0}</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>Therefore, we can rewrite the expression for the binary cross-entropy loss as:</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>&amp; H(y,\hat{y}) = -\sum y\log (\hat{y}) + (1-y)\log (1-\hat{y})</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Discriminator</span></span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>The discriminator task is to correctly label generated images as false and empirical data points as true.</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>We might consider the loss function of the discriminator: $$</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>&amp; L_{D} = \text{Error}(D(x),1) + \text{Error}(D(G(z)),0)</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ld_loss}</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>Applying @eq-bce_loss_sum into @eq-ld_loss, the expression will be written as:</span>
 <span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Generator</span></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>The generator task is to confuse the disciminator as much as possible such that it mislabels generated images as being true.</span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>The loss function for the generator is written as:</span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>&amp; L_{G} = \text{Error}(D(G(z)),1)</span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>$$ {#eq-lg_loss}</span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>&amp; L_{D} = -\sum_{x \in \chi, z \in \zeta} \log(D(x)) + \log(1-D(G(z)))</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>$$ {#eq-ld_loss_bce}</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Generator</span></span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>The generator task is to confuse the discriminator as much as possible such that it mislabels generated images as being true.</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>The loss function for the generator is written as:</span>
 <span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>Because loss function is something we want to minimize, in the case of the generator, it should minimize the difference between, the label for true data and the discriminator's evaluation of the generated fake data.</span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>Applying @eq-bce_loss_sum into @eq-lg_loss, the expression will be written as:</span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>&amp; L_{G} = -\sum_{x \in \zeta} \log(D(G(z)))</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>$$ {#eq-lg_loss_bce}</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>&amp; L_{G} = \text{Error}(D(G(z)),1)</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>$$ {#eq-lg_loss}</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>Because loss function is something we want to minimize, in the case of the generator, it should minimize the difference between, the label for true data and the discriminator's evaluation of the generated fake data.</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>Applying @eq-bce_loss_sum into @eq-lg_loss, the expression will be written as:</span>
 <span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>Now, we have two loss functions to train both the generator and the discriminator, which work together.</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>If $D(G(z))$ is close to 1 when the discriminator evaluates the generator's output, then the generator's loss is small.</span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>This occurs because a discriminator output of 1 indicates that the discriminator is highly confident that the generated image is real, hence the generator's loss is minimized.</span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>This aligns with our objective for the generator's loss function.</span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Optimization</span></span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>Model optimization is the process of using mathematical and computational methods to solve optimization problems.</span>
-<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>For our case, the goal is to find parameters for both the generator and the discriminator such that the loss functions are optimized.</span>
-<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>In practical terms, this involves training the models and minimizing the loss function.</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>&amp; L_{G} = -\sum_{x \in \zeta} \log(D(G(z)))</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>$$ {#eq-lg_loss_bce}</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>Now, we have two loss functions to train both the generator and the discriminator, which work together.</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>If $D(G(z))$ is close to 1 when the discriminator evaluates the generator's output, then the generator's loss is small.</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>This occurs because a discriminator output of 1 indicates that the discriminator is highly confident that the generated image is real, hence the generator's loss is minimized.</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>This aligns with our objective for the generator's loss function.</span>
 <span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training GAN</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Optimization</span></span>
 <span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>In the training of a GAN, we aim to optimize both the generator $G$ and the discriminator $D$ simultaneously. To do this, we need to combine the individual loss functions of the generator and discriminator into a single objective function that captures the overall performance of the GAN. Combining both the loss functions @eq-ld_loss_bce and @eq-lg_loss_bce will give us a objective function which is defined as a function of $G$ and $D$.</span>
-<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>This objective function is expressed as:</span>
-<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[ \log(D(x))] + \mathbb{E}_{z \sim p_z}<span class="co">[</span><span class="ot">\log(1 - D(G(z)))</span><span class="co">]</span></span>
-<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>$$ {#eq-obj_function}</span>
-<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>This objective function measures the effectiveness of the discriminator in distinguishing real data from generated data produced by the generator. Here, $x$ represents real data samples drawn from the true data distribution $p_{data}$ and $z$ represents random noise vectors sampled from a distribution $p_{z}$.</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>Model optimization is the process of using mathematical and computational methods to solve optimization problems.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>For our case, the goal is to find parameters for both the generator and the discriminator such that the loss functions are optimized.</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>In practical terms, this involves training the models and minimizing the loss function.</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training GAN</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>In the training of a GAN, we aim to optimize both the generator $G$ and the discriminator $D$ simultaneously.</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>To do this, we need to combine the individual loss functions of the generator and discriminator into a single objective function that captures the overall performance of the GAN.</span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>Combining both the loss functions @eq-ld_loss_bce and @eq-lg_loss_bce will give us a objective function which is defined as a function of $G$ and $D$.</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>This objective function is expressed as:</span>
 <span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>Because we are interested in the distribution that is modeled by the generator, we will rewrite the @eq-obj_function by defining a new variable $y=G(z)$.</span>
-<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>This makes it easier to understand that the GAN objective function is terms of the generated samples rather than the latent vector: </span>
-<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D(x))] + \mathbb{E}_{y \sim p_g}<span class="co">[</span><span class="ot">\log(1 - D(y))</span><span class="co">]</span></span>
-<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>$$ {#eq-obj_function2}</span>
-<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a>In cases where  the dimensionality of the output space $(y)$ is higher than the dimensionality of the input space $(z)$, we can represent @eq-obj_function2 as an integral over the input space:</span>
-<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[ \log(D(x))] + \mathbb{E}_{z \sim p_z}<span class="co">[</span><span class="ot">\log(1 - D(G(z)))</span><span class="co">]</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>$$ {#eq-obj_function}</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>This objective function measures the effectiveness of the discriminator in distinguishing real data from generated data produced by the generator.</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a>Here, $x$ represents real data samples drawn from the true data distribution $p_{data}$ and $z$ represents random noise vectors sampled from a distribution $p_{z}$.</span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>Because we are interested in the distribution that is modeled by the generator, we will rewrite the @eq-obj_function by defining a new variable $y=G(z)$.</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>This makes it easier to understand that the GAN objective function is terms of the generated samples rather than the latent vector: $$</span>
 <span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \int_{x \in \chi} p_{\text{data}}(x) \log(D(x)) + p_g(x) \log(1 - D(x)) \, dx</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D(x))] + \mathbb{E}_{y \sim p_g}<span class="co">[</span><span class="ot">\log(1 - D(y))</span><span class="co">]</span></span>
 <span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
 <span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a>$$ {#eq-obj_function2}</span>
 <span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>In the @eq-obj_function2, the first term represents the expected value of the logarithm of the discriminator's output when fed with real data $x$ sampled from the true data distribution $p_{\text{data}}(x)$ and the second term represents the expected value of the logarithm of $\log(1 - D(x))$ when $x$ is sampled from the generator's distribution $p_g(x)$ (Read more about <span class="co">[</span><span class="ot">Expectation Value</span><span class="co">](https://stats.libretexts.org/Courses/Las_Positas_College/Math_40\%3A_Statistics_and_Probability/05\%3A_Discrete_Probability_Distributions/5.02\%3A_Mean_or_Expected_Value_and_Standard_Deviation)</span>). </span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a>In cases where the dimensionality of the output space $(y)$ is higher than the dimensionality of the input space $(z)$, we can represent @eq-obj_function2 as an integral over the input space:</span>
 <span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>The optimization of the generator and discriminator involves a minimax game, where the generator tries to minimize its loss while the discriminator tries to maximize its own. In other words:</span>
-<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>&amp; \min_G \max_D V(D, G)</span>
-<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>$$ {#eq-minimax}</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D) = \int_{x \in \chi} p_{\text{data}}(x) \log(D(x)) + p_g(x) \log(1 - D(x)) \, dx</span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>In the @eq-obj_function2, the first term represents the expected value of the logarithm of the discriminator's output when fed with real data $x$ sampled from the true data distribution $p_{\text{data}}(x)$ and the second term represents the expected value of the logarithm of $\log(1 - D(x))$ when $x$ is sampled from the generator's distribution $p_g(x)$ (Read more about <span class="co">[</span><span class="ot">Expectation Value</span><span class="co">](https://stats.libretexts.org/Courses/Las_Positas_College/Math_40%3A_Statistics_and_Probability/05%3A_Discrete_Probability_Distributions/5.02%3A_Mean_or_Expected_Value_and_Standard_Deviation)</span>).</span>
 <span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training Discriminator</span></span>
-<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a>The task of the discriminator is to maximize this objective function.</span>
-<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>Remember, the discriminator's role in the GAN framework is to accurately differentiate between real and generated samples.</span>
-<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>By maximizing $V(G,D)$, we ensure that the discriminator is trained to assign high probabilities to real samples and low probabilities to generated samples.</span>
-<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>This encourages the generator to produce samples that are increasingly similar to real data, ultimately improving the quality of the generated output.</span>
-<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>We can do the partial derivative of $V(G,D)$ with respect to $D(x)$ to find the optimal value of the discriminator denoted as $D_{Optimal}(x)$.</span>
-<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>The result of this derivative yields the expression: </span>
-<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>D_{\text{Optimal}}(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}</span>
-<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>$$ {#eq-optimalD}</span>
-<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>This equation represents the optimal discriminator for a given input $x$.</span>
-<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>It calculates the probability that the input $x$ belongs to the real data distribution $p_{\text{data}}(x)$ relative to the sum of probabilities from both the real and generated data distributions.</span>
-<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>To explain the @eq-optimalD intuitively, $D_{\text{Optimal}}(x)$ assigns a value close to 1 when the sample $x$ is highly likely to come from the real data distribution, and a value close to 0 when it is more likely to come from the generator's distribution.</span>
-<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>This ensures that the discriminator effectively distinguishes between real and generated samples.</span>
-<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training Generator</span></span>
-<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>Training the generator, we assume the discriminator to be fixed. Substitute the equation @eq-optimalD into our objective function @eq-obj_function:</span>
-<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D_{\text{Optimal}}(x))] + \mathbb{E}_{y \sim p_g}[\log(1 - D_{\text{Optimal}}(x))] <span class="sc">\\</span></span>
-<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log{\frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}}] + \mathbb{E}_{x \sim p_{\text{g}}}[\log{\frac{p_{\text{g}}(x)}{p_{\text{data}}(x) + p_g(x)}}]</span>
-<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a>$$ {#eq-substitute}</span>
-<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>The equation eventually is expressed as a <span class="co">[</span><span class="ot">Jensen-Shannon divergence</span><span class="co">](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence)</span>:</span>
-<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
-<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>&amp; V(G,D^*) = -\log 4 + 2 \cdot D_{JS}(p_{\text{data}} \| p_g)</span>
-<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
-<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>$$ {#eq-js-div}</span>
-<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>This occurs through a process after the substitution with clever tricks to interpret the expectations as <span class="co">[</span><span class="ot">Kullback-Leibler divergence</span><span class="co">](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)</span>, derived from the properties of logarithms in the equation.</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>The optimization of the generator and discriminator involves a minimax game, where the generator tries to minimize its loss while the discriminator tries to maximize its own.</span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>In other words:</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>&amp; \min_G \max_D V(D, G)</span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>$$ {#eq-minimax}</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training Discriminator</span></span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>The task of the discriminator is to maximize this objective function.</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>Remember, the discriminator's role in the GAN framework is to accurately differentiate between real and generated samples.</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>By maximizing $V(G,D)$, we ensure that the discriminator is trained to assign high probabilities to real samples and low probabilities to generated samples.</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>This encourages the generator to produce samples that are increasingly similar to real data, ultimately improving the quality of the generated output.</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>We can do the partial derivative of $V(G,D)$ with respect to $D(x)$ to find the optimal value of the discriminator denoted as $D_{Optimal}(x)$.</span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>The result of this derivative yields the expression: $$</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>D_{\text{Optimal}}(x) = \frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>$$ {#eq-optimalD}</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>This equation represents the optimal discriminator for a given input $x$.</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>It calculates the probability that the input $x$ belongs to the real data distribution $p_{\text{data}}(x)$ relative to the sum of probabilities from both the real and generated data distributions.</span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>To explain the @eq-optimalD intuitively, $D_{\text{Optimal}}(x)$ assigns a value close to 1 when the sample $x$ is highly likely to come from the real data distribution, and a value close to 0 when it is more likely to come from the generator's distribution.</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>This ensures that the discriminator effectively distinguishes between real and generated samples.</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### Training Generator</span></span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>Training the generator, we assume the discriminator to be fixed.</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>Substitute the equation @eq-optimalD into our objective function @eq-obj_function: $$</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log(D_{\text{Optimal}}(x))] + \mathbb{E}_{y \sim p_g}[\log(1 - D_{\text{Optimal}}(x))] <span class="sc">\\</span></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>&amp; V(G, D_{\text{Optimal}}) = \mathbb{E}_{x \sim p_{\text{data}}}[\log{\frac{p_{\text{data}}(x)}{p_{\text{data}}(x) + p_g(x)}}] + \mathbb{E}_{x \sim p_{\text{g}}}[\log{\frac{p_{\text{g}}(x)}{p_{\text{data}}(x) + p_g(x)}}]</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>$$ {#eq-substitute}</span>
 <span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>Finally, we can interpret @eq-js-div as follows: during training of the generator, the goal is to minimize the objective function $V(G,D)$ such that we want the Jensen-Shannon divergence between the distribution of the data and the distribution of the generated samples to be as small as possible. The part here, $p_{\text{data}} \| p_g$, implies that the distributions $p_{g}$ and $p_{data}$ should be as close to each other as possible. Therefore, the optimal generator $G$ is the one that able to mimic $p_{data}$ from the generated sample distribution $p_{g}$.</span>
-<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
-<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>In conclusion, this post serves as a brief overview of the mathematics behind GANs, providing a solid starting point for exploring into this fascinating topic. It is important to note that the world of GANs is vast, with numerous variants with distinctive architectures and mathematical frameworks. While this overview covers the fundamentals, exploring various GAN variants and their underlying mathematics can offer deeper insights and opportunities for further learning.</span>
-<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### References</span></span>
-<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
-<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>The equation eventually is expressed as a <span class="co">[</span><span class="ot">Jensen-Shannon divergence</span><span class="co">](https://en.wikipedia.org/wiki/Jensen%E2%80%93Shannon_divergence)</span>: $$</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>&amp; V(G,D^*) = -\log 4 + 2 \cdot D_{JS}(p_{\text{data}} \| p_g)</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>$$ {#eq-js-div}</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>This occurs through a process after the substitution with clever tricks to interpret the expectations as <span class="co">[</span><span class="ot">Kullback-Leibler divergence</span><span class="co">](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence)</span>, derived from the properties of logarithms in the equation.</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>Finally, we can interpret @eq-js-div as follows: during training of the generator, the goal is to minimize the objective function $V(G,D)$ such that we want the Jensen-Shannon divergence between the distribution of the data and the distribution of the generated samples to be as small as possible.</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>The part here, $p_{\text{data}} \| p_g$, implies that the distributions $p_{g}$ and $p_{data}$ should be as close to each other as possible.</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>Therefore, the optimal generator $G$ is the one that able to mimic $p_{data}$ from the generated sample distribution $p_{g}$.</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a><span class="fu"># Conclusion</span></span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>In conclusion, this post serves as a brief overview of the mathematics behind GANs, providing a solid starting point for exploring into this fascinating topic.</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>It is important to note that the world of GANs is vast, with numerous variants with distinctive architectures and mathematical frameworks.</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>While this overview covers the fundamentals, exploring various GAN variants and their underlying mathematics can offer deeper insights and opportunities for further learning.</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a><span class="fu">### References</span></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>:::</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
