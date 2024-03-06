@@ -60,14 +60,36 @@ My journey has been fueled by a passion for AI, a dedication and a commitment to
 -   Python
 -   C
 -   SQL
+-   R
+-   Latex
 
-[**Tools:**]{.underline}
+[**Software and Tools:**]{.underline}
 
--   PyTorch
--   TensorFlow
--   Scikit-Learn
--   Flask
--   MySQL
+- GitHub
+- HuggingFace
+- Git
+- WandB
+- Jupyter
+- Anaconda
+- R Studio
+- AWS-EC2
+- Power BI
+- QGIS
+- NVIDIA Jetson Nano
+
+[**Libraries and Packages:**]{.underline}
+
+- Scikit-learn
+- TensorFlow
+- PyTorch
+- Keras
+- CUDA
+- Pandas
+- NumPy
+- Folium
+- Flask
+- FastAPI
+- OpenCV
 
 # Open Source Contributions
 
