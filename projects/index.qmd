@@ -1,6 +1,6 @@
 ---
 title: Projects
-date: 2024-01-17
+date: 2024-04-01
 description-meta: Exciting projects by Hazman Naim
 published-title: Last updated
 title-block-banner: "#771C6D"
@@ -10,6 +10,23 @@ toc-title: "Contents"
 ---
 
 # DATA SCIENCE/AI/ML
+
+## Machine Learning Classification of Building Damage in Post-Storm Event Assessment (Annual EY Open Science Data Challenge Competition 2024)
+
+![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) 
+
+<div>
+
+![](machine-learning-classification-of-building-damage/header.png){style="object-fit: contain; float: left;" fig-align="center" width="575"}
+
+::: {style="clear: both;"}
+:::
+
+<div>
+
+\|2024-03-10\|<a href="https://ey-groupie2024wg.github.io/" target="_blank">Solution Write-Up</a>\|
+
+This competition requires participants to prepare the dataset from satellite images of San Juan pre- and post-storm. With this dataset, participants are required to classify each building in the validation dataset into one of four categories: undamaged residential buildings, damaged residential buildings, undamaged commercial buildings, and damaged commercial buildings.
 
 ## Computer Vision Project-Concrete Defects Segmentation
 

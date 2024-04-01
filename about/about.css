@@ -1,0 +1,135 @@
+.timeline {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .event {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .event_date {
+    width: 150px; /* Adjust width as needed */
+    text-align: right;
+    padding-right: 20px; /* Add space between date and line */
+  }
+  
+  .event_content {
+    flex-grow: 1;
+    padding-left: 20px; /* Add space between line and content */
+  }
+  
+  .event_head {
+    font-weight: bold;
+  }
+  
+  .event_company {
+    color: #888;
+  }
+  
+  .event::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 150px; /* Same as width of event_date */
+    width: 2px;
+    height: 100%;
+    background-color: #ccc;
+  }
+
+  .event_details {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .event_details li {
+    margin-bottom: 5px;
+  }
+
+  .event_logo {
+    display: block;
+    max-width: 200px; /* Adjust the maximum width as needed */
+    margin-top: 10px; /* Adjust as needed */
+  }
+
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .skill {
+    width: calc(33.33% - 20px); /* Adjust as needed for number of columns */
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .skill img {
+    max-width: 100px; /* Adjust maximum width of the logo */
+  }
+  
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .skill {
+    width: calc(33.33% - 20px); /* Adjust as needed for number of columns */
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .skill-box {
+    width: 80px; /* Adjust box size as needed */
+    height: 120px; /* Adjust box size as needed */
+    background-color: transparent; /* Set background color to transparent */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .skill-box .logo {
+    max-width: 80px; /* Adjust maximum logo size */
+    max-height: 80px; /* Adjust maximum logo size */
+  }
+  
+  .caption {
+    margin-top: 5px;
+    font-size: 14px;
+    width: 100px; /* Adjust to match the box width */
+    text-align: center; /* Center the text */
+  }
+  
+  .contribution {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contribution-image {
+    margin-right: 20px;
+}
+
+.contribution-details {
+    flex-grow: 1;
+}
+
+.contribution-details p {
+    margin: 0;
+}
+
+.course {
+  margin-bottom: 20px;
+}
+
+.course-details p {
+  margin: 0;
+}
+
+
+
+  
+  
