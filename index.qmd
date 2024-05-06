@@ -29,13 +29,12 @@ listing:
     <div class="hero section_padding">
         <div class="hero_content">
             <h1>Hi, I'm <span class="gradient_text">Hazman</span>.</h1>
-            <p>I am a Physics graduate from University of Malaya with a strong interest for data science, AI, and machine learning.
-            In my role as an AI Developer, I leverage AI technologies to address clients' needs. My expertise includes Python programming, developing machine learning models, deploying models using AWS, and proficiently managing AI projects.</p>
+            <p>I'm an Analytics Engineer at Apecia, specializing in developing and maintaining data pipelines for big data analysis. My work involves creating intuitive industrial-grade dashboards and establishing frameworks for big data management and processing. I also apply advanced statistical and predictive modeling techniques to develop intelligent algorithms. I graduated from the University of Malaya with a Bachelor of Science in Physics in 2023.</p>
             
-            <p><b><span style="color:#E6AA04"">JOB MARKET 2024:</span></b> I am looking for machine learning positions in Malaysia starting in 2024. My current interests revolve around deep learning, computer vision, NLP and also deploying these AI technologies for applications. I am also open to learn new topics. I spend a considerable amount of my time programming in Python (PyTorch + TensorFlow). </p>
+            <!-- <p><b><span style="color:#E6AA04">JOB MARKET 2024:</span></b> I am looking for machine learning positions in Malaysia starting in 2024. My current interests revolve around deep learning, computer vision, NLP and also deploying these AI technologies for applications. I am also open to learn new topics. I spend a considerable amount of my time programming in Python (PyTorch + TensorFlow). </p>
             <p>Here is my <a href="cv/index.html"><span style='text-decoration: underline;
             text-decoration-color: #E6AA04;'>CV (Link)</span></a>. Reach out if you think there might be a fit: <a href="mailto:hazmannaimbinahsan@gmail.com"><span style='text-decoration: underline;
-            text-decoration-color: #E6AA04;'>hazmannaimbinahsan@gmail.com</span></a></p>
+            text-decoration-color: #E6AA04;'>hazmannaimbinahsan@gmail.com</span></a></p> -->
         </div>
         <div class="hero_image">
             <img src="/img/Hazman_Front.png"/>
@@ -76,8 +75,9 @@ listing:
 
 ::: {#news}
 ## Current Updates
+-   **May 13, 2024**: I have successfully landed my full-time position in the data field as an analytics engineer at [Apecia](https://apecia.com).  
 
--   **October 23, 2023**: Great news! I have begun my on-the-job training as an AI Developer, which is my first baby-step for my data science career. I am part of the AI Backend team that works on developing AI-based applications for E-commerce. I also get to work with other areas of AI such as NLP and LLM. This training will go on for three months.
+-   **October 23, 2023**: I have begun my on-the-job training as an AI Developer, which is my first baby-step for my data science career. I am part of the AI Backend team that works on developing AI-based applications for E-commerce. I also get to work with other areas of AI such as NLP and LLM. This training will go on for three months.
 
 -   **September 9, 2023**: I have been selected for the K-Youth Development Programme, a data science upskilling program offered by Excelerate Asia in partnership with General Assembly. This program is sponsored by Khazanah Nasional and lasts for four months. The first month is dedicated to learning data science skills through a bootcamp, while the remaining three months involve on-the-job training. The program also helps me develop career skills such as resume writing, interviewing, and communication.
 

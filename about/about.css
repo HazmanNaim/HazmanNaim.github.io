@@ -51,9 +51,11 @@
 
   .event_logo {
     display: block;
-    max-width: 200px; /* Adjust the maximum width as needed */
+    width: 200px; /* Fixed width for the placeholder */
+    height: 100px; /* Fixed height for the placeholder */
+    object-fit: contain; /* Maintain aspect ratio while fitting within the dimensions */
     margin-top: 10px; /* Adjust as needed */
-  }
+  }   
 
   .skills-container {
     display: flex;
