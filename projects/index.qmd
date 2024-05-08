@@ -9,84 +9,25 @@ toc-location: left
 toc-title: "Contents"
 ---
 
-# DATA SCIENCE/AI/ML
-
-## Machine Learning Classification of Building Damage in Post-Storm Event Assessment (Annual EY Open Science Data Challenge Competition 2024)
-
-![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) 
-
-<div>
-
-![](machine-learning-classification-of-building-damage/header.png){style="object-fit: contain; float: left;" fig-align="center" width="575"}
-
-::: {style="clear: both;"}
-:::
-
-<div>
-
-\|2024-03-10\|<a href="https://ey-groupie2024wg.github.io/" target="_blank">Solution Write-Up</a>\|
-
-This competition requires participants to prepare the dataset from satellite images of San Juan pre- and post-storm. With this dataset, participants are required to classify each building in the validation dataset into one of four categories: undamaged residential buildings, damaged residential buildings, undamaged commercial buildings, and damaged commercial buildings.
-
-## Computer Vision Project-Concrete Defects Segmentation
-
-![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=white)
-
-<div>
-
-![](concrete-defects-detection/result_1.png){onclick="window.open('concrete-defects-detection/result_1.png', '_blank')" style="object-fit: contain; float: left;" fig-align="center" width="575"}
-
-::: {style="clear: both;"}
-:::
-
-::: {style="text-align: center; font-size: smaller; font-style: italic;"}
-Click to make it larger.
-:::
-
-<div>
-
-\|2023-12-30\|<a href="https://www.kaggle.com/code/hazmannaim/concrete-defects-segmentation" target="_blank">Notebook</a>\|
-
-The goal of this project is to detect defects in concrete structures with deep learning. The model used here is an encoder-decoder model, U-Net, developed based on EfficientNet-B1 as the backbone and trained for 60 epochs. 
-
-## Prediction of Mohs Hardness with Machine Learning
-
-![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=white)
-
-<div>
-
-![](prediction-of-mohs-hardness-with-machine-learning/img-1.jpeg){onclick="window.open('prediction-of-mohs-hardness-with-machine-learning/img-1.jpeg', '_blank')" style="object-fit: contain; float: left;" fig-align="center" width="575"}
-
-::: {style="clear: both;"}
-:::
-
-::: {style="text-align: center; font-size: smaller; font-style: italic;"}
-Click to make it larger.
-:::
-
-<div>
-
-\|2023-12-05\|<a href="https://www.kaggle.com/competitions/playground-series-s3e25" target="_blank">Competition Link</a>\|<a href="https://www.kaggle.com/code/hazmannaim/mohs-hardness-prediction-ann-meta-learner-top-28/notebook" target="_blank">Notebook Submission</a>\|
-
-My participation in a Kaggle competition Playground Series - Season 3, Episode 25, Mohs Hardness Prediction, which involves a regression problem.This competition provided me with an opportunity to learn from other experts and refine my skills. My strategy include the utilization of various tree-based models such as Gradient Boost, LightGBM, XGBoost, HistGradientBoost, and CatBoost. To enhance predictive performance, I developed a custom ensemble technique that leveraged a linear model (LADRegression) for assigning weights to the predictions generated by different models. Additionally, I incorporated an Artificial Neural Network (ANN) as a meta-learner. This component was designed to adeptly combine predictions from diverse machine learning models, contributing to the development of a robust and reliable predictive model. To validate the model's generalization capabilities, I conducted cross-validation, ensuring its effectiveness across different datasets. Furthermore, I optimized model hyperparameters efficiently using Optuna, a tool tailored for hyperparameter tuning.
-
-## Binary Prediction of Smoker Status using Bio-Signals
-
-![Kaggle](https://img.shields.io/badge/Kaggle-035a7d?style=for-the-badge&logo=kaggle&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white) ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white) ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white) ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=white)
-
-<div>
-
-![](binary_prediction_of_smoker_status_using_biosignals/roc_plot.png){onclick="window.open('/projects/binary_prediction_of_smoker_status_using_biosignals/roc_plot.png', '_blank')" style="object-fit: contain; float: left;" fig-align="center" width="575"}
-
-::: {style="clear: both;"}
-:::
-
-::: {style="text-align: center; font-size: smaller; font-style: italic;"}
-Click to make it larger.
-:::
-
-</div>
-
-\|2023-11-19\|<a href="https://www.kaggle.com/competitions/playground-series-s3e24" target="_blank">Competition Link</a>\|<a href="https://www.kaggle.com/code/hazmannaim/binary-classification-weighted-ensemble-top-28" target="_blank">Notebook Submission</a>\|
-
-This project is a machine learning project that we conducted for the Kaggle Playground Competition, a category of competition on Kaggle that offers short machine learning challenges. The objective of this competition was to predict the smoking status of individuals based on their bio-signals, such as systolic, cholesterol level, blood sugar, and etc. We formed a team of three members, including myself as the team leader, and we achieved a rank of 28% among 1908 teams globally. The competition provided a pre-processed dataset, so we focused on developing models with high ROC-AUC scores, which measure the ability to discriminate between smokers and non-smokers. We experimented with various algorithms, such as logistic regression, random forest, and tree-based boosting methods, including gradient boost, histogram-based gradient boost, LightGBM, XGBoost, and CatBoost. To improve AUC-ROC score and reduce variance, we created a weighted-voting ensemble that combined the three best-performing algorithms that we selected after rigorous evaluation. Our ensemble model outperformed each individual model in predicting smoking status. We fine-tuned our models using Optuna, a framework for hyperparameter optimization, to find the optimal values for each parameter. This tuning process resulted in a final submission with a ROC-AUC score of 0.87178. Although this score was slightly lower than the top submission's 0.87946, our approach demonstrated strong predictive power and emphasized the importance of algorithm selection and ensemble techniques for reducing model variance.
+```{=html}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Projects</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Project 1 -->
+        <div class="project">
+            <img src="machine-learning-classification-of-building-damage/header.jpg" alt="Project 1">
+            <h3>Machine Learning Classification of Building Damage in Post-Storm Event Assessment </h3>
+            <p>This competition requires participants to prepare the dataset from satellite images of San Juan pre- and post-storm. With this dataset, participants are required to classify each building in the validation dataset into one of four categories: undamaged residential buildings, damaged residential buildings, undamaged commercial buildings, and damaged commercial buildings.</p>
+            <a href="https://ey-groupie2024wg.github.io/">View Project</a>
+        </div>
+    </div>
+</body>
+</html>
+```

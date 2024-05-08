@@ -1,0 +1,52 @@
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px;
+}
+.project {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    transition: transform 0.3s ease;
+}
+.project:hover {
+    transform: scale(1.05);
+}
+.project img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    width: 100%; /* Adjust this value as needed */
+}
+
+.project h3 {
+    margin-top: 10px;
+    font-size: 20px;
+}
+.project p {
+    margin-top: 10px;
+    font-size: 14px;
+}
+.project a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    border: 2px solid #333;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.project a:hover {
+    background-color: #333;
+    color: #fff;
+}
